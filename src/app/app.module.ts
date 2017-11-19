@@ -10,6 +10,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+//-------------------------------- Forms -------------------------------  
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 //------------------------------- animations -------------------------------  
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -38,6 +41,10 @@ import { environment } from "../environments/environment";
     AngularFireDatabaseModule,
     AngularFireAuthModule,
 
+    // forms
+    FormsModule,
+    ReactiveFormsModule,
+    
     //animations
     BrowserAnimationsModule, //polyfill
     

@@ -1,19 +1,42 @@
 <div class="example-button-row">
   <div class="mat-h4">
-      <form>
-          <mat-form-field>
-            <mat-select placeholder="Favorite food" 
-                        [(value)]="selectedValue"
-                        name="food"
-                        (change)="takeValue($event)">
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        
-          <p> Selected value: {{selectedValue}} </p>
-        </form>
+
+      <!-- template-driven form       -->
+    <!-- directive ngForm that matches the <form> selector -->
+    <form #form="ngForm" (ngSubmit)="logForm(form.value)">
+        <fieldset ngModelGroup="name">
+            <label>Firstname:</label>
+            <input type="text" name="firstname" [(ngModel)]="firstname">
+            <p>You entered {{firstname}}</p>
+          
+            <label>Lastname:</label>
+            <input type="text" name="lastname" [(ngModel)]="lastname">
+            <p>You entered {{lastname}}</p>
+          </fieldset>
+          
+          <fieldset ngModelGroup="address">
+            <label>Street:</label>
+            <input type="text" name="street" ngModel>
+          
+            <label>Zip:</label>
+            <input type="text" name="zip" ngModel>
+          
+            <label>City:</label>
+            <input type="text" name="city" ngModel>
+          </fieldset>
+      
+        <button type="submit">Submit</button>
+      </form>
+    
+    <!-- reactive form -->
+        <mat-form-field [formGroup]="selectedFood" novalidate>
+          <mat-select formControlName="reactValue">
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+              {{food.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p> Selected value: {{selectedFood.reactValue}} </p>
   </div>
   <h3>Basic Buttons</h3>
   <div class="button-row unicorn-dark-theme">

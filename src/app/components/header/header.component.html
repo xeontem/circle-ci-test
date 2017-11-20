@@ -1,46 +1,59 @@
 <div class="example-button-row">
   <div class="mat-h4">
 
-      <!-- template-driven form       -->
+    <!-- template-driven form       -->
     <!-- directive ngForm that matches the <form> selector -->
-    <form #form="ngForm" (ngSubmit)="logForm(form.value)">
-        <fieldset ngModelGroup="name">
-            <label>Firstname:</label>
-            <input type="text" name="firstname" [(ngModel)]="firstname">
-            <p>You entered {{firstname}}</p>
-          
-            <label>Lastname:</label>
-            <input type="text" name="lastname" [(ngModel)]="lastname">
-            <p>You entered {{lastname}}</p>
-          </fieldset>
-          
-          <fieldset ngModelGroup="address">
-            <label>Street:</label>
-            <input type="text" name="street" ngModel>
-          
-            <label>Zip:</label>
-            <input type="text" name="zip" ngModel>
-          
-            <label>City:</label>
-            <input type="text" name="city" ngModel>
-          </fieldset>
+    <form #tplDrivenform="ngForm" (ngSubmit)="tplDrivenSubmit(tplDrivenform.value)">
+      <fieldset ngModelGroup="name">
+        <label>Firstname:</label>
+        <input type="text"
+               name="firstname"
+               [(ngModel)]="firstname"
+               #firstNameValue="ngModel"
+               required
+               minlength="4"
+               forbiddenName="bob">
+        <p>You entered {{firstname}}</p>
       
-        <button type="submit">Submit</button>
-      </form>
+        <label>Lastname:</label>
+        <input type="text" name="lastname" [(ngModel)]="lastname">
+        <p>You entered {{lastname}}</p>
+      </fieldset>
+      
+      <fieldset ngModelGroup="address">
+        <label>Street:</label>
+        <input type="text" name="street" ngModel>
+      
+        <label>Zip:</label>
+        <input type="text" name="zip" ngModel>
+      
+        <label>City:</label>
+        <input type="text" name="city" ngModel>
+      </fieldset>
+      <button mat-button color="warn" type="submit" [disabled]="firstNameValue.errors?.minlength">Submit</button>
+    </form>
     
     <!-- reactive form -->
-        <mat-form-field [formGroup]="selectedFood" novalidate>
-          <mat-select formControlName="reactValue">
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-              {{food.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <p> Selected value: {{selectedFood.reactValue}} </p>
+    <form [formGroup]="selectedFood" (ngSubmit)="reactiveSubmit(selectedFood.value)" novalidate>
+      <mat-form-field>
+        <mat-select formControlName="reactValue" placeholder="select food">
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="selectedFood.invalid">Please choose a food</mat-error>
+        <mat-hint>{{selectedFood}}</mat-hint>
+      </mat-form-field>
+      <button mat-button color="accent" type="submit" >Sign up</button>
+    </form>
+    <!-- end of form -->
+    <p>Selected value: {{selectedFood.value.reactValue}}</p>
   </div>
+
+  <!-- material examples -->
   <h3>Basic Buttons</h3>
   <div class="button-row unicorn-dark-theme">
-    <button mat-button>Basic</button>
+    <button mat-button (click)="checkValue()">check reactive value</button>
     <button mat-button color="primary">Primary</button>
     <button mat-button color="accent">Accent</button>
     <button mat-button color="warn">Warn</button>

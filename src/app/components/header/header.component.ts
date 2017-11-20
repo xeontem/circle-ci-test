@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { log } from 'util';
 import { MatChipSelectionChange, MatChip, MatSelect, MatSelectChange } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Setoid from '../../classes/setoid';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  setoidA: Setoid;
+  setoidB: Setoid;
   // template driven form
   firstname = 'artsiom';
   lastname = 'kukharev';
@@ -31,6 +34,13 @@ export class HeaderComponent implements OnInit {
     this.selectedFood = this.fb.group({
       reactValue: ''
     });
+
+    // algebraic data types
+    //------------------ Setoid ------------------
+    this.setoidA = new Setoid('setoid');
+    this.setoidB = new Setoid('setoid');
+    console.log(this.setoidA.equals(this.setoidB));
+    
   }
 
   logForm(value: any) {

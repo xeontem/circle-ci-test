@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import AppComponent from './app.component';
+import { AppComponent } from './app.component';
 
 //-------------------------------- FIreBase -------------------------------  
 import { AngularFireModule } from 'angularfire2';
@@ -10,6 +10,13 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //------------------------------- animations -------------------------------  
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+//-------------------------------- material --------------------------------
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatMenuModule,
+  MatMenuTrigger } from '@angular/material';
 
 //------------------------------- routes -------------------------------  
 import { RouterModule, Routes } from '@angular/router';
@@ -20,25 +27,15 @@ import { environment } from "../environments/environment";
 //------------------------------ my modules -------------------------------------
 import HeaderModule from './modules/header/header.module';
 import TemplatesModule from './modules/templates/templates.module';
+import { HomeModule } from './modules/home/home.module';
 
 //----------------------------- routes -----------------------------------------
+import { homeRoutes } from './modules/home/home.module';
 import { tplRoutes } from './modules/templates/templates.module';
-const appRoutes: Routes = [
-  // { path: 'crisis-center', component: CrisisListComponent },
-  // { path: 'hero/:id',      component: HeroDetailComponent },
-  {
-    path: 'home',
-    component: AppComponent,
-    data: { title: 'Main page' }
-  },
-  { path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  // { path: '**', component: PageNotFoundComponent }
-];
 
-const routes: Routes = appRoutes.concat(tplRoutes);
+
+const routes: Routes = homeRoutes.concat(tplRoutes);
+console.log(routes);
 
 //-------------------------------------------------------------------------------
 @NgModule({
@@ -50,7 +47,7 @@ const routes: Routes = appRoutes.concat(tplRoutes);
     BrowserModule,
     RouterModule.forRoot(
       routes,
-      { enableTracing: true } // <-- debugging purposes only
+      // { enableTracing: true } // <-- debugging purposes only
     ),
     //firebase
     AngularFireModule.initializeApp(environment.firebase),
@@ -59,8 +56,14 @@ const routes: Routes = appRoutes.concat(tplRoutes);
 
     //animations
     BrowserAnimationsModule, //polyfill
-    
+
+    // material
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+
     // my modules
+    HomeModule,
     HeaderModule,
     TemplatesModule
   ],

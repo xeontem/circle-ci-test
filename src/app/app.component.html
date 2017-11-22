@@ -1,3 +1,7 @@
-<app-header></app-header>
-<!-- <tpl-buttons></tpl-buttons>
-<tpl-forms></tpl-forms> -->
+<button mat-button [matMenuTriggerFor]="menu">templates</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="home">home</button>
+  <button mat-menu-item routerLink="templates/forms">forms</button>
+  <button mat-menu-item routerLink="templates/buttons">buttons</button>
+</mat-menu>
+<router-outlet></router-outlet>

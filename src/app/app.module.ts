@@ -22,6 +22,7 @@ import HeaderModule from './modules/header/header.module';
 import TemplatesModule from './modules/templates/templates.module';
 
 //----------------------------- routes -----------------------------------------
+import { tplRoutes } from './modules/templates/templates.module';
 const appRoutes: Routes = [
   // { path: 'crisis-center', component: CrisisListComponent },
   // { path: 'hero/:id',      component: HeroDetailComponent },
@@ -31,11 +32,14 @@ const appRoutes: Routes = [
     data: { title: 'Main page' }
   },
   { path: '',
-    redirectTo: '/home',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   // { path: '**', component: PageNotFoundComponent }
 ];
+
+const routes: Routes = appRoutes.concat(tplRoutes);
+
 //-------------------------------------------------------------------------------
 @NgModule({
   declarations: [
@@ -45,8 +49,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(
-      appRoutes,
-      // { enableTracing: true } // <-- debugging purposes only
+      routes,
+      { enableTracing: true } // <-- debugging purposes only
     ),
     //firebase
     AngularFireModule.initializeApp(environment.firebase),

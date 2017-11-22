@@ -1,0 +1,49 @@
+<div class="mat-h4">
+    <!-- template-driven form -->
+    <!-- directive ngForm that matches the <form> selector -->
+    <form #tplDrivenform="ngForm" (ngSubmit)="tplDrivenSubmit(tplDrivenform.value)">
+      <fieldset ngModelGroup="name">
+        <label>Firstname:</label>
+        <input type="text"
+               name="firstname"
+               [(ngModel)]="firstname"
+               #firstNameValue="ngModel"
+               required
+               minlength="4"
+               forbiddenName="bob">
+        <p>You entered {{firstname}}</p>
+      
+        <label>Lastname:</label>
+        <input type="text" name="lastname" [(ngModel)]="lastname">
+        <p>You entered {{lastname}}</p>
+      </fieldset>
+      
+      <fieldset ngModelGroup="address">
+        <label>Street:</label>
+        <input type="text" name="street" ngModel>
+      
+        <label>Zip:</label>
+        <input type="text" name="zip" ngModel>
+      
+        <label>City:</label>
+        <input type="text" name="city" ngModel>
+      </fieldset>
+      <button mat-button color="warn" type="submit" [disabled]="firstNameValue.errors?.minlength">Submit</button>
+    </form>
+    
+    <!-- reactive form -->
+    <form [formGroup]="selectedFood" (ngSubmit)="reactiveSubmit(selectedFood.value)" novalidate>
+      <mat-form-field>
+        <mat-select formControlName="reactValue" placeholder="select food">
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="selectedFood.invalid">Please choose a food</mat-error>
+        <mat-hint>{{selectedFood}}</mat-hint>
+      </mat-form-field>
+      <button mat-button color="accent" type="submit" >Sign up</button>
+    </form>
+    <!-- end of form -->
+    <p>Selected value: {{selectedFood.value.reactValue}}</p>
+  </div>

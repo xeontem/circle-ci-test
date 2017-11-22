@@ -1,70 +1,66 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
-// import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
+import AppComponent from './app.component';
 
 //-------------------------------- FIreBase -------------------------------  
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-//-------------------------------- Forms -------------------------------  
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 //------------------------------- animations -------------------------------  
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-//-------------------------------- material --------------------------------
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatIconModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatOptionModule } from '@angular/material';
+//------------------------------- routes -------------------------------  
+import { RouterModule, Routes } from '@angular/router';
 
 //-------------------------------- env for firebase ------------------------
 import { environment } from "../environments/environment";
 
+//------------------------------ my modules -------------------------------------
+import HeaderModule from './modules/header/header.module';
+import TemplatesModule from './modules/templates/templates.module';
+
+//----------------------------- routes -----------------------------------------
+const appRoutes: Routes = [
+  // { path: 'crisis-center', component: CrisisListComponent },
+  // { path: 'hero/:id',      component: HeroDetailComponent },
+  {
+    path: 'home',
+    component: AppComponent,
+    data: { title: 'Main page' }
+  },
+  { path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  // { path: '**', component: PageNotFoundComponent }
+];
+//-------------------------------------------------------------------------------
 @NgModule({
   declarations: [
-    // AppComponent,
-    HeaderComponent
+    AppComponent,
+    
   ],
   imports: [
     BrowserModule,
-
+    RouterModule.forRoot(
+      appRoutes,
+      // { enableTracing: true } // <-- debugging purposes only
+    ),
     //firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
 
-    // forms
-    FormsModule,
-    ReactiveFormsModule,
-    
     //animations
     BrowserAnimationsModule, //polyfill
     
-    // material
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule
+    // my modules
+    HeaderModule,
+    TemplatesModule
   ],
   providers: [],
-  bootstrap: [HeaderComponent],
-  exports: [
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule
-  ]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

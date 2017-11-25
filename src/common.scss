@@ -5,6 +5,31 @@
   display: grid;
 }
 
+.margin-auto {
+  margin: auto;
+}
+
+.margin-auto-v {
+  margin: auto 0;
+}
+
+.margin-l-r-10 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.primary-color {
+  color: $primary-color;
+}
+
+.accent-color {
+  color: $accent-color;
+}
+
 .container {
   width: 100%;
   max-width: $layout-width;

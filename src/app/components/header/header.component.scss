@@ -1,9 +1,14 @@
+@import '../../../styles.scss';
 @import '../../../variables.scss';
 @import '../../../common.scss';
 
 .header-wrapper {
   grid-template-columns: 1fr 6fr 1fr;
   grid-gap: 15px;
+}
+
+.caption {
+  color: $primary-color;
 }
 
 .login-card {
@@ -17,6 +22,8 @@
 .logo-image {
   width: $logo-size;
   height: $logo-size;
+  border: 3px solid $primary-color;
+  border-radius: 50%;
   background-image: url('/assets/logo.svg');
   background-size: contain;
   background-repeat: no-repeat;

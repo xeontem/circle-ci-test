@@ -21,8 +21,6 @@ import { FormsComponent } from './components/forms/forms.component';
 
 //----------------------------- routes -----------------------------------------
 export const tplRoutes: Routes = [
-  // { path: 'crisis-center', component: CrisisListComponent },
-  // { path: 'hero/:id',      component: HeroDetailComponent },
   {
     path: 'templates/forms',
     component: FormsComponent,
@@ -32,8 +30,7 @@ export const tplRoutes: Routes = [
     path: 'templates/buttons',
     component: ButtonsComponent,
     data: { title: 'templates' }
-  },
-  // { path: '**', component: PageNotFoundComponent }
+  }
 ];
 //-------------------------------------------------------------------------------
 

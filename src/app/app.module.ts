@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 //-------------------------------- FIreBase -------------------------------  
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -13,6 +13,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 //-------------------------------- material --------------------------------
 import {
+  MatGridListModule,
+  MatToolbarModule,
   MatButtonModule,
   MatIconModule,
   MatMenuModule,
@@ -25,23 +27,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from "../environments/environment";
 
 //------------------------------ my modules -------------------------------------
-import HeaderModule from './modules/header/header.module';
 import TemplatesModule from './modules/templates/templates.module';
-import { HomeModule } from './modules/home/home.module';
+import { CourcesModule } from './modules/cources/cources.module';
 
 //----------------------------- routes -----------------------------------------
-import { homeRoutes } from './modules/home/home.module';
+import { homeRoutes } from './modules/cources/cources.module';
 import { tplRoutes } from './modules/templates/templates.module';
 
 
-const routes: Routes = homeRoutes.concat(tplRoutes);
-console.log(routes);
+const routes: Routes = [].concat(
+  homeRoutes,
+  tplRoutes,
+  { path: '**', component: PageNotFoundComponent });
 
 //-------------------------------------------------------------------------------
 @NgModule({
   declarations: [
     AppComponent,
-    
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -58,13 +61,14 @@ console.log(routes);
     BrowserAnimationsModule, //polyfill
 
     // material
+    MatGridListModule,
+    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
 
     // my modules
-    HomeModule,
-    HeaderModule,
+    CourcesModule,
     TemplatesModule
   ],
   providers: [],

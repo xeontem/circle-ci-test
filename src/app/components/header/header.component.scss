@@ -1,0 +1,26 @@
+@import '../../../variables.scss';
+@import '../../../common.scss';
+
+.header-wrapper {
+  grid-template-columns: 1fr 6fr 1fr;
+  grid-gap: 15px;
+}
+
+.login-card {
+  grid-template-rows: 3fr 1fr 1fr;
+}
+
+.user-name {
+  font-size: 1rem;
+}
+
+.logo-image {
+  width: $logo-size;
+  height: $logo-size;
+  background-image: url('/assets/logo.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-y: 20px;
+}
+
+

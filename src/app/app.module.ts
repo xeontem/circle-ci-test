@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './components/app/app.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
 //-------------------------------- FIreBase -------------------------------  
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -13,6 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 //-------------------------------- material --------------------------------
 import {
+  MatCardModule,
   MatGridListModule,
   MatToolbarModule,
   MatButtonModule,
@@ -44,6 +48,8 @@ const routes: Routes = [].concat(
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -61,6 +67,7 @@ const routes: Routes = [].concat(
     BrowserAnimationsModule, //polyfill
 
     // material
+    MatCardModule,
     MatGridListModule,
     MatToolbarModule,
     MatButtonModule,

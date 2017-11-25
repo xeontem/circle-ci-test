@@ -53,5 +53,12 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 }
 
 body {
+    margin: 0;
     font: 700 32px/48px Roboto, monospace;
+}
+
+.main-component {
+    display: grid;
+    grid-template-rows: 0fr 1fr 1fr 0fr;
+    grid-auto-columns: minmax(100px, auto);
 }

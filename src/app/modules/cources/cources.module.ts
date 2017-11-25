@@ -3,17 +3,20 @@ import { CommonModule } from '@angular/common';
 
 //-------------------------------- material --------------------------------
 import {
+  MatCardModule,
   MatToolbarModule
 } from '@angular/material';
 
 //------------------------------- routes -------------------------------  
 import { Routes } from '@angular/router';
-import { HeaderComponent } from './components/header/header.component';
+
+//-------------- my components -----------------------------------------
+import { CourcesComponent } from './components/cources/cources.component';
 
 export const courcesRoutes: Routes = [
   {
     path: 'cources',
-    component: HeaderComponent,
+    component: CourcesComponent,
     data: { title: 'cources page' }
   },
   { path: '',
@@ -27,9 +30,10 @@ export const courcesRoutes: Routes = [
     CommonModule,
 
     // material
+    MatCardModule,
     MatToolbarModule
   ],
-  declarations: [ HeaderComponent ],
+  declarations: [ CourcesComponent ],
   exports: [ ]
 })
 export class CourcesModule { }

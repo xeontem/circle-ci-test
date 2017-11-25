@@ -10,14 +10,14 @@ import {
 import { Routes } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 
-export const homeRoutes: Routes = [
+export const courcesRoutes: Routes = [
   {
-    path: 'login',
+    path: 'cources',
     component: HeaderComponent,
-    data: { title: 'Login page' }
+    data: { title: 'cources page' }
   },
   { path: '',
-    redirectTo: 'login',
+    redirectTo: 'cources',
     pathMatch: 'full'
   }
 ];

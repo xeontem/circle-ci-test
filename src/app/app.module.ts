@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 //-------------------------------- FIreBase -------------------------------  
 import { AngularFireModule } from 'angularfire2';
@@ -31,12 +31,12 @@ import TemplatesModule from './modules/templates/templates.module';
 import { CourcesModule } from './modules/cources/cources.module';
 
 //----------------------------- routes -----------------------------------------
-import { homeRoutes } from './modules/cources/cources.module';
+import { courcesRoutes } from './modules/cources/cources.module';
 import { tplRoutes } from './modules/templates/templates.module';
 
 
 const routes: Routes = [].concat(
-  homeRoutes,
+  courcesRoutes,
   tplRoutes,
   { path: '**', component: PageNotFoundComponent });
 

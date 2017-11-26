@@ -22,6 +22,10 @@
   margin-right: 10px;
 }
 
+.margin-t-b-20 {
+  margin: 20px 0;
+}
+
 .padding-10 {
   padding: 10px;
 }
@@ -80,8 +84,24 @@
   font-size: 3rem;
 }
 
+.valign-bottom {
+  vertical-align: bottom;
+}
+
+.valign-middle {
+  vertical-align: middle;
+}
+
 .regular-color {
   color: #555;
+}
+
+.primary-color {
+  color: $primary-color;
+}
+
+.accent-color {
+  color: $accent-color;
 }
 
 .gradient {

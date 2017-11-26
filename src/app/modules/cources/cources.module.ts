@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { FireStoreAuthGuard } from '../../guards/fire-store-auth.guard';
 
+//-------------------------------- Forms -------------------------------  
+import { ReactiveFormsModule } from '@angular/forms';
+
 //-------------------------------- material --------------------------------
 import {
   MatCardModule,
@@ -10,7 +13,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
-  MatFormFieldControl
+  MatFormFieldControl,
+  MatIconModule
 } from '@angular/material';
 
 //------------------------------- routes -------------------------------  
@@ -32,12 +36,16 @@ export const courcesRoutes: Routes = [
   imports: [
     CommonModule,
 
+    // forms
+    ReactiveFormsModule,
+
     // material
     MatCardModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [FireStoreAuthGuard],
   declarations: [ CourcesComponent ],

@@ -58,6 +58,10 @@ body {
     font: 700 10px Roboto, monospace;
 }
 
+p {
+    margin: 0;
+}
+
 .main-component {
     display: grid;
     grid-template-rows: 0fr 1fr 1fr 0fr;

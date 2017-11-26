@@ -5,6 +5,7 @@ import { AppComponent } from './components/app/app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 
 //-------------------------------- FIreBase -------------------------------  
 import { AngularFireModule } from 'angularfire2';
@@ -40,11 +41,19 @@ import { CourcesModule } from './modules/cources/cources.module';
 //----------------------------- routes -----------------------------------------
 import { courcesRoutes } from './modules/cources/cources.module';
 import { tplRoutes } from './modules/templates/templates.module';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [].concat(
   courcesRoutes,
   tplRoutes,
+  { path: 'home', component: HomeComponent },
+  { path: 'denied', component: AccessDeniedComponent },
+  { 
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   { path: '**', component: PageNotFoundComponent });
 
 //-------------------------------------------------------------------------------
@@ -53,7 +62,9 @@ const routes: Routes = [].concat(
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AccessDeniedComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

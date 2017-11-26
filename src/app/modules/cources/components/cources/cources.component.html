@@ -1,7 +1,9 @@
+<!-- <div *ngIf="auth.user | async; then authenticated else guest"></div><div *ngIf="auth.user | async; then authenticated else guest"></div> -->
+
 <section>
   <form class="grid gap-20 colums-3 container">
       <mat-form-field class="m">
-          <input matInput placeholder="Favorite food" value="Sushi">
+          <input matInput placeholder="Cource title" value="Guard operators">
         </mat-form-field>
     <button mat-raised-button color="primary" class="self-center">search</button>
     <button mat-raised-button color="accent" class="self-center">add cource</button>
@@ -9,16 +11,22 @@
   
   <div class="grid cource-container mat-elevation-z8 padding-20 m">
     <div class="grid cource-header gap-20">
-      <div>
-        <h5 class="inline-block cource-heading primary-color">Video Cource 1</h5>
-        <span>1h 28 min</span>
+      <div class="grid colums-3">
+        <h4 class="inline-block cource-heading primary-color">Infix functions</h4>
+        <span>1h 30 min</span>
         <span>26 Nov 2017</span>
       </div>
       <p class="regular-color">Lorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem textLorem text</p>
     </div>
-    <div class="grid rows-3">
+    <div class="grid cource-controls-container">
       <button mat-raised-button color="primary" class="self-start">edit</button>
       <button mat-raised-button color="warn" class="self-start">delete</button>
     </div>
   </div>
 </section>
+
+<!-- User NOT logged in -->
+<!-- <ng-template #guest></ng-template> -->
+
+<!-- User logged in -->
+<!-- <ng-template #authenticated></ng-template> -->

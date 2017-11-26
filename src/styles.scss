@@ -64,6 +64,6 @@ p {
 
 .main-component {
     display: grid;
-    grid-template-rows: 0fr 1fr 1fr 0fr;
-    grid-auto-columns: minmax(100px, auto);
+    grid-template-rows: minmax(10vh, max-content) minmax(35vh, max-content) minmax(45vh, max-content) minmax(10vh, max-content);
+    // grid-auto-columns: minmax(100px, auto);
 }

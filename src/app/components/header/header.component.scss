@@ -9,6 +9,8 @@
 
 .caption {
   color: $primary-color;
+  outline: none;
+  cursor: pointer;
 }
 
 .login-card {
@@ -29,6 +31,8 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position-y: 20px;
+  outline: none;
+  cursor: pointer;
 }
 
 .avatar {
@@ -39,6 +43,7 @@
   border-radius: 50%;
   background-size: contain;
   background-repeat: no-repeat;
+  outline: none;
 }
 
 .guest {

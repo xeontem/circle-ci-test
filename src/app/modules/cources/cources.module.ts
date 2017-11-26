@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { FireStoreAuthGuard } from '../../guards/fire-store-auth.guard';
+
 //-------------------------------- material --------------------------------
 import {
   MatCardModule,
@@ -21,11 +23,8 @@ export const courcesRoutes: Routes = [
   {
     path: 'cources',
     component: CourcesComponent,
-    data: { title: 'cources page' }
-  },
-  { path: '',
-    redirectTo: 'cources',
-    pathMatch: 'full'
+    data: { title: 'cources page' },
+    canActivate: [FireStoreAuthGuard]
   }
 ];
 
@@ -40,6 +39,7 @@ export const courcesRoutes: Routes = [
     MatInputModule,
     MatButtonModule
   ],
+  providers: [FireStoreAuthGuard],
   declarations: [ CourcesComponent ],
   exports: [ ]
 })

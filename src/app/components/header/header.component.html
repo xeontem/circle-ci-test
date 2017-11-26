@@ -1,6 +1,6 @@
 <header class="container grid header-wrapper mat-elevation-z8">
-  <img class="logo-image margin-auto margin-l-r-10"/>
-  <h1 class="margin-auto-v caption xl">Haskell Cources</h1>
+  <img class="logo-image margin-auto margin-l-r-10" routerLink="home"/>
+  <h1 class="margin-auto-v caption xl" routerLink="home">Haskell Cources</h1>
   <div *ngIf="auth.user | async; then authenticated else guest"></div>
 </header>
 
@@ -9,7 +9,7 @@
   <mat-card  class="grid login-card">
     <img class="avatar guest"/>
     <span class="user-name text-center">Login to get started...</span>
-    <button mat-button color="primary" (click)="auth.googleLogin()">login</button>
+    <button mat-button color="primary" (click)="login()">login</button>
   </mat-card>  
 </ng-template>
 
@@ -18,6 +18,6 @@
   <mat-card  class="grid login-card" *ngIf="auth.user | async as user">
     <img class="avatar" [src]="user.photoURL"/>
     <span class="user-name text-center"><i class="accent-color">{{ user.displayName }}</i></span>
-    <button mat-button color="primary" (click)="auth.signOut()">Logout</button>
+    <button mat-button color="primary" (click)="logout()">Logout</button>
   </mat-card>  
 </ng-template>

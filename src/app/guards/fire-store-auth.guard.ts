@@ -21,8 +21,10 @@ export class FireStoreAuthGuard implements CanActivate {
            .do(loggedIn => {
              if (!loggedIn) {
                console.log('access denied')
-               this.router.navigate(['/login']);
-             }
+               this.router.url !== '/denied' && this.router.navigate(['/denied']);
+              //  this.router.url !== '/home' && this.router.navigate(['/home']);
+              }
+            //  }
          })
   }
 }

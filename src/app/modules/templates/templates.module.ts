@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-//------------------------------- routes -------------------------------  
-import { Routes } from '@angular/router';
-
 //-------------------------------- Forms -------------------------------  
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -18,21 +15,6 @@ import {
 
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { FormsComponent } from './components/forms/forms.component';
-
-//----------------------------- routes -----------------------------------------
-export const tplRoutes: Routes = [
-  {
-    path: 'templates/forms',
-    component: FormsComponent,
-    data: { title: 'templates' }
-  },
-  {
-    path: 'templates/buttons',
-    component: ButtonsComponent,
-    data: { title: 'templates' }
-  }
-];
-//-------------------------------------------------------------------------------
 
 @NgModule({
   imports: [
@@ -51,8 +33,6 @@ export const tplRoutes: Routes = [
     MatOptionModule,
   ],
   declarations: [ButtonsComponent, FormsComponent],
-  exports: [
-    ButtonsComponent, FormsComponent
-  ]
+  exports: [ ButtonsComponent, FormsComponent ]
 })
-export default class TemplatesModule { }
+export class TemplatesModule { }

@@ -8,8 +8,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 //-------------------------------- FIreBase -------------------------------  
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
+//----------------------- my custom auth service ---------------------------
+import { FirestoreAuthService } from './services/firestore-auth.service';
 
 //------------------------------- animations -------------------------------  
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -60,7 +63,8 @@ const routes: Routes = [].concat(
     ),
     //firebase
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
+    AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule,
     AngularFireAuthModule,
 
     //animations
@@ -78,7 +82,7 @@ const routes: Routes = [].concat(
     CourcesModule,
     TemplatesModule
   ],
-  providers: [],
+  providers: [FirestoreAuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

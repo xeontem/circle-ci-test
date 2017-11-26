@@ -1,0 +1,15 @@
+@import '../../../../../common.scss';
+
+.cource-container {
+  grid-template-columns: 6fr 1fr;
+  grid-gap: 20px;
+}
+
+.cource-heading {
+  margin: 0;
+}
+
+.cource-form {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+}

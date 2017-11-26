@@ -3,7 +3,7 @@
 @import '../../../common.scss';
 
 .header-wrapper {
-  grid-template-columns: 1fr 6fr 1fr;
+  grid-template-columns: 1fr 5fr 1fr;
   grid-gap: 15px;
 }
 
@@ -12,11 +12,12 @@
 }
 
 .login-card {
-  grid-template-rows: 3fr 1fr 1fr;
+  grid-template-rows: 3fr 2fr 1fr;
 }
 
 .user-name {
   font-size: 1rem;
+  line-height: 2;
 }
 
 .logo-image {
@@ -28,6 +29,20 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position-y: 20px;
+}
+
+.avatar {
+  margin: auto;
+  width: $avatar-size;
+  height: $avatar-size;
+  border: 3px solid $primary-color;
+  border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.guest {
+  background-image: url('/assets/guest.png');
 }
 
 

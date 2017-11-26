@@ -4,7 +4,11 @@ import { CommonModule } from '@angular/common';
 //-------------------------------- material --------------------------------
 import {
   MatCardModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatFormFieldControl
 } from '@angular/material';
 
 //------------------------------- routes -------------------------------  
@@ -31,7 +35,10 @@ export const courcesRoutes: Routes = [
 
     // material
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   declarations: [ CourcesComponent ],
   exports: [ ]

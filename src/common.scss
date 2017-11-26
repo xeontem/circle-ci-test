@@ -5,6 +5,10 @@
   display: grid;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .margin-auto {
   margin: auto;
 }
@@ -16,6 +20,10 @@
 .margin-l-r-10 {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.padding-20 {
+  padding: 20px;
 }
 
 .text-center {
@@ -36,8 +44,28 @@
   margin: 20px auto;
 }
 
-.full-height {
+.self-center {
+  align-self: center;
+}
 
+.self-start {
+  align-self: start;
+}
+
+.m {
+  font-size: 1rem;
+}
+
+.l {
+  font-size: 2rem;
+}
+
+.xl {
+  font-size: 3rem;
+}
+
+.regular-color {
+  color: #555;
 }
 
 .gradient {

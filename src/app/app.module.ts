@@ -25,7 +25,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FirestoreAuthService } from './services/firestore-auth.service';
 
 //------------------------------- animations -------------------------------  
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //-------------------------------- material --------------------------------
 import {

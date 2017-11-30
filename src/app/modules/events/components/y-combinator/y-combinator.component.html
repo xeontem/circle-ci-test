@@ -1,0 +1,12 @@
+<div #comb class="y-combinator" draggable="true">
+    <div class="shifting-hat">
+      <span>Y - COMBINATOR</span>
+    </div>
+    <p>perfomanse without:{{perfWithout}}</p>
+    <p>value without:{{withoutValue}}</p>
+    <button (click)="withoutYcombinator()">without</button>
+    <hr>
+    <p>perfomanse with:{{perfWith$ | async}}</p>
+    <p>value with:{{withValue$ | async}}</p>
+    <button (click)="withYcombinator()">with</button>
+  </div>

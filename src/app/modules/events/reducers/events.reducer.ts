@@ -16,17 +16,22 @@ export interface SelectedEvent {
 export interface EventsState {
   value: string;
   selectedEvent: SelectedEvent;
+  perfWith: number;
+  withValue: number;
 }
 
 const initialState: EventsState = {
   value: 'test value',
-	selectedEvent: {type: 'select event'}
+  selectedEvent: {type: 'select event'},
+  perfWith: 0,
+  withValue: 0
 };
 
 export function eventsReducer(state = initialState, action: eventsActions.Actions): EventsState {
   switch (action.type) {
     case eventsActions.CHANGE_OBJ_VAL: return Object.assign({}, state, {value: 'changed value from reducer' + `${Math.round(Math.random() * 10)}`});
     case eventsActions.SELECT_EVENT:   return Object.assign({}, state, {selectedEvent: action['payload']});
+    case eventsActions.STORE_PREFWITH: return Object.assign({}, state, action['payload']);
     default:                           return state;
   }
 }
@@ -35,8 +40,12 @@ export function eventsReducer(state = initialState, action: eventsActions.Action
 const getEventsState = createFeatureSelector<EventsState>('eventsReducer');
 
 //----------------------------------- main component selector ----------------------------
-const getValue = (state: EventsState) => state.value;// get value from events state
+const getValue         = (state: EventsState) => state.value;// get value from events state
 const getselectedEvent = (state: EventsState) => state.selectedEvent;// get value from events state
+const getYperfWith     = (state: EventsState) => state.perfWith;// get perfWith from Y store
+const getYwithValue    = (state: EventsState) => state.withValue;// get value from Y store
 
 export const valueSelector = createSelector(getEventsState, getValue);
 export const eventSelector = createSelector(getEventsState, getselectedEvent);
+export const perfWithSelector = createSelector(getEventsState, getYperfWith);
+export const withValueSelector = createSelector(getEventsState, getYwithValue);

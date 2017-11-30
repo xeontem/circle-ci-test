@@ -16,6 +16,7 @@ const caclcSum = (a:number, b:number):number => a + b;
 const calcMult = (a:number, b:number):number => a * b;
 const getSum = (x:number, y:number):number => calcMult(caclcSum(x, y), caclcSum(x, y));
 const randNumber = min => max => ~~(Math.random() * (max - min));
+
 @Component({
   selector:        'app-events',
   templateUrl:     './events.component.html',
@@ -68,7 +69,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
     this.selectedEvent$ = this.store.select(eventSelector);
 
     this.containerClickStream$ = Observable.fromEvent(this.container.nativeElement, 'click')
-      .switchMap((e: Event) => Observable.of(e.target))
+      .switchMap((e: Event) => Observable.from([e.target, e.target["parentNode"]]))// TODO find right type of event
       .filter((el: Element) => el.classList.contains('event'))
       .pluck('id')
       .subscribe((id:number) => this.store.dispatch(new SelectEvent(this.events[id])));
@@ -81,10 +82,10 @@ export class EventsComponent implements OnInit, OnDestroy  {
       .map(i => ~~(Math.random() * this.tempArr.length))
       .do(r => this.events[this.tempArr[r]].visible = 'visible')
       .map(r => this.tempArr.splice(r, 1))
-      .subscribe(i => this.cd.markForCheck())
+      .subscribe(i => this.cd.markForCheck());
 
     this.calculateStream$
-      .map((numArr: number[]) => this.result = getSum(...numArr)) // TODO figure out how to solve it
+      .map((numArr: number[]) => this.result = getSum.apply(null, numArr)) // TODO figure out how to solve it
       .subscribe(res => this.cd.markForCheck());
 
     this.intervalStream$ = observableInterval(1000)

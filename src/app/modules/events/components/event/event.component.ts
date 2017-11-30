@@ -8,8 +8,8 @@ import { SelectedEvent } from '../../reducers/events.reducer';
 })
 export class EventComponent implements OnInit {
   @Input()event: SelectedEvent;
-  lang: string = 'en';
-  langs: Array<{name: string, val: string}>;
+  lang:          string = 'en';
+  langs:         Array<{name: string, val: string}>;
 
   constructor() {
     this.langs = [

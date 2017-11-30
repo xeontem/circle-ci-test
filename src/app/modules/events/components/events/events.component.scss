@@ -32,6 +32,7 @@ h3 {
 }
 
 .events-container {
+  position: relative;
   min-height: 500px;
   grid-template-rows: 10fr 1fr 1fr;
   transition: background 1s;

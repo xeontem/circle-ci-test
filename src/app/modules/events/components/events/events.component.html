@@ -1,0 +1,28 @@
+<section class="grid events-container mat-elevation-z8 margin-t-b-20 padding-20 m" #evntCont>
+
+  <div>
+    <button
+      mat-fab color="primary" [id]="i"
+      *ngFor="let event of events; let i = index"
+      class="event regular-color l"
+      [ngClass]="event.visible + ' ' + event.type">
+        {{event.type[0] | uppercase }}
+    </button>
+  </div>
+	<div class="margin-auto test-container">
+		<p>{{timer}}</p>
+		<p>{{result}}</p>
+		<p>{{value$ | async}}</p>
+	</div>
+	<div class="margin-auto">
+		<button mat-raised-button color="primary" (click)="sortByType()">sort by type</button>
+		<button mat-raised-button (click)="reverse()">reverse</button>
+		<button mat-raised-button (click)="shake()">shake</button>
+		<button mat-raised-button (click)="secondTry()">try FP</button>
+		<button mat-raised-button (click)="lazyCalcMult()">calculate</button>
+		<button mat-raised-button (click)="startTimer()">start/reset</button>
+		<button mat-raised-button (click)="changeProperty()">change test value</button>
+	</div>
+</section>
+<!-- <event-content [event]="selectedEvent$ | async"></event-content> -->
+<!-- <y-combinator></y-combinator> -->

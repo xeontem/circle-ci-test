@@ -10,7 +10,7 @@
     <img class="avatar guest"/>
     <span class="user-name text-center">Login to get started...</span>
     <button mat-button color="primary" (click)="login()">login</button>
-  </mat-card>  
+  </mat-card>
 </ng-template>
 
 <!-- User logged in -->
@@ -19,5 +19,5 @@
     <img class="avatar" [src]="user.photoURL"/>
     <span class="user-name text-center"><i class="accent-color">{{ user.displayName }}</i></span>
     <button mat-button color="primary" (click)="logout()">Logout</button>
-  </mat-card>  
+  </mat-card>
 </ng-template>

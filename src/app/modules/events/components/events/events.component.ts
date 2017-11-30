@@ -4,17 +4,18 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { interval as observableInterval } from 'rxjs/observable/interval';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { CHANGE_OBJ_VAL, SELECT_EVENT } from '../../actions/events.action';
-import { EventsState, SelectedEvent } from '../../reducers/events.reducer';
+import { SelectEvent, ChangeVal, CHANGE_OBJ_VAL, SELECT_EVENT } from '../../actions/events.action';
+import { EventsState, SelectedEvent, valueSelector, eventSelector } from '../../reducers/events.reducer';
+import { State } from '../../../../store';
 
 const cond = x => t => f => x ? t : f;
 const condL = x => tF => fF => x ? tF() : fF();
 const swap = arr => i => j => [arr[i], arr[j]] = [arr[j], arr[i]];
-const defineType = arr => i => cond(arr[i])(arr[i].type)({});
+const getType = arr => i => cond(arr[i])(arr[i].type)({});
 const caclcSum = (a:number, b:number):number => a + b;
 const calcMult = (a:number, b:number):number => a * b;
-const lazyEvaluate = (x:number, y:number):number => calcMult(caclcSum(x, y), caclcSum(x, y));
-
+const getSum = (x:number, y:number):number => calcMult(caclcSum(x, y), caclcSum(x, y));
+const randNumber = min => max => ~~(Math.random() * (max - min));
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
@@ -58,8 +59,8 @@ export class EventsComponent implements OnInit, OnDestroy  {
     private elements: ElementRef,
     private store: Store<EventsState>) { }
 
-  lazyCalcMult() {
-    this.calculateStream$.next([3, 4])
+  calcMult() {
+    this.calculateStream$.next([randNumber(0)(10), randNumber(0)(10)])
   }
 
   startTimer() {
@@ -71,16 +72,14 @@ export class EventsComponent implements OnInit, OnDestroy  {
 
   ngOnInit() {
 
-    this.value$ = this.store.select('value');
-    this.selectedEvent$ = this.store.select('selectedEvent');
+    this.value$ = this.store.select(valueSelector);
+    this.selectedEvent$ = this.store.select(eventSelector);
 
     this.containerClickStream$ = Observable.fromEvent(this.container.nativeElement, 'click')
-      .pluck('path')
-      .flatMap((path: any) => Observable.from(path))
-      .filter((el: any) => el.classList)
-      .filter((el: any) => el.classList.contains('event-container'))
+      .switchMap((e: Event) => Observable.of(e.target))
+      .filter((el: Element) => el.classList.contains('event'))
       .pluck('id')
-      .subscribe((id:number) => this.store.dispatch({ type: SELECT_EVENT, payload: this.events[id] }));
+      .subscribe((id:number) => this.store.dispatch(new SelectEvent(this.events[id])));
 
     this.changeClassStream$.subscribe(name => {
       this.nextClass = name;
@@ -98,59 +97,15 @@ export class EventsComponent implements OnInit, OnDestroy  {
       .subscribe(i => this.cd.markForCheck())
 
     this.calculateStream$
-      .map(numArr => this.result = lazyEvaluate(...numArr))// TODO figure out how to solve it
-      .subscribe(numArr => this.cd.markForCheck());
+      .map((numArr: number[]) => this.result = getSum(...numArr)) // TODO figure out how to solve it
+      .subscribe(res => this.cd.markForCheck());
 
     this.intervalStream$ = observableInterval(1000)
     .map(val => `button start/reset pressed a ${val} seconds ago`)
   }
 
-
-
   changeProperty() {
-    this.store.dispatch({ type: CHANGE_OBJ_VAL });// TODO new bla bla
-    // this.testObj.value = 'I changed this value just now';
-  }
-
-  tryFP() {
-    // fixed points:
-    // cond = 0 => 1 => 0 => 0
-    // cond = 1 => 0 => 1 => 0
-    // ----------------------------------------
-    // Y(t) = fixed
-    // cond(t) = t; // if t == true
-    // cond(t) = f // if t == false
-    // Y(cond) = t || f;
-    // Y = F => F(Y(F));
-    // Ycond = F => F(x => Ycond(F)(x));
-    // const temp = Ycond(cond);
-    // temp(true)
-     const addFive = n => n+5;
-     const addSix = n => n+6;
-     const cond = x => t => f => {
-      console.log(x);
-      return x ? t : f};
-     const Ycond = F => F(x => Ycond(F)(x));
-     const fls = Ycond(Ycond(cond));
-     console.log(fls);
-
-    //  const condAfter = x => t => f => x ? condC(t) : condC(f);
-     const condC = Ycond(cond);
-    //  const result = condAfter(1);
-    //  const check = condF(5)(addFive)(addSix);// it works
-    //  console.log(condC(3)(4));
-  }
-
-  secondTry() {
-    const sFunc = x => f => {
-      const res = f(x);
-      return y => y(res);
-    }
-    const trsx = sFunc(3)(x => x+x)(x => x*x);
-    const Ycond = F => F(x => Ycond(F)(x));
-    const sum = Ycond(sFunc);
-    const str = sum(x => x+x)(x => x+x);
-    console.log(str)
+    this.store.dispatch(new ChangeVal);
   }
 
   sortByType() {
@@ -158,7 +113,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
       .flatMap(i => Observable.from(this.events))
       .map((ev, j) => cond(j >= this.events.length)(j % this.events.length)(j))
       .map(j => condL(j < this.events.length-1)
-        ((x => cond(defineType(this.events)(j) > defineType(this.events)(j+1))
+        ((x => cond(getType(this.events)(j) > getType(this.events)(j+1))
           ({bool: true, j})
           ({bool: false, j})))
         ((x => ({bool: false, j}))))

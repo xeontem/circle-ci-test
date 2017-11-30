@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { EventsComponent } from './components/events/events.component';
-import { EventContentComponent } from './components/event-content/event-content.component';
 import { FetchEventsService } from './services/fetch-events.service';
 
 //-------------------------------- material --------------------------------
@@ -16,6 +15,8 @@ import {
   MatFormFieldControl,
   MatIconModule
 } from '@angular/material';
+import { EventComponent } from './components/event/event.component';
+import { TranslatePipe } from './pipes/translate.pipe';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import {
     // material
     MatButtonModule,
   ],
-  declarations: [EventsComponent, EventContentComponent],
+  declarations: [EventsComponent, EventComponent, TranslatePipe],
   providers: [ FetchEventsService ]
 })
 export class EventsModule { }

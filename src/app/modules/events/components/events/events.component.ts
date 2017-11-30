@@ -17,47 +17,39 @@ const calcMult = (a:number, b:number):number => a * b;
 const getSum = (x:number, y:number):number => calcMult(caclcSum(x, y), caclcSum(x, y));
 const randNumber = min => max => ~~(Math.random() * (max - min));
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss'],
+  selector:        'app-events',
+  templateUrl:     './events.component.html',
+  styleUrls:       ['./events.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventsComponent implements OnInit, OnDestroy  {
-  @ViewChild('btn1') button1: ElementRef;
-  @ViewChild('btn2') button2: ElementRef;
+  @ViewChild('btn1')     button1:   ElementRef;
+  @ViewChild('btn2')     button2:   ElementRef;
   @ViewChild('evntCont') container: ElementRef;
 
 
-  types: Array<string> = ['workshop', 'webinar', 'lecture', 'deadline', 'event'];
-  result: number = 0;
-  timer: string = 'button start/reset not pressed';
-  value$: Observable<string>;//{ value: string };
-  events: Array<any> = [];
-  tempArr: Array<any> = [];
-  scanedEvents: Array<any> = [];
-  nextClass: string = '';
-  button1ClickStream$: Subscription;
-  button2ClickStream$: Subscription;
+  types:                 Array<string> = ['workshop', 'webinar', 'lecture', 'deadline', 'event'];
+  result:                number = 0;
+  timer:                 string = 'button start/reset not pressed';
+  value$:                Observable<string>;
+  events:                Array<SelectedEvent> = [];
+  tempArr:               Array<number> = [];
+  button2ClickStream$:   Subscription;
   containerClickStream$: Subscription;
-  shakeStream$: Subscription;
-  sortByTypeStream$: Subscription;
-  reverseStream$: Subscription;
-  setVisibleStream$: Subscription;
-  // sortStream$: Subscription;
-  parsePathStream$: Subscription;
-  selectedEvent$: Observable<SelectedEvent>;
-  switch: boolean = false;
-  intervalStream$: Observable<string>;
-
-  calculateStream$: BehaviorSubject<number[]>  = new BehaviorSubject([0, 0]);
-  changeClassStream$: BehaviorSubject<string> = new BehaviorSubject('');
-  sortStream$: BehaviorSubject<number> = new BehaviorSubject(0);
+  shakeStream$:          Subscription;
+  sortByTypeStream$:     Subscription;
+  reverseStream$:        Subscription;
+  setVisibleStream$:     Subscription;
+  selectedEvent$:        Observable<SelectedEvent>;
+  intervalStream$:       Observable<string>;
+  calculateStream$:      BehaviorSubject<number[]>  = new BehaviorSubject([0, 0]);
+  sortStream$:           BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor(
     private fetchEvents: FetchEventsService,
-    private cd: ChangeDetectorRef,
-    private elements: ElementRef,
-    private store: Store<EventsState>) { }
+    private cd:          ChangeDetectorRef,
+    private elements:    ElementRef,
+    private store:       Store<EventsState>) { }
 
   calcMult() {
     this.calculateStream$.next([randNumber(0)(10), randNumber(0)(10)])
@@ -66,8 +58,8 @@ export class EventsComponent implements OnInit, OnDestroy  {
   startTimer() {
     this.button2ClickStream$ = observableInterval(1000)
       .switchMap(event => this.intervalStream$)
-      .do(val => this.timer = val)
-      .subscribe(val => this.cd.markForCheck());
+      .do(         val => this.timer = val)
+      .subscribe(  val => this.cd.markForCheck());
   }
 
   ngOnInit() {
@@ -80,11 +72,6 @@ export class EventsComponent implements OnInit, OnDestroy  {
       .filter((el: Element) => el.classList.contains('event'))
       .pluck('id')
       .subscribe((id:number) => this.store.dispatch(new SelectEvent(this.events[id])));
-
-    this.changeClassStream$.subscribe(name => {
-      this.nextClass = name;
-      this.cd.markForCheck();
-    });
 
     this.fetchEvents.getEvents()
       .map(events => this.events = events)
@@ -101,7 +88,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
       .subscribe(res => this.cd.markForCheck());
 
     this.intervalStream$ = observableInterval(1000)
-    .map(val => `button start/reset pressed a ${val} seconds ago`)
+      .map(val => `button start/reset pressed a ${val} seconds ago`)
   }
 
   changeProperty() {
@@ -140,8 +127,6 @@ export class EventsComponent implements OnInit, OnDestroy  {
   ngDoCheck() { }
 
   ngOnDestroy() {
-    // this.intervalStream$.unsubscribe();
-    // this.selectEventStream$.unsubscribe();
     this.calculateStream$.unsubscribe();
   }
 }

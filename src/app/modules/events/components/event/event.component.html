@@ -1,0 +1,13 @@
+<div [className]="event.type + ' event-content'">
+    <span>{{'Select language:' | translate: lang: event.title | async | uppercase}}</span>
+    <select [(ngModel)]="lang">
+      <option [value]="language.val" *ngFor="let language of langs">{{language.name}}</option>
+    </select>
+    <h3>{{'Event description:' | translate: lang: event.title | async}}</h3>
+    <ul>
+      <li>{{event.type | translate: lang: event.type | async | uppercase}}</li>
+      <li *ngIf="event.title">{{event.title | translate: lang: event.title | async | uppercase}}</li>
+      <li *ngIf="event.start">{{event.start | date | translate: lang: event.start | async | uppercase}}</li>
+      <li *ngIf="event.description">{{event.description | translate: lang: event.start | async}}</li>
+    </ul>
+  </div>

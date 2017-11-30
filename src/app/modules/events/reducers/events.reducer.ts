@@ -7,7 +7,8 @@ export interface SelectedEvent {
 	description?: string,
 	duration?: number,
 	id?: string,
-	location?: string,
+  location?: string,
+  visible?: string;
 	resources?: Array<any>,
 	speakers?: Array<any>,
 };

@@ -42,7 +42,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
   reverseStream$:        Subscription;
   setVisibleStream$:     Subscription;
   selectedEvent$:        Observable<SelectedEvent>;
-  intervalStream$:       Observable<string>;
+  // intervalStream$:       Observable<string>;
   calculateStream$:      BehaviorSubject<number[]>  = new BehaviorSubject([0, 0]);
   sortStream$:           BehaviorSubject<number> = new BehaviorSubject(0);
 
@@ -57,10 +57,10 @@ export class EventsComponent implements OnInit, OnDestroy  {
   }
 
   startTimer() {
-    this.button2ClickStream$ = observableInterval(1000)
-      .switchMap(event => this.intervalStream$)
-      .do(         val => this.timer = val)
-      .subscribe(  val => this.cd.markForCheck());
+    observableInterval(1000)
+      .map(val => `button start/reset pressed a ${val} seconds ago`)
+      .do(val => this.timer = val)
+      .subscribe(val => this.cd.markForCheck());
   }
 
   ngOnInit() {
@@ -88,8 +88,8 @@ export class EventsComponent implements OnInit, OnDestroy  {
       .map((numArr: number[]) => this.result = getSum.apply(null, numArr)) // TODO figure out how to solve it
       .subscribe(res => this.cd.markForCheck());
 
-    this.intervalStream$ = observableInterval(1000)
-      .map(val => `button start/reset pressed a ${val} seconds ago`)
+    // this.intervalStream$ = observableInterval(1000)
+    //   .map(val => `button start/reset pressed a ${val} seconds ago`)
   }
 
   changeProperty() {
@@ -97,7 +97,8 @@ export class EventsComponent implements OnInit, OnDestroy  {
   }
 
   sortByType() {
-    this.sortByTypeStream$ = Observable.interval(5).take(this.events.length)
+    this.sortByTypeStream$ = Observable.interval(5)
+      .take(this.events.length)
       .flatMap(i => Observable.from(this.events))
       .map((ev, j) => cond(j >= this.events.length)(j % this.events.length)(j))
       .map(j => condL(j < this.events.length-1)

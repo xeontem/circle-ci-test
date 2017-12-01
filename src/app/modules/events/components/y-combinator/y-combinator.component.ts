@@ -68,7 +68,7 @@ export class YCombinatorComponent implements OnInit {
     })
 
     //-------------------------------- set position --------------------------
-    el.style.top = this.cookies.top || `${document.documentElement.offsetHeight - 400}px`;// default
+    el.style.top = this.cookies.top || `${~~(document.documentElement.offsetHeight / 1.5)}px`;// default
     el.style.left = this.cookies.left || `${300}px`;// default
 
     //------------------------------- handle drag -----------------------------------
@@ -88,15 +88,15 @@ export class YCombinatorComponent implements OnInit {
     this.bodyoverStream$ = Observable.fromEvent(document.body, 'dragover')
       .subscribe(e => this.handledragoverBody(e))
   }
-  
+
   handledragoverBody(e) {
     // e.dataTransfer.dropEffect = 'move';
   }
 
   handleDragStart(e, el) {
-    
+
     this.initLayerX = e.layerX;
-    this.initLayerY = e.layerY; 
+    this.initLayerY = e.layerY;
     el.style.opacity = '0.4';
   }
 
@@ -110,19 +110,19 @@ export class YCombinatorComponent implements OnInit {
     }
     e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
     return false;
-  } 
-  
+  }
+
   handleDragLeave(e, el) {
     el.classList.remove('drag-over');  // this / e.target is previous target element.
   }
-  
+
   handleDrop(e, el) {
     if (e.stopPropagation) {
       e.stopPropagation(); // stops the browser from redirecting.
     }
     return false;
   }
-  
+
   handleDragEnd(e, el) {
     //------------------------ apply pos to elem ---------------------------
     el.style.opacity = '1';
@@ -146,31 +146,31 @@ export class YCombinatorComponent implements OnInit {
     // f(x) = x * x;
     // f(0) = 0;
     // f(1) = 1;
-    
+
     // Y(f) = fixed; - take func and find her fixed point;
     // fibF(f) = f; - fixed point for fibF;
     // Y(fibF) = f; Y-combinator for fibF should return f (f - fixed point of fibF);
-    
+
     // Y(F) = f; F(f) = f;
     // Y(F) = F(f) => Y(F) = F(Y(F)); - recursion
     // const Y = F => F(Y(F)); - not working due to recursion;
     // const Y = F => F(x => Y(F)(x)); - done. no more recursion;
     // const fib = Y(fibF);
-    // let someF:: perf -> f -> a -> newPref 
+    // let someF:: perf -> f -> a -> newPref
     // let someF = perf => f => a => {
     //   f(a);
     //   return performance.now()-perf;
     // }
 
     let value:number;
-    
+
     //perf:: f -> a -> number
     const perf = f => x => {
       const start = performance.now();
       value = f(x);
       return performance.now() - start;
     };
-    
+
     // memoize
     const Ymem = memory => F => {
       return F(x => {
@@ -198,7 +198,7 @@ export class YCombinatorComponent implements OnInit {
       return (n === 0 || n === 1) ? 1 : fibF(n - 1) + fibF(n - 2);
     };
     console.log(value);
-    
+
     this.perfWithout = Number(perf(fibF)(40).toFixed(5));
     this.withoutValue = value;
     this.cd.markForCheck();

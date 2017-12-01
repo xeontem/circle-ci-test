@@ -36,8 +36,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
-//----------------------- my custom auth service ---------------------------
+//----------------------- Firebase services ---------------------------
 import { FirestoreAuthService } from './services/firestore-auth.service';
+import { FcmMessagingService } from './services/fcm-messaging.service';
 
 //------------------------------- animations -------------------------------
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -50,7 +51,8 @@ import {
   MatButtonModule,
   MatIconModule,
   MatMenuModule,
-  MatMenuTrigger } from '@angular/material';
+  MatMenuTrigger,
+  MatSnackBarModule } from '@angular/material';
 
 //------------------------------- routes -------------------------------
 import { RouterModule, Routes } from '@angular/router';
@@ -159,6 +161,7 @@ const routes: Routes = [
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatSnackBarModule,
 
     // my modules
     CourcesModule,
@@ -172,7 +175,8 @@ const routes: Routes = [
      * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
      */
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
-    FirestoreAuthService
+    FirestoreAuthService,
+    FcmMessagingService
   ],
   bootstrap: [AppComponent],
 })

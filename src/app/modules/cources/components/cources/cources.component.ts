@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs/Observable';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { condL } from '../../../../shared/lambda';
+import { cond } from '../../../../shared/lambda';
 // import 'rxjs/add/operator/map';
 export interface Cource {
   id: string;
@@ -18,8 +18,8 @@ export interface Cource {
   styleUrls: ['./cources.component.scss']
 })
 export class CourcesComponent implements OnInit {
-  courcesCollection: AngularFirestoreCollection<Cource>;
-  cources:           Observable<Cource[]>;
+  // courcesCollection: AngularFirestoreCollection<Cource>;
+  cources:           Observable<Array<{}>>;// TODO Observable<Cources[]>
   searchCourceForm:  FormGroup;
   hint:              string = 'title of cource';
 
@@ -30,8 +30,8 @@ export class CourcesComponent implements OnInit {
 
   ngOnInit() {
     // recieve collection from firestore
-    this.courcesCollection = this.afs.collection('cources');
-    this.cources = this.courcesCollection.valueChanges();
+    // this.courcesCollection = this.afs.collection('cources');
+    this.cources = this.afs.collection('cources').valueChanges();
 
     // search cource form
     this.searchCourceForm = this.fb.group({
@@ -39,19 +39,18 @@ export class CourcesComponent implements OnInit {
     });
   }
 
-  searchCource(val): void {
-    condL(val.predicate)( x => {
-      this.courcesCollection = this.afs.collection('cources', ref =>
-        ref.where('title', '==', val.predicate));
-      this.cources = this.courcesCollection.valueChanges();
-    })(x => {
-      this.courcesCollection = this.afs.collection('cources');
-      this.cources = this.courcesCollection.valueChanges();
-    });
+  searchCource(val: string): void {
+    this.cources = cond(val)
+      (this.afs.collection('cources', ref => ref.where('title', '==', val)))
+      (this.afs.collection('cources')).valueChanges();
   }
 
   deletedEventHandler(id: string): void {
-    console.log(event);
+    console.log(id);
+  }
+
+  editedEventHandler(cource: Cource): void {
+    console.log(cource);
   }
 
 }

@@ -9,13 +9,17 @@ import { Cource } from '../cources/cources.component';
 export class CourceComponent implements OnInit {
   @Input()cource: Cource;
   @Output()deletedCourceEvent = new EventEmitter<string>();
+  @Output()editedCourceEvent = new EventEmitter<Cource>();
   constructor() { }
 
   ngOnInit() {
   }
 
-  delCource() {
-    this.deletedCourceEvent.emit(this.cource.id);
+  delCource(cource: Cource): void {
+    this.deletedCourceEvent.emit(cource.id);
   }
 
+  editCource(cource: Cource) {
+    this.editedCourceEvent.emit(cource);
+  }
 }

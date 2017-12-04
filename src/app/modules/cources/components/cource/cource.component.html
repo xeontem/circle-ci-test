@@ -16,6 +16,6 @@
   <p class="regular-color">{{cource.description}}</p>
 </div>
 <div class="grid cource-controls-container">
-  <button mat-raised-button color="primary" class="self-start">edit</button>
-  <button mat-raised-button color="warn" class="self-start" (click)="delCource()">delete</button>
+  <button mat-raised-button color="primary" class="self-start" (click)="editCource(cource)">edit</button>
+  <button mat-raised-button color="warn" class="self-start" (click)="delCource(cource)">delete</button>
 </div>

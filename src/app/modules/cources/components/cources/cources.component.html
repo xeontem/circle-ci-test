@@ -3,7 +3,7 @@
   <form
     class="grid gap-20 colums-3 container"
     [formGroup]="searchCourceForm"
-    (ngSubmit)="searchCource(searchCourceForm.value)"
+    (ngSubmit)="searchCource(searchCourceForm.value.predicate)"
     novalidate>
       <mat-form-field class="m">
         <input matInput placeholder="Cource title" formControlName="predicate">
@@ -17,6 +17,7 @@
   <app-cource *ngFor="let cource of cources | async"
     class="grid cource-container mat-elevation-z8 margin-t-b-20 padding-20 m"
     [cource]="cource"
-    (deletedCourceEvent) ="deletedEventHandler($event)">
+    (deletedCourceEvent)="deletedEventHandler($event)"
+    (editedCourceEvent)="editedEventHandler($event)">
   </app-cource>
 </section>

@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as eventsActions from '../actions/events.action';
-
+import { flipGetVal } from '../../../shared/lambda';
 export interface SelectedEvent {
 	type: string,
 	title?: string,
@@ -40,12 +40,12 @@ export function eventsReducer(state = initialState, action: eventsActions.Action
 const getEventsState = createFeatureSelector<EventsState>('eventsReducer');
 
 //----------------------------------- main component selector ----------------------------
-const getValue         = (state: EventsState) => state.value;// get value from events state
-const getselectedEvent = (state: EventsState) => state.selectedEvent;// get value from events state
-const getYperfWith     = (state: EventsState) => state.perfWith;// get perfWith from Y store
-const getYwithValue    = (state: EventsState) => state.withValue;// get value from Y store
+// const getValue         = (state: EventsState) => state.value;// get value from events state
+// const getselectedEvent = (state: EventsState) => state.selectedEvent;// get value from events state
+// const getYperfWith     = (state: EventsState) => state.perfWith;// get perfWith from Y store
+// const getYwithValue    = (state: EventsState) => state.withValue;// get value from Y store
 
-export const valueSelector = createSelector(getEventsState, getValue);
-export const eventSelector = createSelector(getEventsState, getselectedEvent);
-export const perfWithSelector = createSelector(getEventsState, getYperfWith);
-export const withValueSelector = createSelector(getEventsState, getYwithValue);
+export const valueSelector     = createSelector(getEventsState, flipGetVal('value'));
+export const eventSelector     = createSelector(getEventsState, flipGetVal('selectedEvent'));
+export const perfWithSelector  = createSelector(getEventsState, flipGetVal('perfWith'));
+export const withValueSelector = createSelector(getEventsState, flipGetVal('withValue'));

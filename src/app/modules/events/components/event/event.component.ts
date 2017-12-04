@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit } from '@angular/core';
 import { SelectedEvent } from '../../reducers/events.reducer';
 
 @Component({
@@ -8,6 +8,7 @@ import { SelectedEvent } from '../../reducers/events.reducer';
 })
 export class EventComponent implements OnInit {
   @Input()event: SelectedEvent;
+  @Output()
   lang:          string = 'en';
   langs:         Array<{name: string, val: string}>;
 

@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { StorePerf, STORE_PREFWITH } from '../../actions/events.action';
 import { EventsState, perfWithSelector, withValueSelector } from '../../reducers/events.reducer';
 import { State } from '../../../../store';
+import * as λ from '../../../../shared/lambda';
 @Component({
   selector: 'y-combinator',
   templateUrl: './y-combinator.component.html',
@@ -42,20 +43,20 @@ export class YCombinatorComponent implements OnInit {
     this.withValue$ = this.store.select(withValueSelector);
 
     // identity:: a -> a
-    const identity = x => x; // return arg
-    // application - B-reduction
-    const apply = f => x => f(x);// apply f -> x
-    const constant = x => y => x;// skip y
-    const compose = f => g => x => f(g(x));// apply g -> x && f -> g
-    const flip = f => x => y => f(y)(x);// reverse input parameters. At first apply f to second arg, then to first. In result return flipped value;
-    // S - combinator
-    const S = f => x => z => f(z)(x(z));// like apply, but at first apply every arg to param "z": f(x) -> f(z)(x(z));
-    // Y - combinator
-    const Y = f => f(x => Y(f)(x));// find fixed point of f; Y = f => f(Y(f));
-    // Z - combinator
-    const Z = null;// ???
-    // if
-    const cond = x => t => f => x ? t : f;
+    // const identity = x => x; // return arg
+    // // application - B-reduction
+    // const apply = f => x => f(x);// apply f -> x
+    // const constant = x => y => x;// skip y
+    // const compose = f => g => x => f(g(x));// apply g -> x && f -> g
+    // const flip = f => x => y => f(y)(x);// reverse input parameters. At first apply f to second arg, then to first. In result return flipped value;
+    // // S - combinator
+    // const S = f => x => z => f(z)(x(z));// like apply, but at first apply every arg to param "z": f(x) -> f(z)(x(z));
+    // // Y - combinator
+    // const Y = f => f(x => Y(f)(x));// find fixed point of f; Y = f => f(Y(f));
+    // // Z - combinator
+    // const Z = null;// ???
+    // // if
+    // const cond = x => t => f => x ? t : f;
     // ------------------------------ define element ------------------------------
     const el = this.comb.nativeElement;
 
@@ -72,21 +73,13 @@ export class YCombinatorComponent implements OnInit {
     el.style.left = this.cookies.left || `${300}px`;// default
 
     //------------------------------- handle drag -----------------------------------
-    this.dragstartStream$ = Observable.fromEvent(el, 'dragstart')
-      .subscribe(e => this.handleDragStart(e, el));
-    this.dragenterStream$ = Observable.fromEvent(el, 'dragenter')
-      .subscribe(e => this.handleDragEnter(e, el));
-    this.dragoverStream$ = Observable.fromEvent(el, 'dragover')
-      .subscribe(e => this.handleDragOver(e, el));
-    this.dragleaveStream$ = Observable.fromEvent(el, 'dragleave')
-      .subscribe(e => this.handleDragLeave(e, el));
-    this.dragendStream$ = Observable.fromEvent(el, 'dragend')
-      .subscribe(e => this.handleDragEnd(e, el));
-    this.dropStream$ = Observable.fromEvent(el, 'drop')
-      .subscribe(e => this.handleDrop(e, el), err => console.dir(err));
-
-    this.bodyoverStream$ = Observable.fromEvent(document.body, 'dragover')
-      .subscribe(e => this.handledragoverBody(e))
+    this.dragstartStream$ = Observable.fromEvent(el, 'dragstart').subscribe(e => this.handleDragStart(e, el));
+    this.dragenterStream$ = Observable.fromEvent(el, 'dragenter').subscribe(e => this.handleDragEnter(e, el));
+    this.dragoverStream$ =  Observable.fromEvent(el, 'dragover').subscribe(e => this.handleDragOver(e, el));
+    this.dragleaveStream$ = Observable.fromEvent(el, 'dragleave').subscribe(e => this.handleDragLeave(e, el));
+    this.dragendStream$ =   Observable.fromEvent(el, 'dragend').subscribe(e => this.handleDragEnd(e, el));
+    this.dropStream$ =      Observable.fromEvent(el, 'drop').subscribe(e => this.handleDrop(e, el), err => console.dir(err));
+    this.bodyoverStream$ =  Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e))
   }
 
   handledragoverBody(e) {
@@ -172,14 +165,7 @@ export class YCombinatorComponent implements OnInit {
     };
 
     // memoize
-    const Ymem = memory => F => {
-      return F(x => {
-        if(memory.has(x)) return memory.get(x);
-        const value = Ymem(memory)(F)(x);
-        memory.set(x, value);
-        return value;
-      });
-    };
+    const Ymem = memory => F => F(x => λ.condL(memory.has(x))(x => memory.get(x))(x => memory.set(x, Ymem(memory)(F)(x)).get(x)));
     const fibMem = Ymem(new Map())(fibF);
     this.store.dispatch(new StorePerf({perfWith: Number(perf(fibMem)(40).toFixed(5)), withValue: value }));
     // this.perfWith = ;

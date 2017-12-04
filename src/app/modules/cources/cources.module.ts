@@ -19,6 +19,7 @@ import {
 
 //-------------- my components -----------------------------------------
 import { CourcesComponent } from './components/cources/cources.component';
+import { CourceComponent } from './components/cource/cource.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { CourcesComponent } from './components/cources/cources.component';
     MatIconModule
   ],
   providers: [FireStoreAuthGuard],
-  declarations: [ CourcesComponent ],
+  declarations: [ CourcesComponent, CourceComponent ],
   exports: [ ]
 })
 export class CourcesModule { }

@@ -22,12 +22,12 @@ export class HeaderComponent implements OnInit {
   // logoutSubscr$: Subscription;
   message: BehaviorSubject<{}>;
   constructor(
-    private auth: FirestoreAuthService,
-    private fsmmsg: FcmMessagingService,
-    private router: Router,
-    public snackBar: MatSnackBar,
     // private cd: ChangeDetectorRef,
-    private store: Store<HeaderState>) { }
+    private auth:    FirestoreAuthService,
+    private fsmmsg:  FcmMessagingService,
+    private router:  Router,
+    public snackBar: MatSnackBar,
+    private store:   Store<HeaderState>) { }
 
   ngOnInit() {
     this.fsmmsg.getPermission();

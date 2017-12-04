@@ -3,9 +3,10 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs/Observable';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { condL } from '../../../../shared/lambda';
 // import 'rxjs/add/operator/map';
-export interface Cource { 
+export interface Cource {
+  id: string;
   title: string;
   duration: string;
   date: Date;
@@ -18,20 +19,19 @@ export interface Cource {
 })
 export class CourcesComponent implements OnInit {
   courcesCollection: AngularFirestoreCollection<Cource>;
-  cources: Observable<Cource[]>;
-  searchCourceForm: FormGroup;
-  hint: string = 'title of cource';
+  cources:           Observable<Cource[]>;
+  searchCourceForm:  FormGroup;
+  hint:              string = 'title of cource';
 
   constructor(
     private afs: AngularFirestore,
-    private fb: FormBuilder
+    private fb:  FormBuilder
   ) { }
 
   ngOnInit() {
     // recieve collection from firestore
     this.courcesCollection = this.afs.collection('cources');
     this.cources = this.courcesCollection.valueChanges();
-    this.cources.subscribe(console.log);
 
     // search cource form
     this.searchCourceForm = this.fb.group({
@@ -39,15 +39,19 @@ export class CourcesComponent implements OnInit {
     });
   }
 
-  searchCource(searchCourceForm) {
-    if(searchCourceForm.predicate) {
-      this.courcesCollection = this.afs.collection('cources', ref => 
-        ref.where('title', '==', searchCourceForm.predicate));
+  searchCource(val): void {
+    condL(val.predicate)( x => {
+      this.courcesCollection = this.afs.collection('cources', ref =>
+        ref.where('title', '==', val.predicate));
       this.cources = this.courcesCollection.valueChanges();
-    } else {
+    })(x => {
       this.courcesCollection = this.afs.collection('cources');
       this.cources = this.courcesCollection.valueChanges();
-    }
+    });
+  }
+
+  deletedEventHandler(id: string): void {
+    console.log(event);
   }
 
 }

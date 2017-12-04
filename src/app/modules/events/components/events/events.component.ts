@@ -1,21 +1,13 @@
 import { ViewChild, Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { FetchEventsService } from '../../services/fetch-events.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { interval as observableInterval } from 'rxjs/observable/interval';
+import { interval as oInterval } from 'rxjs/observable/interval';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { SelectEvent, ChangeVal, CHANGE_OBJ_VAL, SELECT_EVENT } from '../../actions/events.action';
 import { EventsState, SelectedEvent, valueSelector, eventSelector } from '../../reducers/events.reducer';
 import { State } from '../../../../store';
-
-const cond = x => t => f => x ? t : f;
-const condL = x => tF => fF => x ? tF() : fF();
-const swap = arr => i => j => [arr[i], arr[j]] = [arr[j], arr[i]];
-const getType = arr => i => cond(arr[i])(arr[i].type)({});
-const caclcSum = (a:number, b:number):number => a + b;
-const calcMult = (a:number, b:number):number => a * b;
-const getSum = (x:number, y:number):number => calcMult(caclcSum(x, y), caclcSum(x, y));
-const randNumber = min => max => ~~(Math.random() * (max - min));
+import * as λ from '../../../../shared/lambda';
 
 @Component({
   selector:        'app-events',
@@ -53,13 +45,13 @@ export class EventsComponent implements OnInit, OnDestroy  {
     private store:       Store<EventsState>) { }
 
   calcMult() {
-    this.calculateStream$.next([randNumber(0)(10), randNumber(0)(10)])
+    this.calculateStream$.next([λ.randNumber(0)(10), λ.randNumber(0)(10)])
   }
 
   startTimer() {
-    observableInterval(1000)
+    oInterval(1000)
       .map(val => `button start/reset pressed a ${val} seconds ago`)
-      .do(val => this.timer = val)
+      .do(λ.set(this)('timer'))
       .subscribe(val => this.cd.markForCheck());
   }
 
@@ -69,26 +61,30 @@ export class EventsComponent implements OnInit, OnDestroy  {
     this.selectedEvent$ = this.store.select(eventSelector);
 
     this.containerClickStream$ = Observable.fromEvent(this.container.nativeElement, 'click')
-      .switchMap((e: Event) => Observable.from([e.target, e.target["parentNode"]]))// TODO find right type of event
-      .filter((el: Element) => el.classList.contains('event'))
+      .switchMap((e: Event) => Observable.from(λ.pair
+        (λ.getVal(e)('target'))
+        (λ.getVal(λ.getVal(e)('target'))('parentNode'))))// TODO find right type of event
+      .filter(λ.C(λ.B(λ.clCont)(λ.getClasList))('event'))// elem has class event?
       .pluck('id')
-      .subscribe((id:number) => this.store.dispatch(new SelectEvent(this.events[id])));
+      .subscribe((id:number) => this.store.dispatch(new SelectEvent(λ.getVal(this.events)(id))));
 
     this.fetchEvents.getEvents()
-      .map(events => this.events = events)
-      .switchMap(events => Observable.from(events))
-      .map((event, index) => this.tempArr.push(index))
-      .switchMap(i => observableInterval(5).take(this.events.length))
-      .map(i => ~~(Math.random() * this.tempArr.length))
-      .do(r => this.events[this.tempArr[r]].visible = 'visible')
-      .map(r => this.tempArr.splice(r, 1))
-      .subscribe(i => this.cd.markForCheck());
+      .map(λ.set(this)('events'))
+      .map(events => λ.set(this)('tempArr')(λ.range(λ.length(events))))
+      .switchMap(events => oInterval(5).take(λ.length(events)))// TODO compose
+      // .map(B(rand)(K(this.tempArr.length)))
+      .map(i => λ.B(λ.rand)(λ.K(this.tempArr.length))(i))
+      // .map(i => ~~(Math.random() * this.tempArr.length))
+      // .do(r => flipSet('visible')('visible')(getVal(this.events)(getVal(this.tempArr)(r))))
+      .do(r => λ.B(λ.flipSet('visible')('visible'))(λ.B(λ.getVal(this.events))(λ.getVal(this.tempArr)))(r))
+      .map(r => λ.C(λ.splice(this.tempArr))(1)(r))
+      .subscribe(arr => this.cd.markForCheck());
 
     this.calculateStream$
-      .map((numArr: number[]) => this.result = getSum.apply(null, numArr)) // TODO figure out how to solve it
+      .map(λ.B(λ.set(this)('result'))(λ.reduce((f, num) => f(num))(λ.cGetSum)))
       .subscribe(res => this.cd.markForCheck());
 
-    // this.intervalStream$ = observableInterval(1000)
+    // this.intervalStream$ = oInterval(1000)
     //   .map(val => `button start/reset pressed a ${val} seconds ago`)
   }
 
@@ -100,29 +96,29 @@ export class EventsComponent implements OnInit, OnDestroy  {
     this.sortByTypeStream$ = Observable.interval(5)
       .take(this.events.length)
       .flatMap(i => Observable.from(this.events))
-      .map((ev, j) => cond(j >= this.events.length)(j % this.events.length)(j))
-      .map(j => condL(j < this.events.length-1)
-        ((x => cond(getType(this.events)(j) > getType(this.events)(j+1))
-          ({bool: true, j})
-          ({bool: false, j})))
-        ((x => ({bool: false, j}))))
-      .map(o => condL(o.bool)(x => swap(this.events)(o.j)(o.j+1))(x => []))
+      .map((ev, j) => λ.cond(j >= this.events.length)(j % this.events.length)(j))
+      .map(j => λ.condL(j < this.events.length - 1)
+         ((x => λ.cond(λ.getType(this.events)(j) > λ.getType(this.events)(j + 1))
+           ({bool: true, j})
+           ({bool: false, j})))
+         ((x => ({bool: false, j}))))
+      .do(o => λ.condL(o.bool)(x => λ.swap(this.events)(o.j)(o.j+1))(λ.I))
       .subscribe(i => this.cd.markForCheck());
   }
 
   reverse() {
-    this.reverseStream$ = observableInterval(5)
-      .take(this.events.length/2)
-      .map(i => ({i, j: cond(this.events.length-i-1 < 0)(0)(this.events.length-i-1)}))
-      .map(o => swap(this.events)(o.i)(o.j))
+    this.reverseStream$ = oInterval(5)
+      .take(this.events.length / 2)
+      .map(i => ({i, j: λ.cond(this.events.length-i-1 < 0)(0)(this.events.length-i-1)}))
+      .do(o => λ.swap(this.events)(o.i)(o.j))
       .subscribe(i => this.cd.markForCheck());
   }
 
   shake() {
-    this.shakeStream$ = observableInterval(5)
+    this.shakeStream$ = oInterval(5)
     .take(this.events.length/2)
-    .map(i => ({i: ~~(Math.random() * this.events.length), j: ~~(Math.random() * this.events.length)}))
-    .do(o => swap(this.events)(o.i)(o.j))
+    .map(i => ({i: λ.rand(this.events.length), j: λ.rand(this.events.length)}))
+    .do(o => λ.swap(this.events)(o.i)(o.j))
     .subscribe(a => this.cd.markForCheck())
   }
 

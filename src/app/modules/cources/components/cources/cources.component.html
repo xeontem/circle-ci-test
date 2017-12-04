@@ -1,42 +1,22 @@
 <section>
   <!-- reactive form -->
-  <form 
+  <form
     class="grid gap-20 colums-3 container"
     [formGroup]="searchCourceForm"
     (ngSubmit)="searchCource(searchCourceForm.value)"
     novalidate>
       <mat-form-field class="m">
-          <input matInput placeholder="Cource title" formControlName="predicate">
-          <mat-error *ngIf="searchCourceForm.invalid">Please type a predicate</mat-error>
-          <mat-hint>{{hint}}</mat-hint>
-        </mat-form-field>
+        <input matInput placeholder="Cource title" formControlName="predicate">
+        <mat-error *ngIf="searchCourceForm.invalid">Please type a predicate</mat-error>
+        <mat-hint>{{hint}}</mat-hint>
+      </mat-form-field>
     <button mat-raised-button color="primary" class="self-center">search</button>
     <button mat-raised-button color="accent" class="self-center">add cource</button>
   </form>
-  
-  <div
-    *ngFor="let cource of cources | async"
-    class="grid cource-container mat-elevation-z8 margin-t-b-20 padding-20 m">
-      <div class="grid cource-header gap-20">
-        <div class="grid colums-3">
-          <h4 class="inline-block cource-heading primary-color">
-            <mat-icon class="valign-middle">text_format</mat-icon>
-            {{cource.title}}
-          </h4>
-          <span>
-            <mat-icon class="valign-bottom accent-color">access_time</mat-icon>
-            {{cource.duration}}
-          </span>
-          <span>
-            <mat-icon class="valign-bottom accent-color">date_range</mat-icon>
-            {{cource.date | date}}
-          </span>
-        </div>
-        <p class="regular-color">{{cource.description}}</p>
-      </div>
-      <div class="grid cource-controls-container">
-        <button mat-raised-button color="primary" class="self-start">edit</button>
-        <button mat-raised-button color="warn" class="self-start">delete</button>
-      </div>
-  </div>
+
+  <app-cource *ngFor="let cource of cources | async"
+    class="grid cource-container mat-elevation-z8 margin-t-b-20 padding-20 m"
+    [cource]="cource"
+    (deletedCourceEvent) ="deletedEventHandler($event)">
+  </app-cource>
 </section>

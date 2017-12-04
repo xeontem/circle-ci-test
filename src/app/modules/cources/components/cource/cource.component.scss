@@ -1,0 +1,14 @@
+@import '../../../../../common.scss';
+
+.cource-heading {
+  margin: 0;
+}
+
+.cource-header {
+  grid-template-rows: 1fr 5fr;
+}
+
+.cource-controls-container {
+  grid-template-rows: 36px 36px;
+  grid-gap: 10px;
+}

@@ -1,0 +1,21 @@
+<div class="grid cource-header gap-20">
+  <div class="grid colums-3">
+    <h4 class="inline-block cource-heading primary-color">
+      <mat-icon class="valign-middle">text_format</mat-icon>
+      {{cource.title}}
+    </h4>
+    <span>
+      <mat-icon class="valign-bottom accent-color">access_time</mat-icon>
+      {{cource.duration}}
+    </span>
+    <span>
+      <mat-icon class="valign-bottom accent-color">date_range</mat-icon>
+      {{cource.date | date}}
+    </span>
+  </div>
+  <p class="regular-color">{{cource.description}}</p>
+</div>
+<div class="grid cource-controls-container">
+  <button mat-raised-button color="primary" class="self-start">edit</button>
+  <button mat-raised-button color="warn" class="self-start" (click)="delCource()">delete</button>
+</div>

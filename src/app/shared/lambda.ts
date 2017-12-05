@@ -18,6 +18,8 @@ export const K = x => y => x;
 export const B = f => g => x => f(g(x));
 export const C = f => x => y => f(y)(x);
 export const W = x => y => x(y(y));
+export const Y = F => F(x => Y(F)(x));
+export const Ymem = memory => F => F(x => condL(memory.has(x))(y => memory.get(x))(y => memory.set(x, Ymem(memory)(F)(x)).get(x)));
 
 //--------------- NOD elems ---------------------------
 export const getClasList = (el: Element) => el.classList;
@@ -45,3 +47,16 @@ export const pushI = arr => el => i => arr.push(i);
 
 //----------------- number ------------------
 export const rand = max => ~~(Math.random() * max);
+export const fib = n => n === 0 || n === 1 ? 1 : fib(n - 1) + fib(n - 2);
+export const fibF = f => n => n === 0 || n === 1 ? 1 : f(n - 1) + f(n - 2);
+
+//------------------ document --------------
+export const getCookie = () => document.cookie.split('; ').reduce((acc, cookie) => {
+  const eq = cookie.indexOf('=');
+  acc[cookie.slice(0, eq)] = cookie.slice(eq + 1);
+  return acc;
+  // return Object.assign(acc, {});
+  // let key   = cookie.slice(0, eq);
+  // let value = cookie.slice(eq+1);
+  // this.cookies[key] = value;
+}, {});

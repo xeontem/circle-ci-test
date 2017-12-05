@@ -1,25 +1,33 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Cource } from '../cources/cources.component';
+import { Emit, logger } from '../../../../shared/methods.decorators';
 
 @Component({
-  selector: 'app-cource',
+  selector: (x => (console.log(this), 'app-cource'))(),
   templateUrl: './cource.component.html',
-  styleUrls: ['./cource.component.scss']
+  styleUrls: ['./cource.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourceComponent implements OnInit {
-  @Input()cource: Cource;
-  @Output()deletedCourceEvent = new EventEmitter<string>();
-  @Output()editedCourceEvent = new EventEmitter<Cource>();
+  @Input() cource: Cource;
+  @Output() deletedCourceEvent = new EventEmitter<string>();
+  @Output() editedCourceEvent = new EventEmitter<Cource>();
+
   constructor() { }
 
   ngOnInit() {
+    console.log(this);
+
   }
 
+  @Emit('deletedCourceEvent')
   delCource(cource: Cource): void {
-    this.deletedCourceEvent.emit(cource.id);
+
   }
 
+  @logger
+  @Emit('editedCourceEvent')
   editCource(cource: Cource) {
-    this.editedCourceEvent.emit(cource);
+    // this.editedCourceEvent.emit(cource);
   }
 }

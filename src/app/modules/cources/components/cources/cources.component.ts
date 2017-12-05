@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { cond } from '../../../../shared/lambda';
 // import 'rxjs/add/operator/map';
+
+//decorators
+import { logParam } from '../../../../shared/parameter.decorators';
 export interface Cource {
   id: string;
   title: string;
@@ -15,11 +18,12 @@ export interface Cource {
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
-  styleUrls: ['./cources.component.scss']
+  styleUrls: ['./cources.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
   // courcesCollection: AngularFirestoreCollection<Cource>;
-  cources:           Observable<Array<{}>>;// TODO Observable<Cources[]>
+  cources:           Observable<{}[]>;
   searchCourceForm:  FormGroup;
   hint:              string = 'title of cource';
 
@@ -39,14 +43,18 @@ export class CourcesComponent implements OnInit {
     });
   }
 
-  searchCource(val: string): void {
+  searchCource(@logParam val: string): void {
     this.cources = cond(val)
       (this.afs.collection('cources', ref => ref.where('title', '==', val)))
       (this.afs.collection('cources')).valueChanges();
   }
 
-  deletedEventHandler(id: string): void {
-    console.log(id);
+  addCource(@logParam val: string) {
+
+  }
+
+  deletedEventHandler(cource: Cource): void {
+    console.log(cource.id);
   }
 
   editedEventHandler(cource: Cource): void {

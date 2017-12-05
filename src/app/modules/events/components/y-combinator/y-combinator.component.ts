@@ -7,12 +7,18 @@ import { StorePerf, STORE_PREFWITH } from '../../actions/events.action';
 import { EventsState, perfWithSelector, withValueSelector } from '../../reducers/events.reducer';
 import { State } from '../../../../store';
 import * as λ from '../../../../shared/lambda';
+
+//decorators
+import { perf } from '../../../../shared/methods.decorators';
+import { SetDefault } from '../../../../shared/class.decorators';
+
 @Component({
   selector: 'y-combinator',
   templateUrl: './y-combinator.component.html',
   styleUrls: ['./y-combinator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+@SetDefault('cookies', {})
 export class YCombinatorComponent implements OnInit {
   @ViewChild('comb') comb: ElementRef;
 
@@ -30,7 +36,7 @@ export class YCombinatorComponent implements OnInit {
   bodyoverStream$:  Subscription;
   initLayerX:       number;
   initLayerY:       number;
-  cookies:          {top?:string, left?:string} = {};
+  cookies:          {top?:string, left?:string};
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -42,31 +48,12 @@ export class YCombinatorComponent implements OnInit {
     this.perfWith$ = this.store.select(perfWithSelector);
     this.withValue$ = this.store.select(withValueSelector);
 
-    // identity:: a -> a
-    // const identity = x => x; // return arg
-    // // application - B-reduction
-    // const apply = f => x => f(x);// apply f -> x
-    // const constant = x => y => x;// skip y
-    // const compose = f => g => x => f(g(x));// apply g -> x && f -> g
-    // const flip = f => x => y => f(y)(x);// reverse input parameters. At first apply f to second arg, then to first. In result return flipped value;
-    // // S - combinator
-    // const S = f => x => z => f(z)(x(z));// like apply, but at first apply every arg to param "z": f(x) -> f(z)(x(z));
-    // // Y - combinator
-    // const Y = f => f(x => Y(f)(x));// find fixed point of f; Y = f => f(Y(f));
-    // // Z - combinator
-    // const Z = null;// ???
-    // // if
-    // const cond = x => t => f => x ? t : f;
     // ------------------------------ define element ------------------------------
     const el = this.comb.nativeElement;
 
     //--------------------------------- check cookies for coords ---------------------
-    document.cookie.split('; ').map(cookie => {
-      let eq = cookie.indexOf('=');
-      let key = cookie.slice(0, eq);
-      let value = cookie.slice(eq+1);
-      this.cookies[key] = value;
-    })
+      this.cookies = λ.getCookie();
+      console.log(this.cookies);
 
     //-------------------------------- set position --------------------------
     el.style.top = this.cookies.top || `${~~(document.documentElement.offsetHeight / 1.5)}px`;// default
@@ -75,11 +62,11 @@ export class YCombinatorComponent implements OnInit {
     //------------------------------- handle drag -----------------------------------
     this.dragstartStream$ = Observable.fromEvent(el, 'dragstart').subscribe(e => this.handleDragStart(e, el));
     this.dragenterStream$ = Observable.fromEvent(el, 'dragenter').subscribe(e => this.handleDragEnter(e, el));
-    this.dragoverStream$ =  Observable.fromEvent(el, 'dragover').subscribe(e => this.handleDragOver(e, el));
+    this.dragoverStream$  = Observable.fromEvent(el, 'dragover').subscribe(e => this.handleDragOver(e, el));
     this.dragleaveStream$ = Observable.fromEvent(el, 'dragleave').subscribe(e => this.handleDragLeave(e, el));
-    this.dragendStream$ =   Observable.fromEvent(el, 'dragend').subscribe(e => this.handleDragEnd(e, el));
-    this.dropStream$ =      Observable.fromEvent(el, 'drop').subscribe(e => this.handleDrop(e, el), err => console.dir(err));
-    this.bodyoverStream$ =  Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e))
+    this.dragendStream$   = Observable.fromEvent(el, 'dragend').subscribe(e => this.handleDragEnd(e, el));
+    this.dropStream$      = Observable.fromEvent(el, 'drop').subscribe(e => this.handleDrop(e, el), err => console.dir(err));
+    this.bodyoverStream$  = Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e))
   }
 
   handledragoverBody(e) {
@@ -128,65 +115,15 @@ export class YCombinatorComponent implements OnInit {
     document.cookie = `left=${el.style.left}; path=/; expires=${expire}`;
   }
 
+  @perf
   withYcombinator() {
-    // const fib = n => {
-    //   return (n === 0 || n === 1) ? 1 : fib(n - 1) + fib(n - 2);
-    // };
-    const fibF = f => n => {
-      return (n === 0 || n === 1) ? 1 : f(n - 1) + f(n - 2);
-    };
-    // fixed points
-    // f(x) = x * x;
-    // f(0) = 0;
-    // f(1) = 1;
-
-    // Y(f) = fixed; - take func and find her fixed point;
-    // fibF(f) = f; - fixed point for fibF;
-    // Y(fibF) = f; Y-combinator for fibF should return f (f - fixed point of fibF);
-
-    // Y(F) = f; F(f) = f;
-    // Y(F) = F(f) => Y(F) = F(Y(F)); - recursion
-    // const Y = F => F(Y(F)); - not working due to recursion;
-    // const Y = F => F(x => Y(F)(x)); - done. no more recursion;
-    // const fib = Y(fibF);
-    // let someF:: perf -> f -> a -> newPref
-    // let someF = perf => f => a => {
-    //   f(a);
-    //   return performance.now()-perf;
-    // }
-
-    let value:number;
-
-    //perf:: f -> a -> number
-    const perf = f => x => {
-      const start = performance.now();
-      value = f(x);
-      return performance.now() - start;
-    };
-
     // memoize
-    const Ymem = memory => F => F(x => λ.condL(memory.has(x))(x => memory.get(x))(x => memory.set(x, Ymem(memory)(F)(x)).get(x)));
-    const fibMem = Ymem(new Map())(fibF);
-    this.store.dispatch(new StorePerf({perfWith: Number(perf(fibMem)(40).toFixed(5)), withValue: value }));
-    // this.perfWith = ;
-    // this.withValue = value;
-    // this.cd.markForCheck();
+    const fibMem = λ.Ymem(new Map())(λ.fibF);
+    this.store.dispatch(new StorePerf({perfWith: 0, withValue: fibMem(40) }));
   }
 
+  @perf
   withoutYcombinator() {
-    let value:number;
-    const perf = f => x => {
-      const start = performance.now();
-      value = f(x);
-      return performance.now() - start;
-    };
-    const fibF = n => {
-      return (n === 0 || n === 1) ? 1 : fibF(n - 1) + fibF(n - 2);
-    };
-    console.log(value);
-
-    this.perfWithout = Number(perf(fibF)(40).toFixed(5));
-    this.withoutValue = value;
-    this.cd.markForCheck();
+    this.withoutValue = λ.fib(40).toFixed(5);
   }
 }

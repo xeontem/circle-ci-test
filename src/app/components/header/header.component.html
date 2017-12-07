@@ -1,7 +1,10 @@
 <header class="container grid header-wrapper mat-elevation-z8">
-  <img class="logo-image margin-auto margin-l-r-10" routerLink="home"/>
-  <h1 class="margin-auto-v caption xl" routerLink="home">Haskell Cources</h1>
-  <div *ngIf="auth.user | async; then authenticated else guest"></div>
+  <img class="logo-image margin-auto" routerLink="home"/>
+  <div class="grid header-description-container">
+    <h1 class="inline margin-auto-v caption xl j-self-start" routerLink="home">Haskell Cources</h1>
+    <div class="m regular-color">Haskell lends itself well to concurrent programming due to its explicit handling of effects. Its flagship compiler, GHC, comes with a high-performance parallel garbage collector and light-weight concurrency library containing a number of useful concurrency primitives and abstractions. Functions don't evaluate their arguments. This means that programs can compose together very well, with the ability to write control constructs (such as if/else) just by writing normal functions. The purity of Haskell code makes it easy to fuse chains of functions together, allowing for performance benefits.</div>
+  </div>
+  <div *ngIf="auth.user | async; then authenticated else guest" class=""></div>
 </header>
 
 <!-- User NOT logged in -->

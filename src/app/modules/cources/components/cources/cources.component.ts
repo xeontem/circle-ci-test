@@ -1,10 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { cond } from '../../../../shared/lambda';
-// import 'rxjs/add/operator/map';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { cond, getInt, getFraction, toHalfHour } from '../../../../shared/lambda';
+
+//components
+import { AddCourceDialogComponent } from '../add-cource-dialog/add-cource-dialog.component';
+//services
+import { ProvideEventsService } from '../../services/provide-events.service';
 
 //decorators
 import { logParam } from '../../../../shared/parameter.decorators';
@@ -26,16 +29,17 @@ export class CourcesComponent implements OnInit {
   cources:           Observable<{}[]>;
   searchCourceForm:  FormGroup;
   hint:              string = 'title of cource';
-
+  // currentDialog: MatDialogRef<AddCourceDialogComponent>;
   constructor(
-    private afs: AngularFirestore,
-    private fb:  FormBuilder
+    private csprovider: ProvideEventsService,
+    private fb:  FormBuilder,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     // recieve collection from firestore
     // this.courcesCollection = this.afs.collection('cources');
-    this.cources = this.afs.collection('cources').valueChanges();
+    this.cources = this.csprovider.getList().valueChanges();
 
     // search cource form
     this.searchCourceForm = this.fb.group({
@@ -45,12 +49,26 @@ export class CourcesComponent implements OnInit {
 
   searchCource(@logParam val: string): void {
     this.cources = cond(val)
-      (this.afs.collection('cources', ref => ref.where('title', '==', val)))
-      (this.afs.collection('cources')).valueChanges();
+      (this.csprovider.getListByQuery('title', '==', val))
+      (this.csprovider.getList()).valueChanges();
   }
 
-  addCource(@logParam val: string) {
+  openDialog(@logParam val: string) {
+    const dialogRef = this.dialog.open(AddCourceDialogComponent, {
+      // panelClass: 'add-cource-dialog'
+      width: '35vw'
+    });
 
+    dialogRef.afterClosed().subscribe((newCource: Cource) => {
+      // console.log('Dialog result: ', newCource);
+      if (newCource) {
+        newCource.duration = `${getInt(newCource.duration)}h ${toHalfHour(getFraction(newCource.duration))}min`;
+        this.csprovider.addCource(newCource);
+        // this.selectedEmoji = result;
+      } else {
+        // User clicked 'Cancel' or clicked outside the dialog
+      }
+    });
   }
 
   deletedEventHandler(cource: Cource): void {

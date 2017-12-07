@@ -32,9 +32,10 @@ h3 {
 }
 
 .events-container {
+  @include margin-v(20px);
   position: relative;
   min-height: 500px;
-  grid-template-rows: 10fr 1fr 1fr;
+  grid-template-rows: 10fr repeat(2, 1fr);
   transition: background 1s;
 }
 

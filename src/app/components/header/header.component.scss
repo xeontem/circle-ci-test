@@ -7,13 +7,19 @@
   grid-gap: 15px;
 }
 
+.header-description-container {
+  grid-template-rows: 1fr 2fr;
+  grid-column: 2;
+}
+
 .caption {
   color: $primary-color;
-  outline: none;
   cursor: pointer;
 }
 
 .login-card {
+  grid-row: 1;
+  grid-column: 3;
   grid-template-rows: 3fr 2fr 1fr;
 }
 
@@ -23,6 +29,7 @@
 }
 
 .logo-image {
+  @include margin-h(5px);
   width: $logo-size;
   height: $logo-size;
   border: 3px solid $primary-color;

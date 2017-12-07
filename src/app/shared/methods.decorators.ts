@@ -7,14 +7,14 @@ key: name of method
 descriptor: descriptor of the method
 args: arguments that this method recieves
 */
-export function Emit(options: string) {
+export function Emit(evntName: string) {
   return function(target: {}, key: string, descriptor: PropertyDescriptor) {
 
     const origMethod = descriptor.value;
 
     descriptor.value = function<T>(...args: T[]) {
-      this[options].emit(...args);
-      origMethod.apply(this, args);
+      const result = origMethod.apply(this, args);
+      this[evntName].emit(...[...args, result]);
     }
 
     return descriptor;

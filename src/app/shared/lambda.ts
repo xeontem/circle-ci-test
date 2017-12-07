@@ -49,6 +49,11 @@ export const pushI = arr => el => i => arr.push(i);
 export const rand = max => ~~(Math.random() * max);
 export const fib = n => n === 0 || n === 1 ? 1 : fib(n - 1) + fib(n - 2);
 export const fibF = f => n => n === 0 || n === 1 ? 1 : f(n - 1) + f(n - 2);
+export const getInt = num => ~~num;
+export const getFraction = num => Number(String(num).slice(String(num).indexOf('.') + 1));
+
+//------------------- date --------------------
+export const toHalfHour = num => num === 5 ? 30 : 0;
 
 //------------------ document --------------
 export const getCookie = () => document.cookie.split('; ').reduce((acc, cookie) => {

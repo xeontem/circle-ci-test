@@ -1,7 +1,7 @@
 <section>
   <!-- reactive form -->
   <form
-    class="grid gap-20 colums-3 container"
+    class="grid gap-20 colums-3 margin-h-20 container"
     [formGroup]="searchCourceForm"
     novalidate>
       <mat-form-field class="m">
@@ -10,11 +10,11 @@
         <mat-hint>{{hint}}</mat-hint>
       </mat-form-field>
     <button mat-raised-button color="primary" class="self-center" (click)="searchCource(searchCourceForm.value.predicate)">search</button>
-    <button mat-raised-button color="accent" class="self-center" (click)="addCource(searchCourceForm.value.predicate)">add cource</button>
+    <button mat-raised-button color="accent" class="self-center" (click)="openDialog(searchCourceForm.value.predicate)">add cource</button>
   </form>
 
   <app-cource *ngFor="let cource of cources | async"
-    class="grid cource-container mat-elevation-z8 margin-t-b-20 padding-20 m"
+    class="grid cource-container mat-elevation-z8 padding-20 m"
     [cource]="cource"
     (deletedCourceEvent)="deletedEventHandler($event)"
     (editedCourceEvent)="editedEventHandler($event)">

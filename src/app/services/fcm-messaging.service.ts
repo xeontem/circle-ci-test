@@ -9,8 +9,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class FcmMessagingService implements OnInit {
   messaging = firebase.messaging();
-  // currentToken: string;
-  // UID: string;
   currentMessage: BehaviorSubject<{}>  = new BehaviorSubject(null)
 
   constructor(
@@ -23,7 +21,7 @@ export class FcmMessagingService implements OnInit {
       });
   
       this.messaging.onTokenRefresh(function() {
-        this.messaging.getToken()
+        this.messaging.requestPermission(x => this.messaging.getToken())
         .then(currentToken => {
           this.afAuth.authState
           .take(1)
@@ -43,18 +41,11 @@ export class FcmMessagingService implements OnInit {
     this.messaging.requestPermission()
       .then(λ => this.messaging.getToken())
       .then(currentToken => {
-        // console.log(currentToken);
-        // this.currentToken = currentToken;
-
         this.afAuth.authState
         .take(1)
         .filter(λ => !!λ)
         .subscribe(user => {
-          // this.UID = user.uid;
-          // this.afs.collection('FCMMessaging').doc(`${user.uid}`).set({token: currentToken});
           this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken});
-          // this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken});
-          // this.afs.doc(`users/${user.uid}`)
         })
         console.log('Notification permission granted.');
       })
@@ -63,16 +54,6 @@ export class FcmMessagingService implements OnInit {
       });
   }
 
-  // receiveMessage() {
-  //   this.messaging.onMessage(payload => {
-  //     console.log('message received. ', payload);
-  //     this.currentMessage.next(payload);
-  //   })
-  // }
-
-  ngOnInit() {
-    //------------------ receive messages -----------------
-    
-  }
+  ngOnInit() { }
 
 }

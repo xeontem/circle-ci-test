@@ -11,7 +11,8 @@
         "assets",
         "favicon.ico",
         "manifest.json",
-        "firebase-messaging-sw.js"
+        "firebase-messaging-sw.js",
+        "app/service-workers/app.component.worker.js"
       ],
       "index": "index.html",
       "main": "main.ts",

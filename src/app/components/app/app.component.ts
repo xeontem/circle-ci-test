@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+// import { FcmMessagingService } from '../../services/fcm-messaging.service';
+// import '../../service-workers/app.component.worker.js';
 @Component({
   selector: 'app-component',
   templateUrl: './app.component.html',
@@ -8,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class AppComponent implements OnInit {
-  
+
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // this.fcm.messaging.sendToDevice()
+    // const worker = new Worker('../../service-workers/app.component.worker.js');
+
+  }
 }
 
 
@@ -50,8 +55,8 @@ export class AppComponent implements OnInit {
 //   monad: Monad<number>;
 //   constructor() { }
 
-//   ngOnInit():void { 
-    
+//   ngOnInit():void {
+
 //     // Setoid
 //     this.setoid = new Setoid(123);
 //     // console.log(this.setoid.equals(new Setoid(22)));
@@ -66,12 +71,12 @@ export class AppComponent implements OnInit {
 //     this.apply = new Apply('xeontem');
 //     const upperA: Apply<string> = this.apply.ap(this.applyF);
 //     // console.log(upperA);
-    
+
 //     // applicative
 //     this.applicative = new Applicative('xeontem');
 //     this.applic2 = this.applicative.of(123);
-  
-//     // monad  
+
+//     // monad
 //     const plus = (a: number) => (b: number): number => a + b;
 //     const plusT = (a: number) => (b: number) => (c: number): number => a + b + c;
 //     const plusTwo = plus(2);
@@ -85,7 +90,7 @@ export class AppComponent implements OnInit {
 //     console.log(this.monad.map(plus));
 //     console.log(this.monad.lift2(plus)(new Monad(10)));
 //     console.log(this.monad.lift3(plusT)(new Monad(10))(new Monad(20)));
-    
-    
+
+
 //   }
 // }

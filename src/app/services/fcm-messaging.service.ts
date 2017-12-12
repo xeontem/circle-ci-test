@@ -4,9 +4,12 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+
+
 @Injectable()
 export class FcmMessagingService implements OnInit {
   messaging = firebase.messaging();
+  currentToken: string;
   UID: string;
   currentMessage: BehaviorSubject<{}>  = new BehaviorSubject(null)
 
@@ -18,19 +21,28 @@ export class FcmMessagingService implements OnInit {
     this.messaging.requestPermission()
       .then(λ => this.messaging.getToken())
       .then(currentToken => {
+        console.log(currentToken);
+        this.currentToken = currentToken;
+
         this.afAuth.authState
         .take(1)
         .filter(λ => !!λ)
         .subscribe(user => {
           this.UID = user.uid;
-          const data = { [user.uid]: currentToken }
-          this.afs.collection('FCMMessaging').add(data);
+          this.afs.collection('FCMMessaging').add({ [user.uid]: currentToken });
         })
       console.log('Notification permission granted.');
       })
       .catch((err) => {
         console.log('Unable to get permission to notify.', err);
       });
+  }
+
+  receiveMessage() {
+    this.messaging.onMessage(payload => {
+      console.log('message received. ', payload);
+      this.currentMessage.next(payload);
+    })
   }
 
   ngOnInit() {

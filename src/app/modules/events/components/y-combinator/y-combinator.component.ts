@@ -53,7 +53,7 @@ export class YCombinatorComponent implements OnInit {
 
     //--------------------------------- check cookies for coords ---------------------
       this.cookies = λ.getCookie();
-      console.log(this.cookies);
+      // console.log(this.cookies);
 
     //-------------------------------- set position --------------------------
     el.style.top = this.cookies.top || `${~~(document.documentElement.offsetHeight / 1.5)}px`;// default

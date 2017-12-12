@@ -3,7 +3,7 @@ import { Cource } from '../cources/cources.component';
 import { Emit, logger } from '../../../../shared/methods.decorators';
 
 @Component({
-  selector: (x => (console.log(this), 'app-cource'))(),
+  selector: 'app-cource',
   templateUrl: './cource.component.html',
   styleUrls: ['./cource.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -16,7 +16,6 @@ export class CourceComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this);
 
   }
 

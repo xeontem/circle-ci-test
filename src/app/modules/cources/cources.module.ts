@@ -26,9 +26,11 @@ import { CourcesComponent } from './components/cources/cources.component';
 import { CourceComponent } from './components/cource/cource.component';
 
 //------------------- services -----------------------------------------
-import { ProvideEventsService } from './services/provide-events.service';
+import { ProvideCourcesService } from './services/provide-cources.service';
 import { AddCourceDialogComponent } from './components/add-cource-dialog/add-cource-dialog.component';
 
+//------------------- other module services -----------------------------------------
+import { FirestoreAuthService } from '../../services/firestore-auth.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -49,7 +51,7 @@ import { AddCourceDialogComponent } from './components/add-cource-dialog/add-cou
     MatSliderModule
   ],
   entryComponents: [ AddCourceDialogComponent ],
-  providers: [FireStoreAuthGuard, ProvideEventsService],
+  providers: [FireStoreAuthGuard, ProvideCourcesService, FirestoreAuthService],
   declarations: [ CourcesComponent, CourceComponent, AddCourceDialogComponent ],
   exports: [ ]
 })

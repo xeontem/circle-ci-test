@@ -9,65 +9,70 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class FcmMessagingService implements OnInit {
   messaging = firebase.messaging();
-  currentToken: string;
-  UID: string;
+  // currentToken: string;
+  // UID: string;
   currentMessage: BehaviorSubject<{}>  = new BehaviorSubject(null)
 
   constructor(
     private afs: AngularFirestore,
-    private afAuth: AngularFireAuth) { }
+    private afAuth: AngularFireAuth) { 
+      
+      this.messaging.onMessage(payload => {
+        console.log("Message received. ", payload);
+        this.currentMessage.next(payload);
+      });
+  
+      this.messaging.onTokenRefresh(function() {
+        this.messaging.getToken()
+        .then(currentToken => {
+          this.afAuth.authState
+          .take(1)
+          .filter(λ => !!λ)
+          .subscribe(user => {
+            this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken});
+          })
+          console.log('Notification permission granted.');
+        })
+        .catch((err) => {
+          console.log('Unable to get permission to notify.', err);
+        });
+    });
+  }
 
   getPermission() {
     this.messaging.requestPermission()
       .then(λ => this.messaging.getToken())
       .then(currentToken => {
-        console.log(currentToken);
-        this.currentToken = currentToken;
+        // console.log(currentToken);
+        // this.currentToken = currentToken;
 
         this.afAuth.authState
         .take(1)
         .filter(λ => !!λ)
         .subscribe(user => {
-          this.UID = user.uid;
-          this.afs.collection('FCMMessaging').add({ [user.uid]: currentToken });
+          // this.UID = user.uid;
+          // this.afs.collection('FCMMessaging').doc(`${user.uid}`).set({token: currentToken});
+          this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken});
+          // this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken});
+          // this.afs.doc(`users/${user.uid}`)
         })
-      console.log('Notification permission granted.');
+        console.log('Notification permission granted.');
       })
       .catch((err) => {
         console.log('Unable to get permission to notify.', err);
       });
   }
 
-  receiveMessage() {
-    this.messaging.onMessage(payload => {
-      console.log('message received. ', payload);
-      this.currentMessage.next(payload);
-    })
-  }
+  // receiveMessage() {
+  //   this.messaging.onMessage(payload => {
+  //     console.log('message received. ', payload);
+  //     this.currentMessage.next(payload);
+  //   })
+  // }
 
   ngOnInit() {
     //------------------ receive messages -----------------
-    this.messaging.onMessage((payload) => {
-      console.log("Message received. ", payload);
-      this.currentMessage.next(payload);
-    });
-
-    // this.messaging.onTokenRefresh(function() {
-    //   this.messaging.getToken()
-    //   .then(function(refreshedToken) {
-    //     console.log('Token refreshed.');
-    //     // Indicate that the new Instance ID token has not yet been sent to the
-    //     // app server.
-    //     setTokenSentToServer(false);
-    //     // Send Instance ID token to app server.
-    //     sendTokenToServer(refreshedToken);
-    //     // ...
-    //   })
-    //   .catch(function(err) {
-    //     console.log('Unable to retrieve refreshed token ', err);
-    //     showToken('Unable to retrieve refreshed token ', err);
-    //   });
-    // });
+    
   }
 
 }

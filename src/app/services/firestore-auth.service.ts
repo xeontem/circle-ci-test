@@ -40,7 +40,7 @@ export class FirestoreAuthService {
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then(credential => {
-        console.log(credential);
+        // console.log(credential);
 
 // var key = 'AIzaSyBZKj2TXF1S12liuUSV7uILNqqzq1jnQlc';
 // var to = 'ddDv99L_4q8:APA91bGxknc3gfAXOfzxUXxEIWOwTl5CT01YnTg_Z520eO9cwAYtuH8C6ZFEHviKyQrDNyvtQn_I0SRKN3eHrKZHRInihNO6kqpyGppz5gPAH6JDjKQYXUSh0Z5jRqcXNxggIcdCM5w8';

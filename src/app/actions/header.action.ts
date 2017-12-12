@@ -17,7 +17,7 @@ export class Logout implements Action {
   }
 }
 
-console.log(new Logout);
+// console.log(new Logout);
 
 
 export type Actions = Login | Logout;

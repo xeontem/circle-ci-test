@@ -39,7 +39,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 //----------------------- Firebase services ---------------------------
 import { FirestoreAuthService } from './services/firestore-auth.service';
 import { FcmMessagingService } from './services/fcm-messaging.service';
-
+import { FirestoreStorageService } from './services/firestore-storage.service';
 //------------------------------- animations -------------------------------
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -176,7 +176,8 @@ const routes: Routes = [
      */
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
     FirestoreAuthService,
-    FcmMessagingService
+    FcmMessagingService,
+    FirestoreStorageService
   ],
   bootstrap: [AppComponent],
 })

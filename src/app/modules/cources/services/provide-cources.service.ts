@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Cource } from '../components/cources/cources.component';
 
 type WhereFilterOp = '<' | '<=' | '==' | '>=' | '>';
 
 @Injectable()
-export class ProvideEventsService {
+export class ProvideCourcesService {
+  courcesCount: number;
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore) {
+    this.afs.collection('cources').valueChanges()
+      .subscribe(cources => this.courcesCount = cources.length)
+   }
 
   getList() {
     return this.afs.collection('cources');
@@ -18,7 +22,7 @@ export class ProvideEventsService {
   }
 
   addCource(newCource: Cource) {
-    this.afs.collection('cources').add(newCource);
+    this.afs.collection('cources').doc(newCource.id).set(newCource);
   }
 
   getItemById(id: string) {
@@ -29,8 +33,8 @@ export class ProvideEventsService {
 
   }
 
-  removeItem() {
-
+  removeItem(cource) {
+    this.afs.collection('cources').doc(cource.id).delete();
   }
 }
 

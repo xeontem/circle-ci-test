@@ -3,6 +3,7 @@ import {MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
 import { FirestoreAuthService } from '../../services/firestore-auth.service';
 import { FcmMessagingService } from '../../services/fcm-messaging.service';
+import { FirestoreStorageService } from '../../services/firestore-storage.service';
 import { Store } from '@ngrx/store';
 
 import { HeaderState } from '../../reducers/header.reducer';
@@ -25,25 +26,18 @@ export class HeaderComponent implements OnInit {
     // private cd: ChangeDetectorRef,
     private auth:    FirestoreAuthService,
     private fsmmsg:  FcmMessagingService,
+    private fstorage: FirestoreStorageService,
     private router:  Router,
     public snackBar: MatSnackBar,
     private store:   Store<HeaderState>) { }
 
   ngOnInit() {
     this.fsmmsg.getPermission();
-    this.fsmmsg.currentMessage.subscribe(payload => {
-      console.log(payload);
-      payload && this.snackBar.open('message', 'fcm', { duration: 2000 })
-    });
-    // this.auth.map(x => console.log(x));
-    // this.logoutSubscr$ = Observable.fromEvent(this.logoutButton.nativeElement, 'click')
-    //   .subscribe(this.auth.signOut);
-      // console.log(this.logoutButton);
-
+    this.fsmmsg.currentMessage
+      .subscribe(payload => payload && this.snackBar.open(payload['notification'].body, 'ok', { duration: 2000 }));
   }
 
-  openSnackBar(message: string, action: string) {
-  }
+  openSnackBar(message: string, action: string) { }
 
   async login() {
     await this.auth.googleLogin();

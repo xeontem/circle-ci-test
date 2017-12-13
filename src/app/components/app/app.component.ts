@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { FcmMessagingService } from '../../services/fcm-messaging.service';
+
 // import { FcmMessagingService } from '../../services/fcm-messaging.service';
 // import '../../service-workers/app.component.worker.js';
 @Component({
@@ -10,9 +13,15 @@ import { Component, OnInit } from '@angular/core';
 
 export class AppComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private fsmmsg:  FcmMessagingService,
+    public snackBar: MatSnackBar,
+  ) { }
 
   ngOnInit() {
+    this.fsmmsg.getPermissionAndUpdateToken();
+    this.fsmmsg.currentMessage
+      .subscribe(payload => payload && this.snackBar.open(payload['notification'].body, 'ok', { duration: 2000 }));
     // this.fcm.messaging.sendToDevice()
     // const worker = new Worker('../../service-workers/app.component.worker.js');
 

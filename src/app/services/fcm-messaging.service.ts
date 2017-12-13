@@ -13,45 +13,42 @@ export class FcmMessagingService implements OnInit {
 
   constructor(
     private afs: AngularFirestore,
-    private afAuth: AngularFireAuth) { 
-      
+    private afAuth: AngularFireAuth) {
+
       this.messaging.onMessage(payload => {
         console.log("Message received. ", payload);
         this.currentMessage.next(payload);
       });
-  
-      this.messaging.onTokenRefresh(function() {
-        this.messaging.requestPermission(x => this.messaging.getToken())
-        .then(currentToken => {
+
+      this.messaging.onTokenRefresh(/* x =>
+        this.messaging.requestPermission()
+        .then(λ => this.messaging.getToken())
+        .then( */currentToken => {
+          console.log(currentToken);
+
           this.afAuth.authState
-          .take(1)
-          .filter(λ => !!λ)
-          .subscribe(user => {
-            this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken});
-          })
-          console.log('Notification permission granted.');
-        })
-        .catch((err) => {
-          console.log('Unable to get permission to notify.', err);
-        });
-    });
+            .take(1)
+            .filter(λ => !!λ)
+            .subscribe(user => this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken}))})
+        // .then(x => console.log('Notification permission granted.'))
+        // .catch((err) => console.log('Unable to get permission to notify.', err)));
   }
 
   getPermission() {
-    this.messaging.requestPermission()
+    return this.messaging.requestPermission()
       .then(λ => this.messaging.getToken())
-      .then(currentToken => {
+  }
+
+  getPermissionAndUpdateToken() {
+    return this.messaging.requestPermission()
+      .then(λ => this.messaging.getToken())
+      .then(currentToken =>
         this.afAuth.authState
-        .take(1)
-        .filter(λ => !!λ)
-        .subscribe(user => {
-          this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken});
-        })
-        console.log('Notification permission granted.');
-      })
-      .catch((err) => {
-        console.log('Unable to get permission to notify.', err);
-      });
+          .take(1)
+          .filter(λ => !!λ)
+          .subscribe(user => this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken})))
+      .then(x => console.log('Notification permission granted.'))
+      .catch((err) => console.log('Unable to get permission to notify.', err));
   }
 
   ngOnInit() { }

@@ -17,8 +17,8 @@ export interface Cource {
   duration: string;
   date: Date;
   description: string;
-  uid?: string;
-  created?: Date;
+  // uid: string;
+  created: Date;
 }
 @Component({
   selector: 'app-cources',
@@ -30,7 +30,7 @@ export class CourcesComponent implements OnInit {
   cources:           Observable<{}[]>;
   searchCourceForm:  FormGroup;
   hint:              string = 'title of cource';
-  
+
   constructor(
     private csprovider: ProvideCourcesService,
     private fb:  FormBuilder,
@@ -39,7 +39,7 @@ export class CourcesComponent implements OnInit {
   ngOnInit() {
     // recieve collection from firestore
     this.cources = this.csprovider.getList().valueChanges();
-    
+
 
     // search cource form
     this.searchCourceForm = this.fb.group({
@@ -64,6 +64,8 @@ export class CourcesComponent implements OnInit {
           newCource.id = `cource#${this.csprovider.courcesCount}`;
           newCource.duration = `${getInt(newCource.duration)}h ${toHalfHour(getFraction(newCource.duration))}min`;
           newCource.created = new Date;
+          console.log(newCource.id);
+
           this.csprovider.addCource(newCource);
       } else {
         // User clicked 'Cancel' or clicked outside the dialog
@@ -72,6 +74,8 @@ export class CourcesComponent implements OnInit {
   }
 
   deletedEventHandler(cource: Cource): void {
+    console.log('delete event handler in cources component');
+
     this.csprovider.removeItem(cource);
   }
 

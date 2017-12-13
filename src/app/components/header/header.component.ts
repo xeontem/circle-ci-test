@@ -1,8 +1,6 @@
 import { Component, ViewChild, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
-import {MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
 import { FirestoreAuthService } from '../../services/firestore-auth.service';
-import { FcmMessagingService } from '../../services/fcm-messaging.service';
 import { FirestoreStorageService } from '../../services/firestore-storage.service';
 import { Store } from '@ngrx/store';
 
@@ -25,16 +23,12 @@ export class HeaderComponent implements OnInit {
   constructor(
     // private cd: ChangeDetectorRef,
     private auth:    FirestoreAuthService,
-    private fsmmsg:  FcmMessagingService,
     private fstorage: FirestoreStorageService,
     private router:  Router,
-    public snackBar: MatSnackBar,
     private store:   Store<HeaderState>) { }
 
   ngOnInit() {
-    this.fsmmsg.getPermission();
-    this.fsmmsg.currentMessage
-      .subscribe(payload => payload && this.snackBar.open(payload['notification'].body, 'ok', { duration: 2000 }));
+
   }
 
   openSnackBar(message: string, action: string) { }

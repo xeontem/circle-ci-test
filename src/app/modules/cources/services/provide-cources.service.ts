@@ -33,7 +33,8 @@ export class ProvideCourcesService {
 
   }
 
-  removeItem(cource) {
+  removeItem(cource: Cource) {
+    console.log('catched delete event in cources service');
     this.afs.collection('cources').doc(cource.id).delete();
   }
 }

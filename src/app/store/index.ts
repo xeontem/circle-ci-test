@@ -6,7 +6,7 @@ import {
     MetaReducer,
   } from '@ngrx/store';
   import { environment } from '../../environments/environment';
-  import { RouterStateUrl } from '../shared/utils';
+  import { RouterStateUrl } from '../tools/utils';
   import { RouterReducerState, routerReducer } from '@ngrx/router-store';
 
   //---------------- my reducers -------------------------------

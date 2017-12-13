@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Cource } from '../components/cources/cources.component';
+import { Cource } from '../';
 
 type WhereFilterOp = '<' | '<=' | '==' | '>=' | '>';
 

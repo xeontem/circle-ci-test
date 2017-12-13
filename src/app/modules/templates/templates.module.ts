@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-//-------------------------------- Forms -------------------------------  
+//-------------------------------- Forms -------------------------------
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //-------------------------------- material --------------------------------
@@ -11,10 +11,14 @@ import {
   MatIconModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatOptionModule } from '@angular/material';
+  MatOptionModule
+} from '@angular/material';
 
-import { ButtonsComponent } from './components/buttons/buttons.component';
-import { FormsComponent } from './components/forms/forms.component';
+//---------------------------------- this module -------------------------
+import {
+  ButtonsComponent,
+  FormsComponent
+} from './';
 
 @NgModule({
   imports: [
@@ -33,6 +37,6 @@ import { FormsComponent } from './components/forms/forms.component';
     MatOptionModule,
   ],
   declarations: [ButtonsComponent, FormsComponent],
-  exports: [ ButtonsComponent, FormsComponent ]
+  exports: [ ]
 })
 export class TemplatesModule { }

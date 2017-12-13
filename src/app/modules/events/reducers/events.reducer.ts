@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as eventsActions from '../actions/events.action';
-import { flipGetVal } from '../../../shared/lambda';
+import { flipGetVal } from '../../../tools/lambda';
 export interface SelectedEvent {
 	type: string,
 	title?: string,

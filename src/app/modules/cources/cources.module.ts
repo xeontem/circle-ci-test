@@ -21,16 +21,14 @@ import {
   MatSliderModule
 } from '@angular/material';
 
-//-------------- my components -----------------------------------------
-import { CourcesComponent } from './components/cources/cources.component';
-import { CourceComponent } from './components/cource/cource.component';
+//---------------------------------- this module ---------------------------------
+import {
+  CourcesComponent,
+  CourceComponent,
+  AddCourceDialogComponent,
+  ProvideCourcesService
+} from './';
 
-//------------------- services -----------------------------------------
-import { ProvideCourcesService } from './services/provide-cources.service';
-import { AddCourceDialogComponent } from './components/add-cource-dialog/add-cource-dialog.component';
-
-//------------------- other module services -----------------------------------------
-import { FirestoreAuthService } from '../../services/firestore-auth.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -51,7 +49,7 @@ import { FirestoreAuthService } from '../../services/firestore-auth.service';
     MatSliderModule
   ],
   entryComponents: [ AddCourceDialogComponent ],
-  providers: [FireStoreAuthGuard, ProvideCourcesService, FirestoreAuthService],
+  providers: [FireStoreAuthGuard, ProvideCourcesService],
   declarations: [ CourcesComponent, CourceComponent, AddCourceDialogComponent ],
   exports: [ ]
 })

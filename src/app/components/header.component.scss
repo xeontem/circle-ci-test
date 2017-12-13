@@ -1,0 +1,60 @@
+@import '../../styles.scss';
+@import '../../variables.scss';
+@import '../../common.scss';
+
+.header-wrapper {
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-gap: 15px;
+}
+
+.header-description-container {
+  grid-template-rows: 1fr 2fr;
+  grid-column: 2;
+}
+
+.caption {
+  color: $primary-color;
+  cursor: pointer;
+}
+
+.login-card {
+  grid-row: 1;
+  grid-column: 3;
+  grid-template-rows: 3fr 2fr 1fr;
+}
+
+.user-name {
+  font-size: 1rem;
+  line-height: 2;
+}
+
+.logo-image {
+  @include margin-h(5px);
+  width: $logo-size;
+  height: $logo-size;
+  border: 3px solid $primary-color;
+  border-radius: 50%;
+  background-image: url('/assets/logo.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-y: 20px;
+  outline: none;
+  cursor: pointer;
+}
+
+.avatar {
+  margin: auto;
+  width: $avatar-size;
+  height: $avatar-size;
+  border: 3px solid $primary-color;
+  border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  outline: none;
+}
+
+.guest {
+  background-image: url('/assets/guest.png');
+}
+
+

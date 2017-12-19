@@ -2,10 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { cond, getInt, getFraction, toHalfHour } from '../../../tools/lambda';
+import { cond, condL, I, getInt, getFraction, toHalfHour } from '../../../tools/lambda';
 
 //components
 import { AddCourceDialogComponent } from './add-cource-dialog.component';
+import { ConfirmDeletingComponent } from './confirm-deleting.component';
 //services
 import { ProvideCourcesService } from '../services/provide-cources.service';
 //decorators
@@ -18,6 +19,7 @@ export interface Cource {
   date: Date;
   description: string;
   created: Date;
+  topRated?: boolean;
 }
 
 @Component({
@@ -27,7 +29,7 @@ export interface Cource {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
-  cources:           Observable<{}[]>;
+  cources:           Observable<Cource[]>;
   searchCourceForm:  FormGroup;
   hint:              string = 'title of cource';
 
@@ -39,6 +41,14 @@ export class CourcesComponent implements OnInit {
   ngOnInit() {
     // recieve collection from firestore
     this.cources = this.csprovider.getList().valueChanges();
+    // this.cources = Observable.of([{
+    //   id: 'mockID',
+    //   title: 'mocked cource',
+    //   duration: '',
+    //   date: new Date,
+    //   description: '',
+    //   created: new Date
+    // }]);
 
 
     // search cource form
@@ -53,7 +63,7 @@ export class CourcesComponent implements OnInit {
       (this.csprovider.getList()).valueChanges();
   }
 
-  openDialog(@logParam val: string) {
+  openAddCourceDialog(@logParam val: string) {
     const dialogRef = this.dialog.open(AddCourceDialogComponent, {
       // panelClass: 'add-cource-dialog'
       width: '35vw'
@@ -74,13 +84,12 @@ export class CourcesComponent implements OnInit {
   }
 
   deletedEventHandler(cource: Cource): void {
-    console.log('delete event handler in cources component');
-
-    this.csprovider.removeItem(cource);
+    const dialogRef = this.dialog.open(ConfirmDeletingComponent);
+    dialogRef.afterClosed().subscribe((del: boolean) =>
+      condL(del)(x => this.csprovider.removeItem(cource))(I));
   }
 
-  editedEventHandler(cource: Cource): void {
-    console.log(cource);
+  editedEventHandler(updatedCource: Cource): void {
+    this.csprovider.updateCource(updatedCource);
   }
-
 }

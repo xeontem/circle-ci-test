@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   message: BehaviorSubject<{}>;
   constructor(
     // private cd: ChangeDetectorRef,
-    private auth:    FirestoreAuthService,
+    public auth:    FirestoreAuthService,
     private fstorage: FirestoreStorageService,
     private router:  Router,
     private store:   Store<HeaderState>) { }
@@ -32,14 +32,17 @@ export class HeaderComponent implements OnInit {
   }
 
   async login() {
-    await this.auth.googleLogin();
+    await this.auth.login();
     this.router.navigate(['/cources']);
+    this.auth.isAuthenticated()
+    // console.log('user authenticated? ', this.auth.isAuthenticated());
+
     // this.snackBar.open('login success', 'close', { duration: 2000 });
   }
 
   logout() {
     this.store.dispatch(new Logout());
-    this.auth.signOut();
+    this.auth.logout();
     // this.snackBar.open('logged out', 'close', { duration: 2000 });
     // this.router.navigate(['/home'])
   }

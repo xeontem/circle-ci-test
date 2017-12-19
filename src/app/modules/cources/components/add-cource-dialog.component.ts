@@ -37,7 +37,7 @@ export class AddCourceDialogComponent implements OnInit {
       description: ['', Validators.required],
       date: ['', Validators.required],
       duration: [1.5, Validators.required],
-      id: ['#cource10'],
+      id: [''],
       title: ['', Validators.required],
     });
   }

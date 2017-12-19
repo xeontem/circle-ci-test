@@ -13,6 +13,10 @@
   display: inline;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .container {
   // width: 100%;
   max-width: $layout-width;
@@ -51,6 +55,10 @@
   margin-bottom: $val;
 }
 
+.margin-left-l {
+  margin: 0 0 0 40px;
+}
+
 .padding-10 {
   padding: 10px;
 }
@@ -67,6 +75,10 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+.colums-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 .rows-3 {
   grid-template-rows: 1fr 1fr 1fr;
 }
@@ -79,12 +91,16 @@
   justify-self: start;
 }
 
+.self-start {
+  align-self: start;
+}
+
 .self-center {
   align-self: center;
 }
 
-.self-start {
-  align-self: start;
+.self-end {
+  align-self: end;
 }
 
 // font
@@ -113,6 +129,7 @@
   vertical-align: middle;
 }
 
+//font colors
 .regular-color {
   color: #555;
 }
@@ -124,6 +141,20 @@
 .accent-color {
   color: $accent-color;
 }
+
+//background colors
+.regular-bckgr {
+  background-color: #555;
+}
+
+.primary-bckgr {
+  background-color: $primary-color;
+}
+
+.accent-bckgr {
+  background-color: $accent-color;
+}
+
 
 .gradient {
   background: #a630f4; /* Old browsers */

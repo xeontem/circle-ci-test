@@ -8,7 +8,7 @@
       </mat-select>
       <!-- <mat-hint>Select Lang</mat-hint> -->
     </mat-form-field>
-<!--     
+<!--
     <select [(ngModel)]="lang">
       <option [value]="language.val" *ngFor="let language of langs">{{language.name}}</option>
     </select> -->
@@ -16,7 +16,7 @@
     <mat-list dense>
       <mat-list-item class="m"> {{event.type | translate: lang | async | uppercase}} </mat-list-item>
       <mat-list-item class="m" *ngIf="event.title"> {{event.title | translate: lang | async | uppercase}} </mat-list-item>
-      <mat-list-item class="m" *ngIf="event.start">{{event.start | date | translate: lang | async | uppercase}}</mat-list-item>
+      <!-- <mat-list-item class="m" *ngIf="event.start">{{event.start | date | translate: lang | async | uppercase}}</mat-list-item> -->
       <mat-list-item class="m" *ngIf="event.description">{{event.description | translate: lang | async}}</mat-list-item>
     </mat-list>
   </div>

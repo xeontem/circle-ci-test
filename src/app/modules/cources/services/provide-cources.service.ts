@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Cource } from '../';
+import { Observable } from 'rxjs/Observable';
 
 type WhereFilterOp = '<' | '<=' | '==' | '>=' | '>';
 
@@ -13,7 +14,7 @@ export class ProvideCourcesService {
       .subscribe(cources => this.courcesCount = cources.length)
    }
 
-  getList() {
+  getList(): AngularFirestoreCollection<Cource>  {
     return this.afs.collection('cources');
   }
 
@@ -25,6 +26,10 @@ export class ProvideCourcesService {
     this.afs.collection('cources').doc(newCource.id).set(newCource);
   }
 
+  updateCource(updatedCource: Cource) {
+    this.afs.collection('cources').doc(updatedCource.id).update(updatedCource);
+  }
+
   getItemById(id: string) {
 
   }
@@ -34,7 +39,6 @@ export class ProvideCourcesService {
   }
 
   removeItem(cource: Cource) {
-    console.log('catched delete event in cources service');
     this.afs.collection('cources').doc(cource.id).delete();
   }
 }

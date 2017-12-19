@@ -10,11 +10,13 @@
         <mat-hint>{{hint}}</mat-hint>
       </mat-form-field>
     <button mat-raised-button color="primary" class="self-center" (click)="searchCource(searchCourceForm.value.predicate)">search</button>
-    <button mat-raised-button color="accent" class="self-center" (click)="openDialog(searchCourceForm.value.predicate)">add cource</button>
+    <button mat-raised-button color="accent" class="self-center" (click)="openAddCourceDialog(searchCourceForm.value.predicate)">add cource</button>
   </form>
 
   <app-cource *ngFor="let cource of cources | async"
+    time-border
     class="grid cource-container mat-elevation-z8 padding-20 m"
+    [ngClass]="{'top-rated': cource.topRated}"
     [cource]="cource"
     (deletedCourceEvent)="deletedEventHandler($event)"
     (editedCourceEvent)="editedEventHandler($event)">

@@ -26,6 +26,8 @@ import {
   CourcesComponent,
   CourceComponent,
   AddCourceDialogComponent,
+  ConfirmDeletingComponent,
+  TimeBorderDirective,
   ProvideCourcesService
 } from './';
 
@@ -48,9 +50,15 @@ import {
     MatNativeDateModule,
     MatSliderModule
   ],
-  entryComponents: [ AddCourceDialogComponent ],
+  entryComponents: [ AddCourceDialogComponent, ConfirmDeletingComponent ],
   providers: [FireStoreAuthGuard, ProvideCourcesService],
-  declarations: [ CourcesComponent, CourceComponent, AddCourceDialogComponent ],
+  declarations: [
+    CourcesComponent,
+    CourceComponent,
+    AddCourceDialogComponent,
+    ConfirmDeletingComponent,
+    TimeBorderDirective
+  ],
   exports: [ ]
 })
 export class CourcesModule { }

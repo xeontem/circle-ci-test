@@ -107,7 +107,7 @@ const routes: Routes = [
     FooterComponent,
     PageNotFoundComponent,
     AccessDeniedComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

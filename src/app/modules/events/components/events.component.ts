@@ -9,6 +9,8 @@ import { EventsState, SelectedEvent, valueSelector, eventSelector } from '../red
 import { State } from '../../../store';
 import * as λ from '../../../tools/lambda';
 
+import 'rxjs/add/operator/take';
+
 @Component({
   selector:        'app-events',
   templateUrl:     './events.component.html',
@@ -34,7 +36,6 @@ export class EventsComponent implements OnInit, OnDestroy  {
   reverseStream$:        Subscription;
   setVisibleStream$:     Subscription;
   selectedEvent$:        Observable<SelectedEvent>;
-  // intervalStream$:       Observable<string>;
   calculateStream$:      BehaviorSubject<number[]>  = new BehaviorSubject([0, 0]);
   sortStream$:           BehaviorSubject<number> = new BehaviorSubject(0);
 
@@ -72,10 +73,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
       .map(λ.set(this)('events'))
       .map(events => λ.set(this)('tempArr')(λ.range(λ.length(events))))
       .switchMap(events => oInterval(5).take(λ.length(events)))// TODO compose
-      // .map(B(rand)(K(this.tempArr.length)))
       .map(i => λ.B(λ.rand)(λ.K(this.tempArr.length))(i))
-      // .map(i => ~~(Math.random() * this.tempArr.length))
-      // .do(r => flipSet('visible')('visible')(getVal(this.events)(getVal(this.tempArr)(r))))
       .do(r => λ.B(λ.flipSet('visible')('visible'))(λ.B(λ.getVal(this.events))(λ.getVal(this.tempArr)))(r))
       .map(r => λ.C(λ.splice(this.tempArr))(1)(r))
       .subscribe(arr => this.cd.markForCheck());
@@ -84,8 +82,6 @@ export class EventsComponent implements OnInit, OnDestroy  {
       .map(λ.B(λ.set(this)('result'))(λ.reduce((f, num) => f(num))(λ.cGetSum)))
       .subscribe(res => this.cd.markForCheck());
 
-    // this.intervalStream$ = oInterval(1000)
-    //   .map(val => `button start/reset pressed a ${val} seconds ago`)
   }
 
   changeProperty() {

@@ -10,5 +10,5 @@ export class ButtonsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }
-
+  checkValue() {}
 }

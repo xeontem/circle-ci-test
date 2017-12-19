@@ -7,5 +7,8 @@ export * from './components/confirm-deleting.component';
 //directives
 export * from './directives/time-border.directive';
 
+//pipes
+export * from './pipes/duration.pipe';
+
 //services
 export * from './services/provide-cources.service';

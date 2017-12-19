@@ -47,9 +47,11 @@ export class CourceComponent implements OnInit {
   }
 
   // @logger
-  // @Emit('editedCourceEvent')
-  updateCource(cource: Cource) {
-    console.log(this.editedCource.value)
+  @Emit('editedCourceEvent')
+  updateCource() {
+    console.log(this.editedCource.value);
+    this.editedCource.value.created = new Date;
+    return this.editedCource.value;
   }
 
   toggleEditMode(cource: Cource) {

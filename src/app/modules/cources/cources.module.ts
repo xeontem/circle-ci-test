@@ -28,6 +28,7 @@ import {
   AddCourceDialogComponent,
   ConfirmDeletingComponent,
   TimeBorderDirective,
+  DurationPipe,
   ProvideCourcesService
 } from './';
 
@@ -57,7 +58,8 @@ import {
     CourceComponent,
     AddCourceDialogComponent,
     ConfirmDeletingComponent,
-    TimeBorderDirective
+    TimeBorderDirective,
+    DurationPipe
   ],
   exports: [ ]
 })

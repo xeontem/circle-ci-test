@@ -72,7 +72,7 @@ export class CourcesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((newCource: Cource) => {
       if (newCource) {
           newCource.id = `cource#${this.csprovider.courcesCount}`;
-          newCource.duration = `${getInt(newCource.duration)}h ${toHalfHour(getFraction(newCource.duration))}min`;
+          // newCource.duration = `${getInt(newCource.duration)}h ${toHalfHour(getFraction(newCource.duration))}min`;
           newCource.created = new Date;
           console.log(newCource.id);
 

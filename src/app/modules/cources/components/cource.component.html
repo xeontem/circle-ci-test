@@ -26,7 +26,7 @@
         </mat-form-field>
     </form>
       <div class="grid cource-controls-container">
-        <button mat-raised-button color="primary" class="self-start" (click)="updateCource(cource)">save</button>
+        <button mat-raised-button color="primary" class="self-start" (click)="updateCource()">save</button>
         <button mat-raised-button color="warn" class="self-start" (click)="toggleEditMode()">cancel</button>
       </div>
   </ng-template>
@@ -43,7 +43,7 @@
             </h4>
             <span>
               <mat-icon class="valign-bottom accent-color">access_time</mat-icon>
-              {{cource.duration}}
+              {{cource.duration | duration}}
             </span>
             <span>
               <mat-icon class="valign-bottom accent-color">date_range</mat-icon>

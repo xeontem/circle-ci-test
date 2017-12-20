@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { log } from 'util';
 import { MatChipSelectionChange, MatChip, MatSelect, MatSelectChange } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,7 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'tpl-forms',
   templateUrl: './forms.component.html',
-  styleUrls: ['./forms.component.scss']
+  styleUrls: ['./forms.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormsComponent implements OnInit {
 // template driven form

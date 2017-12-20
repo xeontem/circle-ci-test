@@ -1,15 +1,16 @@
 <section>
   <!-- reactive form -->
   <form
-    class="grid gap-20 colums-3 margin-h-20 container"
+    class="grid gap-20 colums-4 margin-h-20 container"
     [formGroup]="searchCourceForm"
     novalidate>
       <mat-form-field class="m">
-        <input matInput placeholder="Cource title" formControlName="predicate">
+        <input matInput placeholder="Cource title" formControlName="predicate" (input)="searchCource(searchCourceForm.value.predicate)">
         <mat-error *ngIf="searchCourceForm.invalid">Please type a predicate</mat-error>
         <mat-hint>{{hint}}</mat-hint>
       </mat-form-field>
     <button mat-raised-button color="primary" class="self-center" (click)="searchCource(searchCourceForm.value.predicate)">search</button>
+    <button mat-raised-button color="primary" class="self-center" (click)="restoreCources()">restore</button>
     <button mat-raised-button color="accent" class="self-center" (click)="openAddCourceDialog(searchCourceForm.value.predicate)">add cource</button>
   </form>
 

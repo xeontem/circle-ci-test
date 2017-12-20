@@ -2,52 +2,56 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Cource } from '../';
 import { Observable } from 'rxjs/Observable';
-
-type WhereFilterOp = '<' | '<=' | '==' | '>=' | '>';
+import { Http } from '@angular/http';
+import { firestore } from 'firebase/app/';
 
 @Injectable()
 export class ProvideCourcesService {
   courcesCount: number;
+  cources:      Observable<Cource[]>;
 
-  constructor(private afs: AngularFirestore) {
-    this.afs.collection('cources').valueChanges()
-      .subscribe(cources => this.courcesCount = cources.length)
+  constructor(
+    private http:Http,
+    private afs: AngularFirestore
+  ) {
+    this.cources = this.getList().valueChanges();
+    this.cources.subscribe(cources => {
+      console.log(cources);
+
+      this.courcesCount = cources.length
+    });
    }
 
   getList(): AngularFirestoreCollection<Cource>  {
     return this.afs.collection('cources');
   }
 
-  getListByQuery(key: string, query: WhereFilterOp, value: string): AngularFirestoreCollection<Cource> {
-    return this.afs.collection('cources', ref => ref.where(key, query, value));
+  getListByQuery(key: firestore.FieldPath, query: firestore.WhereFilterOp, value: any): AngularFirestoreCollection<Cource> {
+    return this.afs.collection('cources', (ref: firestore.CollectionReference): firestore.Query => ref.where(key, query, value));
   }
 
-  addCource(newCource: Cource) {
+  addCource(newCource: Cource): void {
     this.afs.collection('cources').doc(newCource.id).set(newCource);
   }
 
-  updateCource(updatedCource: Cource) {
+  updateCource(updatedCource: Cource): void {
     this.afs.collection('cources').doc(updatedCource.id).update(updatedCource);
   }
 
   getItemById(id: string) {
-
+    return this.afs.collection('cources').doc(id);
   }
 
-  updateItem() {
-
-  }
-
-  removeItem(cource: Cource) {
+  removeItem(cource: Cource): void {
     this.afs.collection('cources').doc(cource.id).delete();
   }
+
+  backup(): Observable<any> {
+    return this.http.get('https://us-central1-circle-ci-test-31dfc.cloudfunctions.net/backupCources')
+  }
+
+  restore(): Observable<any> {
+    return this.http.get('https://us-central1-circle-ci-test-31dfc.cloudfunctions.net/restoreCources')
+  }
+
 }
-
-
-// curl -X POST -H "Authorization: " -H "Content-Type: application/json" -d '{
-//   "notification": {
-//     "title": "FCM Message",
-//     "body": "This is an FCM Message",
-//   },
-//   "token": "bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1..."
-// }' "https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send HTTP/1.1"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { FcmMessagingService } from '../services/fcm-messaging.service';
 
@@ -7,7 +7,8 @@ import { FcmMessagingService } from '../services/fcm-messaging.service';
 @Component({
   selector: 'app-component',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { MatDatepicker, MatSuffix, MatFormFieldControl, MatInput } from '@angular/material';
 import { MatDialogRef } from '@angular/material';
@@ -15,7 +15,8 @@ type Hints = {
 @Component({
   selector: 'cources-add-cource-dialog',
   templateUrl: './add-cource-dialog.component.html',
-  styleUrls: ['./add-cource-dialog.component.scss']
+  styleUrls: ['./add-cource-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCourceDialogComponent implements OnInit {
   @Output() newCourceEvent = new EventEmitter<string>();

@@ -1,10 +1,11 @@
-import { Component, Input, Output, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SelectedEvent } from '../reducers/events.reducer';
 
 @Component({
   selector: 'event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss']
+  styleUrls: ['./event.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventComponent implements OnInit {
   @Input()event: SelectedEvent;

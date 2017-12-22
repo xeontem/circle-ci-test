@@ -1,9 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { cond, condL, I, getInt, getFraction, toHalfHour } from '../../../tools/lambda';
-
+import { condL, I } from '../../../tools/lambda';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 //components
 import { AddCourceDialogComponent } from './add-cource-dialog.component';
 import { ConfirmDeletingComponent } from './confirm-deleting.component';
@@ -11,7 +9,8 @@ import { ConfirmDeletingComponent } from './confirm-deleting.component';
 import { ProvideCourcesService } from '../services/provide-cources.service';
 //decorators
 import { logParam } from '../../../tools/parameter.decorators';
-import 'rxjs/add/operator/reduce';
+//pipes
+import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
 export interface Cource {
   id: string;
   title: string;
@@ -19,9 +18,9 @@ export interface Cource {
   date: Date;
   description: string;
   created: Date;
-  topRated?: boolean;
+  topRated: boolean;
 }
-
+export type Order = 'id' | 'title' | 'duration' | 'date' | 'description' | 'created' | 'topRated'
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -29,76 +28,39 @@ export interface Cource {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
-  cources:                 Observable<Cource[]>;
-  searchCourceForm:        FormGroup;
-  hint:                    string = 'title of cource';
-  searchCourceStream$:     Subscription;
+  orders: Order[] = ['id', 'title', 'duration', 'date', 'description', 'created', 'topRated'];
+  orderKey: Order = this.orders[0];
+  searchPredicate: string = '';
 
   constructor(
     private csprovider: ProvideCourcesService,
-    private fb:         FormBuilder,
-    private cd:         ChangeDetectorRef,
-    private dialog:     MatDialog) { }
+    private dialog:     MatDialog,
+    private flpipe:     FilterCourcesPipe) { }
 
-  ngOnInit() {
-    // recieve collection from firestore
-    this.cources = this.csprovider.cources;
-    // this.cources = Observable.of([{
-    //   id: 'mockID',
-    //   title: 'mocked cource',
-    //   duration: '',
-    //   date: new Date,
-    //   description: '',
-    //   created: new Date
-    // }]);
-
-
-    // search cource form
-    this.searchCourceForm = this.fb.group({
-      predicate: ['', Validators.required]
-    });
-  }
+  ngOnInit() { }
 
   searchCource(@logParam val: string): void {
-    console.log(val);
-    this.searchCourceStream$ = this.cources
-      .do(val => console.log(val))
-      .subscribe(x => this.cd.markForCheck())
-      // .switchMap(cources => Observable.from(cources))
-      // .filter(cource => cource.title.toLocaleLowerCase().includes(val.toLowerCase()))
-      // .do(cource => console.log('after: ', cource))
-      // .reduce((acc, cource, ind) => acc.concat([cource]), [])// flatMap(cource => Observable.(cource))
-
-    // this.cources = cond(val)
-    //   (this.csprovider.getListByQuery('title', '==', val))
-    //   (this.csprovider.getList()).valueChanges();
+    ProvideCourcesService.cources = this.flpipe.transform(this.csprovider.getList().valueChanges(), val)
   }
 
   restoreCources() {
     this.csprovider.restore().subscribe(res => console.log(res));
   }
 
-  openAddCourceDialog(@logParam val: string) {
-    const dialogRef = this.dialog.open(AddCourceDialogComponent, {
-      // panelClass: 'add-cource-dialog'
-      width: '35vw'
-    });
-
-    dialogRef.afterClosed().subscribe((newCource: Cource) => {
-      if (newCource) {
-          newCource.id = `cource#${this.csprovider.courcesCount}`;
-          newCource.created = new Date;
-          this.csprovider.addCource(newCource);
-      } else {
-        // User clicked 'Cancel' or clicked outside the dialog
-      }
-    });
+  openAddCourceDialog() {
+      this.dialog
+        .open(AddCourceDialogComponent, { width: '35vw' })
+        .afterClosed()
+        .subscribe((newCource: Cource) =>
+          newCource && this.csprovider.addCource(newCource));
   }
 
-  deletedEventHandler(cource: Cource): void {
-    const dialogRef = this.dialog.open(ConfirmDeletingComponent);
-    dialogRef.afterClosed().subscribe((del: boolean) =>
-      condL(del)(x => this.csprovider.removeItem(cource))(I));
+  deletedEventHandler(id: string): void {
+    this.dialog
+      .open(ConfirmDeletingComponent)
+      .afterClosed()
+      .subscribe((del: boolean) =>
+        condL(del)(x => this.csprovider.removeItem(id))(I));
   }
 
   editedEventHandler(updatedCource: Cource): void {

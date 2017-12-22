@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FireStoreAuthGuard } from '../../guards/fire-store-auth.guard';
 
 //-------------------------------- Forms -------------------------------
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 //-------------------------------- material --------------------------------
 import {
@@ -18,7 +18,9 @@ import {
   MatDialogModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSliderModule
+  MatSliderModule,
+  MatProgressSpinnerModule,
+  MatSelectModule
 } from '@angular/material';
 
 //---------------------------------- this module ---------------------------------
@@ -29,7 +31,9 @@ import {
   ConfirmDeletingComponent,
   TimeBorderDirective,
   DurationPipe,
-  ProvideCourcesService
+  OrderByPipe,
+  ProvideCourcesService,
+  FilterCourcesPipe
 } from './';
 
 @NgModule({
@@ -38,6 +42,7 @@ import {
 
     // forms
     ReactiveFormsModule,
+    FormsModule,
 
     // material
     MatCardModule,
@@ -49,17 +54,21 @@ import {
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   entryComponents: [ AddCourceDialogComponent, ConfirmDeletingComponent ],
-  providers: [FireStoreAuthGuard, ProvideCourcesService],
+  providers: [FireStoreAuthGuard, ProvideCourcesService, FilterCourcesPipe],
   declarations: [
     CourcesComponent,
     CourceComponent,
     AddCourceDialogComponent,
     ConfirmDeletingComponent,
     TimeBorderDirective,
-    DurationPipe
+    DurationPipe,
+    OrderByPipe,
+    // FilterCourcesPipe
   ],
   exports: [ ]
 })

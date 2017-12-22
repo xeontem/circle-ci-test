@@ -21,6 +21,19 @@ export function Emit(evntName: string) {
   }
 }
 
+export function DeferUntill(predicate: any) {
+  return function(target: {}, key: string, descriptor: PropertyDescriptor) {
+
+    const origMethod = descriptor.value;
+
+    descriptor.value = function<T>(...args: T[]) {
+      console.dir(predicate)
+      if(predicate) return origMethod.apply(this, args);
+    }
+
+    return descriptor;
+  }
+}
 //------------------- single methods ---------------------------------------
 /*
 target: class that current method is

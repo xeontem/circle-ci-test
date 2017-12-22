@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { MatDatepicker, MatSuffix, MatFormFieldControl, MatInput } from '@angular/material';
 import { MatDialogRef } from '@angular/material';
 import { Cource } from '../';
 import { Emit } from '../../../tools/methods.decorators';
@@ -21,7 +20,6 @@ type Hints = {
 export class AddCourceDialogComponent implements OnInit {
   @Output() newCourceEvent = new EventEmitter<string>();
   newCource: FormGroup;
-  date: string = '';
   hints: Hints = {
     description: 'string',
     date: 'mm/dd/yyyy',
@@ -36,17 +34,16 @@ export class AddCourceDialogComponent implements OnInit {
   ngOnInit() {
     this.newCource = this.fb.group({
       description: ['', Validators.required],
-      date: ['', Validators.required],
+      date: [new Date, Validators.required],
       duration: [1.5, Validators.required],
-      id: [''],
       title: ['', Validators.required],
+      topRated: [false]
     });
   }
 
   // @Emit('newCourceEvent')
   addNew(newCource: Cource) {
     this.dialogRef.close(newCource);
-    // return newCource;
   }
 
 }

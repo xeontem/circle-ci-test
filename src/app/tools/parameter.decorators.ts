@@ -30,10 +30,10 @@ args: arguments that this method recieves
 /*
 target: class that current method is
 this: intance of the class
-name: name of method(our function)
+methodName: name of method(our function)
 ind: index of current parameter
 */
-export function logParam(target, name, ind) {
-  console.log(name, ind);
+export function logParam(target, methodName, ind) {
+  console.log(methodName, ind);
 }
 

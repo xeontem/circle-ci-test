@@ -45,6 +45,18 @@ export const arOf = Array.of;
 export const concat = <T>(a: Array<T>) => (b: Array<T>): Array<T> => a.concat(b);
 export const pushI = arr => el => i => arr.push(i);
 
+//----------------- filter ------------------
+export const objKeyPredicate = key =>
+  (c1, c2) =>
+    c1[key] < c2[key] ? -1 :
+    c1[key] > c2[key] ? 1 : 0
+
+export const objKeyLengthPredicate = key =>
+  (c1, c2) =>
+    c1[key].length < c2[key].length ? -1 :
+    c1[key].length > c2[key].length ? 1 : 0
+
+
 //----------------- number ------------------
 export const rand = max => ~~(Math.random() * max);
 export const fib = n => n === 0 || n === 1 ? 1 : fib(n - 1) + fib(n - 2);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Output, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { FcmMessagingService } from '../services/fcm-messaging.service';
 
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   constructor(
     private fsmmsg:  FcmMessagingService,
     public snackBar: MatSnackBar,
+    private zone:    NgZone
   ) { }
 
   ngOnInit() {
@@ -25,8 +26,20 @@ export class AppComponent implements OnInit {
       .subscribe(payload => payload && this.snackBar.open(payload['notification'].body, 'ok', { duration: 2000 }));
     // this.fcm.messaging.sendToDevice()
     // const worker = new Worker('../../service-workers/app.component.worker.js');
+    this.zone.onStable.subscribe(x => console.warn('zone stable'))
+    this.zone.onUnstable.subscribe(x => console.warn('zone unstable'))
+  }
+
+  stableHandler($event) {
+    console.log($event);
 
   }
+
+  unstableHandler($event) {
+    console.log($event);
+
+  }
+
 }
 
 

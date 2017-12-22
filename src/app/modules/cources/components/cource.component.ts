@@ -3,12 +3,6 @@ import { Cource } from '../';
 import { Emit, logger } from '../../../tools/methods.decorators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-type Hints = {
-  description: string;
-  date: string;
-  duration: string;
-  title: string;
-}
 @Component({
   selector: 'app-cource',
   templateUrl: './cource.component.html',
@@ -19,14 +13,7 @@ export class CourceComponent implements OnInit {
   @Input() cource: Cource;
   @Output() deletedCourceEvent = new EventEmitter<string>();
   @Output() editedCourceEvent = new EventEmitter<Cource>();
-  editMode: boolean = false;
   editedCource: FormGroup;
-  hints: Hints = {
-    description: 'string',
-    date: 'mm/dd/yyyy',
-    duration: 'Duration: ',
-    title: 'string'
-  };
 
   constructor(private fb: FormBuilder) { }
 
@@ -42,9 +29,7 @@ export class CourceComponent implements OnInit {
    }
 
   @Emit('deletedCourceEvent')
-  delCource(cource: Cource): void {
-
-  }
+  delCource(id: string): void { }
 
   // @logger
   @Emit('editedCourceEvent')
@@ -54,14 +39,9 @@ export class CourceComponent implements OnInit {
     return this.editedCource.value;
   }
 
-  toggleEditMode(cource: Cource) {
-    this.editMode = !this.editMode;
-  }
-
   @Emit('editedCourceEvent')
   toggleRateCource() {
     this.cource.topRated = !this.cource.topRated;
-    console.log(this.cource.id, 'rated: ', this.cource.topRated);
     return this.cource;
   }
 }

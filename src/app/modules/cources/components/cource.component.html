@@ -5,8 +5,7 @@
 <ng-template #edit>
     <form [formGroup]="editedCource" class="grid cource-header-edit gap-20" novalidate>
         <div class="grid colums-3 self-end margin-left-l">
-          <mat-icon *ngIf="cource.topRated" class="valign-middle absolute star" (click)="toggleRateCource()">star</mat-icon>
-          <mat-icon *ngIf="!cource.topRated" class="valign-middle absolute star" (click)="toggleRateCource()">star_border</mat-icon>
+          <mat-icon class="valign-middle absolute star" (click)="editedCource.value.topRated = !editedCource.value.topRated">star{{!cource.topRated && '_border'}}</mat-icon>
           <mat-form-field>
             <input matInput placeholder="Title" formControlName="title" [value]="editedCource.value.title">
             <mat-error *ngIf="editedCource.invalid">Please enter title</mat-error>
@@ -16,44 +15,43 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
             <mat-datepicker #picker></mat-datepicker>
-            <mat-hint>{{hints.date}}</mat-hint>
+            <mat-hint>mm/dd/yyyy</mat-hint>
             <mat-error *ngIf="editedCource.invalid">Please enter valid date(mm/dd/yyyy)</mat-error>
           </mat-form-field>
         </div>
         <mat-form-field>
-          <textarea matInput placeholder="Description" formControlName="description" [value]="editedCource.value.description"></textarea>
+          <textarea matInput matTextareaAutosize placeholder="Description" formControlName="description" [value]="editedCource.value.description"></textarea>
           <mat-error *ngIf="editedCource.invalid">Please enter description</mat-error>
         </mat-form-field>
     </form>
-      <div class="grid cource-controls-container">
-        <button mat-raised-button color="primary" class="self-start" (click)="updateCource()">save</button>
-        <button mat-raised-button color="warn" class="self-start" (click)="toggleEditMode()">cancel</button>
-      </div>
+    <div class="grid cource-controls-container">
+      <button mat-raised-button color="primary" class="self-start" (click)="updateCource()">save</button>
+      <button mat-raised-button color="warn"    class="self-start" (click)="editMode = !editMode">cancel</button>
+    </div>
   </ng-template>
 
   <!-- display mode -->
   <ng-template #display>
       <div class="grid cource-header gap-20">
-          <div class="grid colums-3 self-end margin-left-l">
-            <mat-icon *ngIf="cource.topRated" class="valign-middle absolute star" (click)="toggleRateCource()">star</mat-icon>
-            <mat-icon *ngIf="!cource.topRated" class="valign-middle absolute star" (click)="toggleRateCource()">star_border</mat-icon>
-            <h4 class="inline-block cource-heading primary-color">
-              <mat-icon class="valign-middle">text_format</mat-icon>
-              {{cource.title | uppercase}}
-            </h4>
-            <span>
-              <mat-icon class="valign-bottom accent-color">access_time</mat-icon>
-              {{cource.duration | duration}}
-            </span>
-            <span>
-              <mat-icon class="valign-bottom accent-color">date_range</mat-icon>
-              {{cource.date | date}}
-            </span>
-          </div>
-          <p class="regular-color">{{cource.description}}</p>
+        <div class="grid colums-3 self-end margin-left-l">
+          <mat-icon class="valign-middle absolute star" (click)="toggleRateCource()">star{{!cource.topRated && '_border'}}</mat-icon>
+          <h4 class="inline-block cource-heading primary-color">
+            <mat-icon class="valign-middle">text_format</mat-icon>
+            {{cource.title | uppercase}}
+          </h4>
+          <span>
+            <mat-icon class="valign-bottom accent-color">access_time</mat-icon>
+            {{cource.duration | duration}}
+          </span>
+          <span>
+            <mat-icon class="valign-bottom accent-color">date_range</mat-icon>
+            {{cource.date | date}}
+          </span>
         </div>
-        <div class="grid cource-controls-container">
-          <button mat-raised-button color="primary" class="self-start" (click)="toggleEditMode()">edit</button>
-          <button mat-raised-button color="warn" class="self-start" (click)="delCource(cource)">delete</button>
-        </div>
+        <p class="regular-color">{{cource.description}}</p>
+      </div>
+      <div class="grid cource-controls-container">
+        <button mat-raised-button color="primary" class="self-start" (click)="editMode = !editMode">edit</button>
+        <button mat-raised-button color="warn"    class="self-start" (click)="delCource(cource.id)">delete</button>
+      </div>
   </ng-template>

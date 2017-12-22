@@ -9,6 +9,7 @@ export * from './directives/time-border.directive';
 
 //pipes
 export * from './pipes/duration.pipe';
-
+export * from './pipes/order-by.pipe';
+export * from './pipes/filter-cources.pipe';
 //services
 export * from './services/provide-cources.service';

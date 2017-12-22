@@ -72,11 +72,15 @@
 }
 
 .colums-3 {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .colums-4 {
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.colums-5 {
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .rows-3 {

@@ -1,20 +1,31 @@
 <section>
-  <!-- reactive form -->
-  <form
-    class="grid gap-20 colums-4 margin-h-20 container"
-    [formGroup]="searchCourceForm"
-    novalidate>
+  <div class="grid gap-20 colums-5 margin-h-20 container">
       <mat-form-field class="m">
-        <input matInput placeholder="Cource title" formControlName="predicate" (input)="searchCource(searchCourceForm.value.predicate)">
-        <mat-error *ngIf="searchCourceForm.invalid">Please type a predicate</mat-error>
-        <mat-hint>{{hint}}</mat-hint>
+        <mat-select class="self-center" [(ngModel)]="orderKey" placeholder="Order by:">
+          <mat-option *ngFor="let order of orders" [attr.selected]="order == 'id'" [value]="order">{{order}}</mat-option>
+        </mat-select>
       </mat-form-field>
-    <button mat-raised-button color="primary" class="self-center" (click)="searchCource(searchCourceForm.value.predicate)">search</button>
+      <mat-form-field class="m">
+        <input matInput placeholder="Cource title" [(ngModel)]="searchPredicate">
+      </mat-form-field>
+    <button mat-raised-button color="primary" class="self-center" (click)="searchCource(searchPredicate)">search</button>
+    <!-- <mat-hint>select cources order</mat-hint> -->
     <button mat-raised-button color="primary" class="self-center" (click)="restoreCources()">restore</button>
-    <button mat-raised-button color="accent" class="self-center" (click)="openAddCourceDialog(searchCourceForm.value.predicate)">add cource</button>
-  </form>
+    <button mat-raised-button color="accent" class="self-center" (click)="openAddCourceDialog()">add cource</button>
+    </div>
 
-  <app-cource *ngFor="let cource of cources | async"
+  <div *ngIf="csprovider.constructor.cources; then loaded else loading" class=""></div>
+
+</section>
+
+<!-- edit mode -->
+<ng-template #loading>
+    <mat-spinner class="margin-auto"></mat-spinner>
+</ng-template>
+
+<!-- display mode -->
+<ng-template #loaded>
+    <app-cource *ngFor="let cource of csprovider.constructor.cources | async | orderBy: orderKey"
     time-border
     class="grid cource-container mat-elevation-z8 padding-20 m"
     [ngClass]="{'top-rated': cource.topRated}"
@@ -22,4 +33,4 @@
     (deletedCourceEvent)="deletedEventHandler($event)"
     (editedCourceEvent)="editedEventHandler($event)">
   </app-cource>
-</section>
+</ng-template>

@@ -7,19 +7,13 @@ import { firestore } from 'firebase/app/';
 
 @Injectable()
 export class ProvideCourcesService {
-  courcesCount: number;
-  cources:      Observable<Cource[]>;
+  static cources: Observable<Cource[]>;
 
   constructor(
     private http:Http,
     private afs: AngularFirestore
   ) {
-    this.cources = this.getList().valueChanges();
-    this.cources.subscribe(cources => {
-      console.log(cources);
-
-      this.courcesCount = cources.length
-    });
+    ProvideCourcesService.cources = this.getList().valueChanges();
    }
 
   getList(): AngularFirestoreCollection<Cource>  {
@@ -31,7 +25,7 @@ export class ProvideCourcesService {
   }
 
   addCource(newCource: Cource): void {
-    this.afs.collection('cources').doc(newCource.id).set(newCource);
+    this.afs.collection('cources').add(newCource);
   }
 
   updateCource(updatedCource: Cource): void {
@@ -42,8 +36,8 @@ export class ProvideCourcesService {
     return this.afs.collection('cources').doc(id);
   }
 
-  removeItem(cource: Cource): void {
-    this.afs.collection('cources').doc(cource.id).delete();
+  removeItem(id: string): void {
+    this.afs.collection('cources').doc(id).delete();
   }
 
   backup(): Observable<any> {

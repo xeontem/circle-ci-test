@@ -60,7 +60,7 @@ export class CourcesComponent implements OnInit {
       .open(ConfirmDeletingComponent)
       .afterClosed()
       .subscribe((del: boolean) =>
-        condL(del)(x => this.csprovider.removeItem(id))(I));
+        del && this.csprovider.removeItem(id));
   }
 
   editedEventHandler(updatedCource: Cource): void {

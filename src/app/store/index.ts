@@ -62,7 +62,7 @@ import {
    * that will be composed to form the root meta-reducer.
    */
   export const metaReducers: MetaReducer<State>[] =
-    !environment.production ? [/*logger,*/ /* storeFreeze */] : [];
+    !environment.production ? [logger, storeFreeze] : [];
 
   /**
    * Layout Reducers

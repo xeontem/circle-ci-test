@@ -1,19 +1,22 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Cource } from '../';
+import { Cource, CourcesState } from '../reducers/cources.reducer';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { firestore } from 'firebase/app/';
-
+import { Store } from '@ngrx/store';
+import { SetCources } from '../actions/cources.action';
 @Injectable()
 export class ProvideCourcesService {
   static cources: Observable<Cource[]>;
 
   constructor(
-    private http:Http,
-    private afs: AngularFirestore
+    private http:  Http,
+    private afs:   AngularFirestore,
+    private store: Store<CourcesState>
   ) {
-    ProvideCourcesService.cources = this.getList().valueChanges();
+    this.store.dispatch(new SetCources(this.getList().valueChanges()))
+    // ProvideCourcesService.cources = this.getList().valueChanges();
    }
 
   getList(): AngularFirestoreCollection<Cource>  {

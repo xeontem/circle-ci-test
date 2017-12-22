@@ -11,16 +11,8 @@ import { ProvideCourcesService } from '../services/provide-cources.service';
 import { logParam } from '../../../tools/parameter.decorators';
 //pipes
 import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
-export interface Cource {
-  id: string;
-  title: string;
-  duration: string;
-  date: Date;
-  description: string;
-  created: Date;
-  topRated: boolean;
-}
-export type Order = 'id' | 'title' | 'duration' | 'date' | 'description' | 'created' | 'topRated'
+import { Store } from '@ngrx/store';
+import { CourcesState, Order, Cource, ordersSelector } from '../reducers/cources.reducer';
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -28,16 +20,19 @@ export type Order = 'id' | 'title' | 'duration' | 'date' | 'description' | 'crea
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
-  orders: Order[] = ['id', 'title', 'duration', 'date', 'description', 'created', 'topRated'];
-  orderKey: Order = this.orders[0];
-  searchPredicate: string = '';
+  orderKey: Order;
+  searchPredicate: string;
 
   constructor(
     private csprovider: ProvideCourcesService,
     private dialog:     MatDialog,
-    private flpipe:     FilterCourcesPipe) { }
+    private flpipe:     FilterCourcesPipe,
+    private store: Store<CourcesState>) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.orderKey = this.store.select(ordersSelector)[0];
+    this.searchPredicate = '';
+  }
 
   searchCource(@logParam val: string): void {
     ProvideCourcesService.cources = this.flpipe.transform(this.csprovider.getList().valueChanges(), val)

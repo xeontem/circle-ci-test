@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Cource } from '../components/cources.component';
+import { Cource } from '../reducers/cources.reducer';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/reduce';

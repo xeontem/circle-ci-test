@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, ElementRef, Renderer } from '@angular/core';
-import { Cource } from '../components/cources.component';
+import { Cource } from '../reducers/cources.reducer';
 
 @Directive({
   selector: '[time-border]'

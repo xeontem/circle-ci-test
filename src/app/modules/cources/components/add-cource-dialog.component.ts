@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { Cource } from '../';
+import { Cource } from '../reducers/cources.reducer';
 import { Emit } from '../../../tools/methods.decorators';
 
 type Hints = {

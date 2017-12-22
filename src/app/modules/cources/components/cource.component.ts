@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Cource } from '../';
+import { Cource } from '../reducers/cources.reducer';
 import { Emit, logger } from '../../../tools/methods.decorators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

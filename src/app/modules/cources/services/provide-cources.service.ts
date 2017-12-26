@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { SetCources } from '../actions/cources.action';
 @Injectable()
 export class ProvideCourcesService {
-  static cources: Observable<Cource[]>;
+  // static cources: Observable<Cource[]>;
 
   constructor(
     private http:  Http,

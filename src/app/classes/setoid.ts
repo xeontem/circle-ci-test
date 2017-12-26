@@ -1,9 +1,6 @@
 export class Setoid<T> {
-  private value: T;
-  
-  constructor(value: T) {
-    this.value = value;
-  }
+
+  constructor(private value: T) { }
 
   equals(setoid: Setoid<T>): boolean {
     return this.value === setoid.value;

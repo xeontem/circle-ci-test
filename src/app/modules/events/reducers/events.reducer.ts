@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as eventsActions from '../actions/events.action';
-import { flipGetVal } from '../../../tools/lambda';
+import { getValRight } from '../../../tools/lambda';
 export interface SelectedEvent {
 	type: string,
 	title?: string,
@@ -45,7 +45,7 @@ const getEventsState = createFeatureSelector<EventsState>('eventsReducer');
 // const getYperfWith     = (state: EventsState) => state.perfWith;// get perfWith from Y store
 // const getYwithValue    = (state: EventsState) => state.withValue;// get value from Y store
 
-export const valueSelector     = createSelector(getEventsState, flipGetVal('value'));
-export const eventSelector     = createSelector(getEventsState, flipGetVal('selectedEvent'));
-export const perfWithSelector  = createSelector(getEventsState, flipGetVal('perfWith'));
-export const withValueSelector = createSelector(getEventsState, flipGetVal('withValue'));
+export const valueSelector     = createSelector(getEventsState, getValRight('value'));
+export const eventSelector     = createSelector(getEventsState, getValRight('selectedEvent'));
+export const perfWithSelector  = createSelector(getEventsState, getValRight('perfWith'));
+export const withValueSelector = createSelector(getEventsState, getValRight('withValue'));

@@ -1,4 +1,5 @@
 <nav class="container" (ngZone.onUnstable)="unstableHandler($event)" (ngZone.onStable)="stableHandler($event)">
+  <button mat-button routerLink="home">home</button>
   <button mat-button [matMenuTriggerFor]="menu">templates</button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="templates/forms">forms</button>

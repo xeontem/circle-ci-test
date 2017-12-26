@@ -9,18 +9,21 @@ import 'rxjs/add/operator/reduce';
 })
 export class FilterCourcesPipe implements PipeTransform {
 
-  transform(cources: Observable<Cource[]>, val: string = ''): Observable<Cource[]> {
-    const obs = cources.switchMap(cources => Observable.from(cources));
-    console.dir(obs);
+  transform(cources: Observable<Cource[]>, val: string): Observable<Cource[]> {
+    // const obs = cources.switchMap(cources => Observable.from(cources));
+    // console.dir(obs);
 
-    obs.filter(cource => cource.title.toLocaleLowerCase().includes(val.toLowerCase()))
-    // .reduce((acc, cource) => acc.concat([cource]), [])// flatMap(cource => Observable.(cource))
-    .toArray()
-    .do(val => console.log(val))
-    .subscribe(val => console.log(val))
+    // obs.filter(cource => cource.title.toLocaleLowerCase().includes(val.toLowerCase()))
+    // // .reduce((acc, cource) => acc.concat([cource]), [])// flatMap(cource => Observable.(cource))
+    // .toArray()
+    // .do(val => console.log(val))
+    // .subscribe(val => console.log(val))
 
-    return cources.map(cources =>
-        cources.filter(cource => cource.title.toLocaleLowerCase().includes(val.toLowerCase())))
+    return cources.map((cources: Cource[]) => cources.filter((cource: Cource) => cource.title.toLocaleLowerCase().includes(val.toLowerCase())))
+        // .map(cources => {
+        //   console.dir(cources.length)
+        //   return cources;
+        // })
   //   .subscribe(val => console.log(val))
   // cources.subscribe(
   //   val => console.log(val),

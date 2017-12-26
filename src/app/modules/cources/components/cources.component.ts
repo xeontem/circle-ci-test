@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { condL, I } from '../../../tools/lambda';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 //components
 import { AddCourceDialogComponent } from './add-cource-dialog.component';
 import { ConfirmDeletingComponent } from './confirm-deleting.component';
@@ -11,8 +12,11 @@ import { ProvideCourcesService } from '../services/provide-cources.service';
 import { logParam } from '../../../tools/parameter.decorators';
 //pipes
 import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
+// actions
+import { SearchCource, SetCources } from '../actions/cources.action';
+
 import { Store } from '@ngrx/store';
-import { CourcesState, Order, Cource, ordersSelector } from '../reducers/cources.reducer';
+import { CourcesState, Order, Cource, OrdersSelector, ordersSelector, CourceSelector, courcesSelector } from '../reducers/cources.reducer';
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -20,22 +24,31 @@ import { CourcesState, Order, Cource, ordersSelector } from '../reducers/cources
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
+  cources:  Observable<Cource[]> | null;
   orderKey: Order;
   searchPredicate: string;
+  courcesSelector: CourceSelector;
+  ordersSelector: OrdersSelector;
 
   constructor(
     private csprovider: ProvideCourcesService,
-    private dialog:     MatDialog,
-    private flpipe:     FilterCourcesPipe,
-    private store: Store<CourcesState>) { }
+    private     dialog: MatDialog,
+    private     flpipe: FilterCourcesPipe,
+    private      store: Store<CourcesState>) { }
 
   ngOnInit() {
+    this.courcesSelector = courcesSelector;
+    this.ordersSelector = ordersSelector;
+    // this.cources = this.store.select(courcesSelector);
     this.orderKey = this.store.select(ordersSelector)[0];
     this.searchPredicate = '';
   }
 
   searchCource(@logParam val: string): void {
-    ProvideCourcesService.cources = this.flpipe.transform(this.csprovider.getList().valueChanges(), val)
+    // this.store.dispatch(new SearchCource(this.csprovider.getList().valueChanges(), val));
+    this.store.select(courcesSelector).subscribe(cources => {
+      this.store.dispatch(new SetCources(this.flpipe.transform(cources, val)));
+    })
   }
 
   restoreCources() {

@@ -1,13 +1,21 @@
 import { Apply } from "./apply";
 
-export class Applicative<T> extends Apply<T> {
+export class Applicative<a> extends Apply<a> {
 
-  constructor(val: T) {
+  constructor(val: a) {
     super(val);
   }
 
-  of<B>(val: B): Applicative<B> {
+  of<b>(val: b): Applicative<b> {
     return new Applicative(val);
+  }
+
+  ap<b>(Af: Applicative<(a: a) => b>): Applicative<b> {
+    return new Applicative(super.map(Af.val)['val']);
+  }
+
+  map<b>(f: (a: a) => b): Applicative<b> {
+    return new Applicative(super.map(f)['val']);
   }
 
 }

@@ -3,6 +3,7 @@ import { Cource } from '../reducers/cources.reducer';
 import { Observable } from 'rxjs';
 
 export const SET_COURCES = '[Cources] set_cources';
+export const SEARCH_COURCE = '[Cources] search_cource';
 
 export class SetCources implements Action {
   readonly type = SET_COURCES;
@@ -13,6 +14,18 @@ export class SetCources implements Action {
   }
 }
 
+export class SearchCource implements Action {
+  readonly type = SEARCH_COURCE;
+  readonly payload: {
+    cources: Observable<Cource[]>,
+    val: string;
+  }
+  constructor(
+    cources: Observable<Cource[]>,
+    val: string ) {
+      this.payload = { cources, val }
+     }
+}
 // export class SelectEvent implements Action {
 //   readonly payload: any;
 //   readonly type = SELECT_EVENT;
@@ -29,4 +42,4 @@ export class SetCources implements Action {
 //   }
 // }
 
-export type Actions = SetCources;
+export type Actions = SetCources | SearchCource;

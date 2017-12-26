@@ -68,7 +68,6 @@ import {
     TimeBorderDirective,
     DurationPipe,
     OrderByPipe,
-    // FilterCourcesPipe
   ],
   exports: [ ]
 })

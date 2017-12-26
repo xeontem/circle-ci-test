@@ -1,14 +1,18 @@
 import { Functor } from './functor';
 
-export class Apply<T> extends Functor<T> {
-  
-  constructor(val: T) {
-    super(val);
-  } 
+export class Apply<a> extends Functor<a> {
 
-  //ap :: Apply A => A T ~> A (T -> B) -> A B
-  ap<B>(func: Apply<(a: T) => B>): Apply<B> {
-    return new Apply(this.map(func.val)['val']);
+  constructor(val: a) {
+    super(val);
+  }
+
+  //ap :: Apply A => A a ~> A (a -> b) -> A b
+  ap<b>(Af: Apply<(a: a) => b>): Apply<b> {
+    return new Apply(super.map(Af.val)['val']);
+  }
+
+  map<b>(f: (a: a) => b): Apply<b> {
+    return new Apply(super.map(f)['val']);
   }
 }
 

@@ -31,7 +31,7 @@ export const nw = f => x => new f(x);
 //----------------- obj ----------------------
 export const pair = a => b => [a, b];
 export const getVal = o => k => o[k];
-export const flipGetVal = k => o => o[k];
+export const getValRight = k => o => o[k];
 export const set = o => k => v => o[k] = v;
 export const flipSet = v => k => o => o[k] = v;
 //-------------- arrays ----------------------

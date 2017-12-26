@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import * as RouterActions from '../actions/router.actions';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { RouterStateUrl } from '../tools/utils';
 import 'rxjs/add/operator/switchMap';
 
 import { FcmMessagingService } from './fcm-messaging.service';
+
 
 
 interface User {
@@ -25,8 +29,9 @@ export class FirestoreAuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private msg: FcmMessagingService,
-    private afs: AngularFirestore,
+    private    msg: FcmMessagingService,
+    private    afs: AngularFirestore,
+    private  store: Store<RouterStateUrl>
     private router: Router)
   {
     //// Get auth data, then get firestore user document || null
@@ -63,7 +68,14 @@ export class FirestoreAuthService {
 
   logout(): void {
     this.afAuth.auth.signOut()
-      .then(() => this.router.navigate(['/']));
+      .then(() => {
+        // this.router.navigate(['/'])
+        this.store.dispatch(new RouterActions.Go({
+          path: ['/', { routeParam: 1 }],
+          query: { page: 1 },
+          extras: { replaceUrl: false }
+        }));
+      });
   }
 
   getUserInfo(): Observable<firebase.User> {

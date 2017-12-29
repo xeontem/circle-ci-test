@@ -13,3 +13,5 @@ export * from './pipes/order-by.pipe';
 export * from './pipes/filter-cources.pipe';
 //services
 export * from './services/provide-cources.service';
+//reducers
+export * from './reducers';

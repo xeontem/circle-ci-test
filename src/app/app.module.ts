@@ -19,7 +19,7 @@ import {
   PageNotFoundComponent,
   AccessDeniedComponent,
   HomeComponent,
-  FireStoreAuthGuard,
+  // FireStoreAuthGuard,
   FirestoreAuthService,
   FcmMessagingService,
   FirestoreStorageService
@@ -76,12 +76,7 @@ const routes: Routes = [
     data: { title: 'templates' }
   },
   // cources module
-  {
-    path: 'cources',
-    component: CourcesComponent,
-    data: { title: 'cources page' },
-    canActivate: [FireStoreAuthGuard]
-  },
+
   // events module
   {
     path: 'events',

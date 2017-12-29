@@ -25,17 +25,17 @@ interface User {
 
 @Injectable()
 export class FirestoreAuthService {
-  user: Observable<User>;
+  user$: Observable<User>;
 
   constructor(
     private afAuth: AngularFireAuth,
     private    msg: FcmMessagingService,
     private    afs: AngularFirestore,
-    private  store: Store<RouterStateUrl>
+    private  store: Store<RouterStateUrl>,
     private router: Router)
   {
     //// Get auth data, then get firestore user document || null
-    this.user = this.afAuth.authState.switchMap(user => user ?
+    this.user$ = this.afAuth.authState.switchMap(user => user ?
       this.afs.doc<User>(`users/${user.uid}`).valueChanges() :
       Observable.of(null));
   }
@@ -69,12 +69,11 @@ export class FirestoreAuthService {
   logout(): void {
     this.afAuth.auth.signOut()
       .then(() => {
-        // this.router.navigate(['/'])
-        this.store.dispatch(new RouterActions.Go({
-          path: ['/', { routeParam: 1 }],
-          query: { page: 1 },
-          extras: { replaceUrl: false }
-        }));
+        this.router.navigate(['/'])
+        // this.store.dispatch(new RouterActions.Go({
+        //   event: this.router,
+        //   routerState: { replaceUrl: false }
+        // }));
       });
   }
 

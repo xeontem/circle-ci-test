@@ -18,7 +18,7 @@ import {
    */
   import { HeaderState, headerReducer } from '../reducers/header.reducer';
   import { EventsState, eventsReducer } from '../modules/events/reducers/events.reducer';
-  import { CourcesState, courcesReducer } from '../modules/cources/reducers/cources.reducer';
+  // import { CourcesState, courcesReducer } from '../modules/cources/reducers/cources.reducer';
   /**
    * storeFreeze prevents state from being mutated. When mutation occurs, an
    * exception will be thrown. This is useful during development mode to
@@ -34,7 +34,7 @@ import {
     headerReducer:  HeaderState;
     routerReducer:  RouterReducerState<RouterStateUrl>;
     eventsReducer:  EventsState;
-    courcesReducer: CourcesState;
+    // courcesReducer: CourcesState;
   }
 
   /**
@@ -46,7 +46,7 @@ import {
     headerReducer,
     eventsReducer,
     routerReducer,
-    courcesReducer
+    // courcesReducer
   };
 
   // console.log all actions
@@ -65,7 +65,7 @@ import {
    * that will be composed to form the root meta-reducer.
    */
   export const metaReducers: MetaReducer<State>[] =
-    !environment.production ? [logger, storeFreeze] : [];
+    !environment.production ? [logger, /* storeFreeze */] : [];
 
   /**
    * Layout Reducers

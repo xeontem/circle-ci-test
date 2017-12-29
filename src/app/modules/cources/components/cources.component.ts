@@ -16,7 +16,8 @@ import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
 import { SearchCource, SetCources } from '../actions/cources.action';
 
 import { Store } from '@ngrx/store';
-import { CourcesState, Order, Cource, OrdersSelector, ordersSelector, CourceSelector, courcesSelector } from '../reducers/cources.reducer';
+import * as fromCources from '../reducers/cources.reducer';
+import { courcesSelector } from '../reducers';
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -24,23 +25,37 @@ import { CourcesState, Order, Cource, OrdersSelector, ordersSelector, CourceSele
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
-  cources:  Observable<Cource[]> | null;
-  orderKey: Order;
+  cources$:  Observable<fromCources.Cource[]>;
+  orderKey: fromCources.Order;
+  orders: fromCources.Order[];
   searchPredicate: string;
-  courcesSelector: CourceSelector;
-  ordersSelector: OrdersSelector;
+  // courcesSelector: CourceSelector;
+  // ordersSelector: OrdersSelector;
+  // courcesLoaded: boolean = false;
 
   constructor(
     private csprovider: ProvideCourcesService,
     private     dialog: MatDialog,
     private     flpipe: FilterCourcesPipe,
-    private      store: Store<CourcesState>) { }
+    private      store: Store<fromCources.State>) { }
 
   ngOnInit() {
-    this.courcesSelector = courcesSelector;
-    this.ordersSelector = ordersSelector;
-    // this.cources = this.store.select(courcesSelector);
-    this.orderKey = this.store.select(ordersSelector)[0];
+    // this.courcesSelector = courcesSelector;
+    // this.orders = this.store.select(ordersSelector).do(orders => console.dir(orders));
+    this.orders = ['id', 'title', 'duration', 'date', 'description', 'created', 'topRated']
+    this.cources$ = this.store.select(courcesSelector);
+    // this.cources$.subscribe(x => {
+    //   console.dir(x)
+
+    // })
+    // console.dir(this.cources)
+
+      // .switchMap(store => store.cources);
+
+    // this.cources.subscribe(cources => {
+    //   this.courcesLoaded = true;
+    // })
+    this.orderKey = 'id';//this.store.select(ordersSelector)[0];
     this.searchPredicate = '';
   }
 
@@ -59,7 +74,7 @@ export class CourcesComponent implements OnInit {
       this.dialog
         .open(AddCourceDialogComponent, { width: '35vw' })
         .afterClosed()
-        .subscribe((newCource: Cource) =>
+        .subscribe((newCource: fromCources.Cource) =>
           newCource && this.csprovider.addCource(newCource));
   }
 
@@ -71,7 +86,7 @@ export class CourcesComponent implements OnInit {
         del && this.csprovider.removeItem(id));
   }
 
-  editedEventHandler(updatedCource: Cource): void {
+  editedEventHandler(updatedCource: fromCources.Cource): void {
     this.csprovider.updateCource(updatedCource);
   }
 }

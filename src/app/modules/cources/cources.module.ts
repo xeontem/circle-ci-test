@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 import { FireStoreAuthGuard } from '../../guards/fire-store-auth.guard';
 
 //-------------------------------- Forms -------------------------------
@@ -33,13 +34,28 @@ import {
   DurationPipe,
   OrderByPipe,
   ProvideCourcesService,
-  FilterCourcesPipe
+  FilterCourcesPipe,
+  reducers
 } from './';
 
 @NgModule({
   imports: [
     CommonModule,
+    //routes
+    RouterModule.forChild([
+      {
+        path: 'cources',
+        component: CourcesComponent,
+        data: { title: 'cources page' },
+        canActivate: [FireStoreAuthGuard]
+      },
+      // {
 
+      // }
+    ]),
+
+    //ngrx store
+    StoreModule.forFeature('courcesModule', reducers),
     // forms
     ReactiveFormsModule,
     FormsModule,

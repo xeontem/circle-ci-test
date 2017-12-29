@@ -7,11 +7,7 @@ export const SEARCH_COURCE = '[Cources] search_cource';
 
 export class SetCources implements Action {
   readonly type = SET_COURCES;
-  readonly payload: Observable<Cource[]>;
-
-  constructor(payload: Observable<Cource[]>) {
-    this.payload = payload;
-  }
+  constructor(readonly payload: Cource[]) { }
 }
 
 export class SearchCource implements Action {

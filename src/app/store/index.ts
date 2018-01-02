@@ -6,7 +6,7 @@ import {
     MetaReducer,
   } from '@ngrx/store';
   import { environment } from '../../environments/environment';
-  import { RouterStateUrl } from '../shared/utils';
+  import { RouterStateUrl } from '../tools/utils';
   import { RouterReducerState, routerReducer } from '@ngrx/router-store';
 
   //---------------- my reducers -------------------------------
@@ -18,6 +18,7 @@ import {
    */
   import { HeaderState, headerReducer } from '../reducers/header.reducer';
   import { EventsState, eventsReducer } from '../modules/events/reducers/events.reducer';
+  import { CourcesState, courcesReducer } from '../modules/cources/reducers/cources.reducer';
   /**
    * storeFreeze prevents state from being mutated. When mutation occurs, an
    * exception will be thrown. This is useful during development mode to
@@ -30,9 +31,10 @@ import {
    * our top level state interface is just a map of keys to inner state types.
    */
   export interface State {
-    headerReducer: HeaderState;
-    routerReducer: RouterReducerState<RouterStateUrl>;
-    eventsReducer: EventsState;
+    headerReducer:  HeaderState;
+    routerReducer:  RouterReducerState<RouterStateUrl>;
+    eventsReducer:  EventsState;
+    courcesReducer: CourcesState;
   }
 
   /**
@@ -44,6 +46,7 @@ import {
     headerReducer,
     eventsReducer,
     routerReducer,
+    courcesReducer
   };
 
   // console.log all actions
@@ -62,7 +65,7 @@ import {
    * that will be composed to form the root meta-reducer.
    */
   export const metaReducers: MetaReducer<State>[] =
-    !environment.production ? [/*logger,*/ /* storeFreeze */] : [];
+    !environment.production ? [logger, storeFreeze] : [];
 
   /**
    * Layout Reducers

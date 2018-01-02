@@ -1,0 +1,37 @@
+@import '../../../../common.scss';
+@import '../../../../variables.scss';
+
+.cource-container {
+  position: relative;
+  @include margin-v(20px);
+  max-width: 100vw;
+  grid-template-columns: 12fr 1fr;
+  grid-gap: 20px;
+  &:after {
+    background: linear-gradient(-45deg, $primary-color 49px, transparent 0), linear-gradient(-135deg, $primary-color 49px, transparent 0);
+    background-repeat: no-repeat;
+    background-size: 70px 40px;
+    content: " ";
+    position: absolute;
+    top: 15px;
+    left: -30px;
+    width: 70px;
+    height: 40px;
+  }
+}
+
+.cource-container.label-fresh {
+  &:after {
+    background: linear-gradient(-45deg, $accent-color 49px, transparent 0), linear-gradient(-135deg, $accent-color 49px, transparent 0);
+  }
+}
+
+.cource-container.label-up {
+  &:after {
+    background: linear-gradient(-45deg, $blue-color 49px, transparent 0), linear-gradient(-135deg, $blue-color 49px, transparent 0);
+  }
+}
+
+.top-rated {
+  background-color: #fff59d;
+}

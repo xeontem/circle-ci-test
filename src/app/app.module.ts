@@ -1,45 +1,40 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './components/app/app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
-import { HomeComponent } from './components/home/home.component';
-
 //-------------------------------- ngrx store -----------------------------
-import { StoreModule } from '@ngrx/store';
-
 import {
   StoreRouterConnectingModule,
   RouterStateSerializer,
 } from '@ngrx/router-store';
-import { CustomRouterStateSerializer } from './shared/utils';
-
+import { StoreModule } from '@ngrx/store';
+import { CustomRouterStateSerializer } from './tools/utils';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
-
 import { reducers, metaReducers } from './store';
 
-//----------------------- guard ------------------------------------------
-import { FireStoreAuthGuard } from './guards/fire-store-auth.guard';
+//---------------------------- this module --------------------------------
+import {
+  AppComponent,
+  HeaderComponent,
+  FooterComponent,
+  PageNotFoundComponent,
+  AccessDeniedComponent,
+  HomeComponent,
+  FireStoreAuthGuard,
+  FirestoreAuthService,
+  FcmMessagingService,
+  FirestoreStorageService
+} from './';
 
 //-------------------- components from another modules --------------------
-import { CourcesComponent } from './modules/cources/components/cources/cources.component';
-import { FormsComponent } from './modules/templates/components/forms/forms.component';
-import { ButtonsComponent } from './modules/templates/components/buttons/buttons.component';
-import { EventsComponent } from './modules/events/components/events/events.component';
+import { CourcesComponent } from './modules/cources/';
+import { FormsComponent, ButtonsComponent } from './modules/templates/';
+import { EventsComponent } from './modules/events/';
 
 //-------------------------------- FIreBase -------------------------------
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
-//----------------------- Firebase services ---------------------------
-import { FirestoreAuthService } from './services/firestore-auth.service';
-import { FcmMessagingService } from './services/fcm-messaging.service';
-import { FirestoreStorageService } from './services/firestore-storage.service';
 //------------------------------- animations -------------------------------
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -112,7 +107,7 @@ const routes: Routes = [
     FooterComponent,
     PageNotFoundComponent,
     AccessDeniedComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

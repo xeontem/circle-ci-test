@@ -3,11 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { EventsComponent } from './components/events/events.component';
-import { FetchEventsService } from './services/fetch-events.service';
-import { FetchTranslateService } from './services/fetch-translate.service';
-
-
 //-------------------------------- material --------------------------------
 import {
   MatCardModule,
@@ -20,9 +15,16 @@ import {
   MatSelectModule,
   MatListModule
 } from '@angular/material';
-import { EventComponent } from './components/event/event.component';
-import { TranslatePipe } from './pipes/translate.pipe';
-import { YCombinatorComponent } from './components/y-combinator/y-combinator.component';
+
+//-------------------------- this module ------------------------------------
+import {
+  EventsComponent,
+  EventComponent,
+  YCombinatorComponent,
+  TranslatePipe,
+  FetchEventsService,
+  FetchTranslateService
+} from './';
 
 @NgModule({
   imports: [

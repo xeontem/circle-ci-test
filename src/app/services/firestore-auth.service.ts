@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import * as RouterActions from '../actions/router.actions';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { RouterStateUrl } from '../tools/utils';
 import 'rxjs/add/operator/switchMap';
+
+import { FcmMessagingService } from './fcm-messaging.service';
 
 
 
 interface User {
   uid: string;
+  token: string;
   email: string;
-  photoURL?: string;
-  displayName?: string;
+  photoURL: string;
+  displayName: string;
   favoriteColor?: string;
 }
 
@@ -23,7 +29,9 @@ export class FirestoreAuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
+    private    msg: FcmMessagingService,
+    private    afs: AngularFirestore,
+    private  store: Store<RouterStateUrl>
     private router: Router)
   {
     //// Get auth data, then get firestore user document || null
@@ -32,69 +40,50 @@ export class FirestoreAuthService {
       Observable.of(null));
   }
 
-  googleLogin() {
+  login() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
   }
 
   private oAuthLogin(provider) {
+    let user: User;
     return this.afAuth.auth.signInWithPopup(provider)
-      .then(credential => {
-        // console.log(credential);
-
-// var key = 'AIzaSyBZKj2TXF1S12liuUSV7uILNqqzq1jnQlc';
-// var to = 'ddDv99L_4q8:APA91bGxknc3gfAXOfzxUXxEIWOwTl5CT01YnTg_Z520eO9cwAYtuH8C6ZFEHviKyQrDNyvtQn_I0SRKN3eHrKZHRInihNO6kqpyGppz5gPAH6JDjKQYXUSh0Z5jRqcXNxggIcdCM5w8';
-// var notification = {
-//   'title': 'Portugal vs. Denmark',
-//   'body': '5 to 1',
-//   'icon': 'firebase-logo.png',
-//   'click_action': 'http://localhost:8081'
-// };
-
-// fetch('https://fcm.googleapis.com/fcm/send', {
-//   'method': 'POST',
-//   'headers': {
-//     'Authorization': 'key=' + key,
-//     'Content-Type': 'application/json'
-//   },
-//   'body': JSON.stringify({
-//     'notification': notification,
-//     'to': to
-//   })
-// }).then(function(response) {
-//   console.log(response);
-// }).catch(function(error) {
-//   console.error(error);
-// })
-
-        this.updateUserData(credential.user)
-      })
-  }
+      .then(credential => user = credential.user)
+      .then(user => this.msg.getPermission())
+      .then(token => user.token = token || '')
+      .then(mtoken => this.updateUserData(user));
+    }
 
   private updateUserData(user) {
-    // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
+      token: user.token,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL
     }
-    return userRef.set(data)
+    return userRef.set(data);
   }
 
-  signOut() {
-    this.afAuth.auth.signOut().then(() => {
-        this.router.navigate(['/']);
-    });
+  logout(): void {
+    this.afAuth.auth.signOut()
+      .then(() => {
+        // this.router.navigate(['/'])
+        this.store.dispatch(new RouterActions.Go({
+          path: ['/', { routeParam: 1 }],
+          query: { page: 1 },
+          extras: { replaceUrl: false }
+        }));
+      });
   }
+
+  getUserInfo(): Observable<firebase.User> {
+    return this.afAuth.authState;
+  }
+
+  isAuthenticated(): Observable<boolean> {
+    return this.afAuth.authState.map(user => !!user)
+  }
+
 }
-
-
-// curl -X POST -H "Authorization: key=AIzaSyBZKj2TXF1S12liuUSV7uILNqqzq1jnQlc" -H "Content-Type: application/json" -d '{
-//   "notification": {
-//     "title": "Portugal vs. Denmark",
-//     "body": "5 to 1",
-//   },
-//   "to": "fjkXdR05TEw:APA91bHVjRfFaPv2fMhHB_xcpxr7uzNler78ZTei59C0MhEHii62OxiReMXFvbDimi8S7NrMSvCVG8IdLC-lAU7lgEQDJQn6Sn_wu2OfYrfcA3-P8m-CfTGGJhfxtaft2BcVsflpAH3W"
-// }' "https://fcm.googleapis.com/fcm/send"

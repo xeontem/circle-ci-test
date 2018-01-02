@@ -12,7 +12,7 @@ const initialState: HeaderState = {
 export function headerReducer(state = initialState, action: headerActions.Actions): HeaderState {
   switch (action.type) {
     case headerActions.LOGIN:  return state;
-    case headerActions.LOGOUT: return Object.assign({}, state, { signoutCounter: ++state.signoutCounter });
+    case headerActions.LOGOUT: return { signoutCounter: state.signoutCounter + 1, ...state };
     default:                   return state;
   }
 }

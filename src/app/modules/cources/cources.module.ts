@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FireStoreAuthGuard } from '../../guards/fire-store-auth.guard';
 
 //-------------------------------- Forms -------------------------------
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 //-------------------------------- material --------------------------------
 import {
@@ -18,25 +18,31 @@ import {
   MatDialogModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSliderModule
+  MatSliderModule,
+  MatProgressSpinnerModule,
+  MatSelectModule
 } from '@angular/material';
 
-//-------------- my components -----------------------------------------
-import { CourcesComponent } from './components/cources/cources.component';
-import { CourceComponent } from './components/cource/cource.component';
+//---------------------------------- this module ---------------------------------
+import {
+  CourcesComponent,
+  CourceComponent,
+  AddCourceDialogComponent,
+  ConfirmDeletingComponent,
+  TimeBorderDirective,
+  DurationPipe,
+  OrderByPipe,
+  ProvideCourcesService,
+  FilterCourcesPipe
+} from './';
 
-//------------------- services -----------------------------------------
-import { ProvideCourcesService } from './services/provide-cources.service';
-import { AddCourceDialogComponent } from './components/add-cource-dialog/add-cource-dialog.component';
-
-//------------------- other module services -----------------------------------------
-import { FirestoreAuthService } from '../../services/firestore-auth.service';
 @NgModule({
   imports: [
     CommonModule,
 
     // forms
     ReactiveFormsModule,
+    FormsModule,
 
     // material
     MatCardModule,
@@ -48,11 +54,21 @@ import { FirestoreAuthService } from '../../services/firestore-auth.service';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
-  entryComponents: [ AddCourceDialogComponent ],
-  providers: [FireStoreAuthGuard, ProvideCourcesService, FirestoreAuthService],
-  declarations: [ CourcesComponent, CourceComponent, AddCourceDialogComponent ],
+  entryComponents: [ AddCourceDialogComponent, ConfirmDeletingComponent ],
+  providers: [FireStoreAuthGuard, ProvideCourcesService, FilterCourcesPipe],
+  declarations: [
+    CourcesComponent,
+    CourceComponent,
+    AddCourceDialogComponent,
+    ConfirmDeletingComponent,
+    TimeBorderDirective,
+    DurationPipe,
+    OrderByPipe,
+  ],
   exports: [ ]
 })
 export class CourcesModule { }

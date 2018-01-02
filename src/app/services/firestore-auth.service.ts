@@ -69,12 +69,7 @@ export class FirestoreAuthService {
   logout(): void {
     this.afAuth.auth.signOut()
       .then(() => {
-        // this.router.navigate(['/'])
-        this.store.dispatch(new RouterActions.Go({
-          path: ['/', { routeParam: 1 }],
-          query: { page: 1 },
-          extras: { replaceUrl: false }
-        }));
+        this.router.navigate(['/'])
       });
   }
 

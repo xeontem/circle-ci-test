@@ -60,7 +60,7 @@ export const initialState: State = adapter.getInitialState({
 });
 
 
-export function courcesReducer(state = initialState, action: courcesActions.Actions): State {
+export function courcesReducer(state: State = initialState, action: courcesActions.Actions): State {
   switch (action.type) {
     case   courcesActions.SET_COURCES: return {
       /**

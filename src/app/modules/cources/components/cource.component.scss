@@ -22,4 +22,15 @@
   top: 22px;
   left: 7px;
   cursor: pointer;
+  user-select: none;
+}
+
+p, textarea {
+  font-family: Elena;
+  letter-spacing: 0.5px;
+  line-height: 20px;
+}
+
+h4, input[placeholder="Title"] {
+  font-family: Mija;
 }

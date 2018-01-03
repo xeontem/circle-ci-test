@@ -25,7 +25,7 @@ import { courcesSelector } from '../reducers';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
-  cources$:  Observable<fromCources.Cource[]>;
+  cources$:  fromCources.Cource[];
   orderKey: fromCources.Order;
   orders: fromCources.Order[];
   searchPredicate: string;
@@ -43,7 +43,7 @@ export class CourcesComponent implements OnInit {
     // this.courcesSelector = courcesSelector;
     // this.orders = this.store.select(ordersSelector).do(orders => console.dir(orders));
     this.orders = ['id', 'title', 'duration', 'date', 'description', 'created', 'topRated']
-    this.cources$ = this.store.select(courcesSelector);
+    this.cources$ = this.store.select<fromCources.State>(courcesSelector);
     // this.cources$.subscribe(x => {
     //   console.dir(x)
 

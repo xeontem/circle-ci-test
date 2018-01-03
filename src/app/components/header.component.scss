@@ -15,6 +15,7 @@
 .caption {
   color: $primary-color;
   cursor: pointer;
+  font-family: Mija;
 }
 
 .login-card {
@@ -40,6 +41,7 @@
   background-position-y: 20px;
   outline: none;
   cursor: pointer;
+  user-select: none;
 }
 
 .avatar {
@@ -51,6 +53,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   outline: none;
+  user-select: none;
 }
 
 .guest {

@@ -5,6 +5,8 @@ import { MemoizedSelector } from '@ngrx/store/src/selector';
 import { getValRight, B } from '../../../tools/lambda';
 import { Observable } from 'rxjs';
 
+export type Order = 'id' | 'title' | 'duration' | 'date' | 'description' | 'created' | 'topRated'
+
 export interface CourcesState {
   cources: fromCources.State;
 }
@@ -17,7 +19,7 @@ export const reducers: ActionReducerMap<CourcesState> = {
   cources: fromCources.courcesReducer,
 };
 
-const getCourcesState = (state: CourcesState): fromCources.State => state.cources;
+// const getCourcesState = (state: CourcesState): fromCources.State => state.cources;
 /**
  * A selector function is a map function factory. We pass it parameters and it
  * returns a function that maps from the larger state tree into a smaller
@@ -40,8 +42,8 @@ const getCourcesState = (state: CourcesState): fromCources.State => state.cource
 */
 // export const getBooksState = createFeatureSelector<BooksState>('books');
 //---------------------- AppState getters ------------------------------------------------
-type GetCourcesState = MemoizedSelector<State, CourcesState>;
-const getCourcesModuleState: GetCourcesState = createFeatureSelector<CourcesState>('courcesModule');
+type GetCourcesModuleState = MemoizedSelector<State, CourcesState>;
+const getCourcesModuleState: GetCourcesModuleState = createFeatureSelector<CourcesState>('courcesModule');
 /**
  * Every reducer module exports selector functions, however child reducers
  * have no knowledge of the overall state tree. To make them usable, we
@@ -60,10 +62,9 @@ const getCourcesModuleState: GetCourcesState = createFeatureSelector<CourcesStat
 //   getBookEntitiesState,
 //   fromBooks.getSelectedId
 // );
-
-export const courcesStateSelector = createSelector(
+export const getCourcesState = createSelector(
   getCourcesModuleState,
-  getCourcesState
+  (state: CourcesState): fromCources.State => state.cources
 );
 
 /**
@@ -79,7 +80,7 @@ export const {
   selectEntities: getCourcesEntities,
   selectAll: getAllCources,
   // selectTotal: getTotalBooks,
-} = fromCources.adapter.getSelectors(courcesStateSelector);
+} = fromCources.adapter.getSelectors(getCourcesState);
 
 //----------------------------------- main component selector ----------------------------
 // export type CourceSelector = MemoizedSelector<CourcesState, Observable<fromCources.Cource[]> | null>;

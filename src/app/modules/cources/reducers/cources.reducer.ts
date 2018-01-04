@@ -9,8 +9,6 @@ import { ProvideCourcesService } from '../services/provide-cources.service';
 
 // const afs = new AngularFirestore();
 
-
-export type Order = 'id' | 'title' | 'duration' | 'date' | 'description' | 'created' | 'topRated'
 export interface Cource {
   id: string;
   title: string;
@@ -33,8 +31,10 @@ export interface Cource {
  * any additional interface properties.
  */
 export interface State extends EntityState<Cource> {
-  // cources: string;
+  //  entities: Array<Cource>
+  //  ids: Array<string>
 }
+
 /**
  * createEntityAdapter creates many an object of helper
  * functions for single or multiple operations
@@ -54,9 +54,8 @@ export const adapter: EntityAdapter<Cource> = createEntityAdapter<Cource>({
  * additional properties can also be defined.
  */
 export const initialState: State = adapter.getInitialState({
-  // cources: 'first',
-  // cources: Observable.of([]),
-  // orders: ['id', 'title', 'duration', 'date', 'description', 'created', 'topRated']
+  //  entities: Array<Cource>
+  //  ids: Array<string>
 });
 
 

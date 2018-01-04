@@ -16,8 +16,9 @@ import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
 import { SearchCource, SetCources } from '../actions/cources.action';
 
 import { Store } from '@ngrx/store';
-import * as fromCources from '../reducers/cources.reducer';
-import { courcesSelector } from '../reducers';
+import { Cource } from '../reducers/cources.reducer';
+import * as fromCources from '../reducers';
+import { getCourcesState } from '../reducers';
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -25,7 +26,7 @@ import { courcesSelector } from '../reducers';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
-  cources$:  fromCources.Cource[];
+  cources$:  Observable<Cource[]>;
   orderKey: fromCources.Order;
   orders: fromCources.Order[];
   searchPredicate: string;
@@ -43,7 +44,8 @@ export class CourcesComponent implements OnInit {
     // this.courcesSelector = courcesSelector;
     // this.orders = this.store.select(ordersSelector).do(orders => console.dir(orders));
     this.orders = ['id', 'title', 'duration', 'date', 'description', 'created', 'topRated']
-    this.cources$ = this.store.select<fromCources.State>(courcesSelector);
+    this.cources$ = this.store.select(fromCources.courcesSelector);
+    this.cources$.subscribe(s => console.dir(s))
     // this.cources$.subscribe(x => {
     //   console.dir(x)
 
@@ -61,9 +63,9 @@ export class CourcesComponent implements OnInit {
 
   searchCource(@logParam val: string): void {
     // this.store.dispatch(new SearchCource(this.csprovider.getList().valueChanges(), val));
-    this.store.select(courcesSelector).subscribe(cources => {
-      this.store.dispatch(new SetCources(this.flpipe.transform(cources, val)));
-    })
+    // this.store.select(fromCources.courcesSelector).subscribe(cources => {
+    //   this.store.dispatch(new SetCources(this.flpipe.transform(cources, val)));
+    // })
   }
 
   restoreCources() {
@@ -74,7 +76,7 @@ export class CourcesComponent implements OnInit {
       this.dialog
         .open(AddCourceDialogComponent, { width: '35vw' })
         .afterClosed()
-        .subscribe((newCource: fromCources.Cource) =>
+        .subscribe((newCource: Cource) =>
           newCource && this.csprovider.addCource(newCource));
   }
 
@@ -86,7 +88,7 @@ export class CourcesComponent implements OnInit {
         del && this.csprovider.removeItem(id));
   }
 
-  editedEventHandler(updatedCource: fromCources.Cource): void {
+  editedEventHandler(updatedCource: Cource): void {
     this.csprovider.updateCource(updatedCource);
   }
 }

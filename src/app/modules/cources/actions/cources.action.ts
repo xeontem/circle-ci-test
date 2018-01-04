@@ -4,10 +4,22 @@ import { Observable } from 'rxjs';
 
 export const SET_COURCES = '[Cources] set_cources';
 export const SEARCH_COURCE = '[Cources] search_cource';
+export const FILTER_COURCES = '[Cources] filter_cources';
+export const SET_PRED = '[Cources] set_predicate';
 
 export class SetCources implements Action {
   readonly type = SET_COURCES;
   constructor(readonly payload: Cource[]) { }
+}
+
+export class FilterCources implements Action {
+  readonly type = FILTER_COURCES;
+  constructor(readonly payload: Cource[]) { }
+}
+
+export class SetPredicate implements Action {
+  readonly type = SET_PRED;
+  constructor(readonly payload: string) { }
 }
 
 export class SearchCource implements Action {
@@ -38,4 +50,4 @@ export class SearchCource implements Action {
 //   }
 // }
 
-export type Actions = SetCources | SearchCource;
+export type Actions = SetCources | SearchCource | FilterCources | SetPredicate;

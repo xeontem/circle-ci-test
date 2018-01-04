@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Cource } from '../reducers/cources.reducer';
-import { Order } from '../reducers';
+import { Order } from '../reducers/orders.reducer';
 import { cond, objKeyPredicate, objKeyLengthPredicate } from '../../../tools/lambda';
 
 @Pipe({

@@ -13,12 +13,14 @@ import { logParam } from '../../../tools/parameter.decorators';
 //pipes
 import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
 // actions
-import { SearchCource, SetCources } from '../actions/cources.action';
+import { FilterCources, SetCources, SetPredicate } from '../actions/cources.action';
 
+//store
 import { Store } from '@ngrx/store';
-import { Cource } from '../reducers/cources.reducer';
+import { Cource, State } from '../reducers/cources.reducer';
+import { Order } from '../reducers/orders.reducer';
 import * as fromCources from '../reducers';
-import { getCourcesState } from '../reducers';
+import { Dictionary } from '@ngrx/entity/src/models';
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -26,13 +28,10 @@ import { getCourcesState } from '../reducers';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
-  cources$:  Observable<Cource[]>;
-  orderKey: fromCources.Order;
-  orders: fromCources.Order[];
-  searchPredicate: string;
-  // courcesSelector: CourceSelector;
-  // ordersSelector: OrdersSelector;
-  // courcesLoaded: boolean = false;
+  cources$:        Observable<Cource[]>;
+  orderKey:        Order;
+  orders$:         Store<Dictionary<Order>>;
+  predicate:       string;
 
   constructor(
     private csprovider: ProvideCourcesService,
@@ -41,31 +40,15 @@ export class CourcesComponent implements OnInit {
     private      store: Store<fromCources.State>) { }
 
   ngOnInit() {
-    // this.courcesSelector = courcesSelector;
-    // this.orders = this.store.select(ordersSelector).do(orders => console.dir(orders));
-    this.orders = ['id', 'title', 'duration', 'date', 'description', 'created', 'topRated']
-    this.cources$ = this.store.select(fromCources.courcesSelector);
-    this.cources$.subscribe(s => console.dir(s))
-    // this.cources$.subscribe(x => {
-    //   console.dir(x)
-
-    // })
-    // console.dir(this.cources)
-
-      // .switchMap(store => store.cources);
-
-    // this.cources.subscribe(cources => {
-    //   this.courcesLoaded = true;
-    // })
-    this.orderKey = 'id';//this.store.select(ordersSelector)[0];
-    this.searchPredicate = '';
+    this.orders$ = this.store.select(fromCources.ordersEntitiesSelector);
+    this.orders$.subscribe(s => this.orderKey = s[0]);
+    this.cources$ = this.store.select(fromCources.filteredSelector);
+    this.store.select(fromCources.predicateSelector).subscribe(pred => this.predicate = pred);
   }
 
-  searchCource(@logParam val: string): void {
-    // this.store.dispatch(new SearchCource(this.csprovider.getList().valueChanges(), val));
-    // this.store.select(fromCources.courcesSelector).subscribe(cources => {
-    //   this.store.dispatch(new SetCources(this.flpipe.transform(cources, val)));
-    // })
+  searchCource(@logParam pred: string = ''): void {
+    // this.store.dispatch(new FilterCources(this.flpipe.transform(this.store.select(fromCources.courcesSelector), pred)));
+    this.store.dispatch(new SetPredicate(pred));
   }
 
   restoreCources() {

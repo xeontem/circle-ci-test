@@ -55,7 +55,7 @@ export class FirestoreAuthService {
     }
 
   private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       token: user.token,
@@ -73,7 +73,7 @@ export class FirestoreAuthService {
       });
   }
 
-  getUserInfo(): Observable<User> {
+  getUserInfo(): Observable<firebase.User> {
     return this.afAuth.authState;
   }
 

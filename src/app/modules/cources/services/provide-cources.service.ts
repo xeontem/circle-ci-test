@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import * as fromCources from '../reducers/cources.reducer';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
-import { firestore } from 'firebase/app/';
+import { firestore } from "firebase/app";
 import { Store } from '@ngrx/store';
 import { SetCources } from '../actions/cources.action';
 @Injectable()

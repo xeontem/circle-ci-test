@@ -75,7 +75,7 @@ import {
     MatSelectModule
   ],
   entryComponents: [ AddCourceDialogComponent, ConfirmDeletingComponent ],
-  providers: [FireStoreAuthGuard, ProvideCourcesService],
+  providers: [FireStoreAuthGuard, ProvideCourcesService, FilterCourcesPipe],
   declarations: [
     CourcesComponent,
     CourceComponent,

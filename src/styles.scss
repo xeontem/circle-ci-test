@@ -3,6 +3,8 @@
 // @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 @import '~@angular/material/theming';
+@import './fonts.scss';
+@import './globals.scss';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -51,22 +53,4 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 // `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
 .unicorn-dark-theme {
   @include angular-material-theme($dark-theme);
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font: 700 10px Roboto, monospace;
-}
-
-p {
-    margin: 0;
-}
-
-.main-component {
-    display: grid;
-    // grid-template-rows: minmax(10vh, max-content) minmax(35vh, max-content) minmax(45vh, max-content) minmax(10vh, max-content);
-    grid-template-rows: 76px 300px 1% 87px;// 1% since ng cut percentage sign while uglifying when value is zero
-    min-height: 100vh;
-    // grid-auto-columns: minmax(100px, auto);
 }

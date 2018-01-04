@@ -35,15 +35,15 @@
       <div class="grid cource-header gap-20">
         <div class="grid colums-3 self-end margin-left-l">
           <mat-icon class="valign-middle absolute star" (click)="toggleRateCource()">star{{!cource.topRated && '_border'}}</mat-icon>
-          <h4 class="inline-block cource-heading primary-color">
+          <h3 class="inline-block cource-heading primary-color">
             <mat-icon class="valign-middle">text_format</mat-icon>
             {{cource.title | uppercase}}
-          </h4>
-          <span>
+          </h3>
+          <span class="mija">
             <mat-icon class="valign-bottom accent-color">access_time</mat-icon>
             {{cource.duration | duration}}
           </span>
-          <span>
+          <span class="mija">
             <mat-icon class="valign-bottom accent-color">date_range</mat-icon>
             {{cource.date | date}}
           </span>

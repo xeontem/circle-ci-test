@@ -13,10 +13,14 @@ import { logParam } from '../../../tools/parameter.decorators';
 //pipes
 import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
 // actions
-import { SearchCource, SetCources } from '../actions/cources.action';
+import { FilterCources, SetCources, SetPredicate } from '../actions/cources.action';
 
+//store
 import { Store } from '@ngrx/store';
-import { CourcesState, Order, Cource, OrdersSelector, ordersSelector, CourceSelector, courcesSelector } from '../reducers/cources.reducer';
+import { Cource, State } from '../reducers/cources.reducer';
+import { Order } from '../reducers/orders.reducer';
+import * as fromCources from '../reducers';
+import { Dictionary } from '@ngrx/entity/src/models';
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -24,31 +28,27 @@ import { CourcesState, Order, Cource, OrdersSelector, ordersSelector, CourceSele
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourcesComponent implements OnInit {
-  cources:  Observable<Cource[]> | null;
-  orderKey: Order;
-  searchPredicate: string;
-  courcesSelector: CourceSelector;
-  ordersSelector: OrdersSelector;
+  cources$:        Observable<Cource[]>;
+  orderKey:        Order;
+  orders$:         Store<Dictionary<Order>>;
+  predicate:       string;
 
   constructor(
     private csprovider: ProvideCourcesService,
     private     dialog: MatDialog,
     private     flpipe: FilterCourcesPipe,
-    private      store: Store<CourcesState>) { }
+    private      store: Store<fromCources.State>) { }
 
   ngOnInit() {
-    this.courcesSelector = courcesSelector;
-    this.ordersSelector = ordersSelector;
-    // this.cources = this.store.select(courcesSelector);
-    this.orderKey = this.store.select(ordersSelector)[0];
-    this.searchPredicate = '';
+    this.orders$ = this.store.select(fromCources.ordersEntitiesSelector);
+    this.orders$.subscribe(s => this.orderKey = s[0]);
+    this.cources$ = this.store.select(fromCources.filteredSelector);
+    this.store.select(fromCources.predicateSelector).subscribe(pred => this.predicate = pred);
   }
 
-  searchCource(@logParam val: string): void {
-    // this.store.dispatch(new SearchCource(this.csprovider.getList().valueChanges(), val));
-    this.store.select(courcesSelector).subscribe(cources => {
-      this.store.dispatch(new SetCources(this.flpipe.transform(cources, val)));
-    })
+  searchCource(@logParam pred: string = ''): void {
+    // this.store.dispatch(new FilterCources(this.flpipe.transform(this.store.select(fromCources.courcesSelector), pred)));
+    this.store.dispatch(new SetPredicate(pred));
   }
 
   restoreCources() {

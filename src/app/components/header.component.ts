@@ -9,16 +9,47 @@ import { Logout } from '../actions/header.action';
 import { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
+type HoverState = 'hovered' | 'not_hovered';
 // import { logo } from '/assets/images/logo.svg';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  animations: [
+    trigger('caption', [
+      state('not_hovered', style({
+        transform: 'scale(1)'
+      })),
+      state('hovered', style({
+        transform: 'scale(1.2)'
+      })),
+      transition('hovered <=> not_hovered', animate('100ms ease-in'))
+    ]),
+    trigger('logo', [
+      state('not_hovered', style({
+        transform: 'rotate(0deg)'
+      })),
+      state('hovered', style({
+        transform: 'rotate(360deg)'
+      })),
+      transition('hovered <=> not_hovered', animate('500ms ease-in'))
+    ])
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   // @ViewChild('logout1') logoutButton: ElementRef;
   // logoutSubscr$: Subscription;
+  logoState: HoverState = 'not_hovered';
+  captionState: HoverState = 'not_hovered';
   message: BehaviorSubject<{}>;
   constructor(
     // private cd: ChangeDetectorRef,

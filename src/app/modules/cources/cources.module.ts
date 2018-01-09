@@ -49,9 +49,6 @@ import {
         data: { title: 'cources page' },
         canActivate: [FireStoreAuthGuard]
       },
-      // {
-
-      // }
     ]),
 
     //ngrx store

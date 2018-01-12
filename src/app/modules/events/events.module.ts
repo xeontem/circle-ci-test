@@ -21,6 +21,7 @@ import {
   EventsComponent,
   EventComponent,
   YCombinatorComponent,
+  ChurchFibonachchiComponent,
   TranslatePipe,
   FetchEventsService,
   FetchTranslateService
@@ -39,7 +40,7 @@ import {
     MatSelectModule,
     MatListModule
   ],
-  declarations: [EventsComponent, EventComponent, TranslatePipe, YCombinatorComponent],
+  declarations: [EventsComponent, EventComponent, TranslatePipe, YCombinatorComponent, ChurchFibonachchiComponent],
   providers: [ FetchEventsService, FetchTranslateService ]
 })
 export class EventsModule { }

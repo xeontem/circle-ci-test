@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 
-@Injectable()
+// @Injectable()
 export class FirestoreStorageService implements OnInit {
   storage: firebase.storage.Reference;
   constructor() { }

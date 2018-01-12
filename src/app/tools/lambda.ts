@@ -1,5 +1,6 @@
+// Y = λf.(λx.f(xx))(λx.f(xx))
 
-
+export const If = p => p && I;
 export const cond = x => t => f => x ? t : f;
 export const condL = x => tF => fF => x ? tF() : fF();
 export const swap = arr => i => j => [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -19,6 +20,7 @@ export const B = f => g => x => f(g(x));
 export const C = f => x => y => f(y)(x);
 export const W = x => y => x(y(y));
 export const Y = F => F(x => Y(F)(x));
+export const S = f => x => z => f(z)(x(z));
 export const Ymem = memory => F => F(x => condL(memory.has(x))(y => memory.get(x))(y => memory.set(x, Ymem(memory)(F)(x)).get(x)));
 
 //--------------- NOD elems ---------------------------

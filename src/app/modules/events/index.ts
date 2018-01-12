@@ -5,6 +5,7 @@ export * from './actions/events.action';
 export * from './components/event.component';
 export * from './components/events.component';
 export * from './components/y-combinator.component';
+export * from './components/church-fibonachchi.component';
 
 //pipes
 export * from './pipes/translate.pipe';

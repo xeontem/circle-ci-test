@@ -21,6 +21,9 @@ import { Cource, State } from '../reducers/cources.reducer';
 import { Order } from '../reducers/orders.reducer';
 import * as fromCources from '../reducers';
 import { Dictionary } from '@ngrx/entity/src/models';
+
+//lambdas
+import { S, If } from '../../../tools/lambda';
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -56,11 +59,12 @@ export class CourcesComponent implements OnInit {
   }
 
   openAddCourceDialog() {
-      this.dialog
+    const addCource = this.csprovider.addCource;
+    this.dialog
         .open(AddCourceDialogComponent, { width: '35vw' })
         .afterClosed()
         .subscribe((newCource: Cource) =>
-          newCource && this.csprovider.addCource(newCource));
+          If(newCource)(this.csprovider.addCource(newCource)));
   }
 
   deletedEventHandler(id: string): void {

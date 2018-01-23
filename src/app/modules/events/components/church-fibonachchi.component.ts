@@ -190,42 +190,42 @@ export class ChurchFibonachchiComponent implements OnInit {
   }
 }
 
-const I = x => x;
-const K = x => y => x;
-const S = f => x => z => f(z)(x(z));
-const B = f => g => x => f(g(x));
-const A = f => x => f(x);
-const C = f => x => y => f(y)(x);
-const Y = f => (x => x(x))(x => y => f(x(x))(y));
+// const I = x => x;
+// const K = x => y => x;
+// const S = f => x => z => f(z)(x(z));
+// const B = f => g => x => f(g(x));
+// const A = f => x => f(x);
+// const C = f => x => y => f(y)(x);
+// const Y = f => (x => x(x))(x => y => f(x(x))(y));
 
-const zero    = K(I);
-const pred    = n => f => x => n(g => h => h(g(f)))(u => x)(u => u);
-const succ    = S(B);
-const minus   = C(C(A)(pred));
-const plus    = C(A)(S(B));
-const mult    = B;
-const numToJS = n => n(x => x + 1)(0)
+// const zero    = K(I);
+// const pred    = n => f => x => n(g => h => h(g(f)))(u => x)(u => u);
+// const succ    = S(B);
+// const minus   = C(C(A)(pred));
+// const plus    = C(A)(S(B));
+// const mult    = B;
+// const numToJS = n => n(x => x + 1)(0)
 
-const TRUE = K;
-const FALSE = C(K);
-const isZero = n => n(x => FALSE)(TRUE);
-const equal = m => n => isZero(minus(m)(n));
-const or = b1 => b2 => b1(b1)(b2);
-const cond = v => t => f => v(t)(f);
+// const TRUE = K;
+// const FALSE = C(K);
+// const isZero = n => n(x => FALSE)(TRUE);
+// const equal = m => n => isZero(minus(m)(n));
+// const or = b1 => b2 => b1(b1)(b2);
+// const cond = v => t => f => v(t)(f);
 
-const fibChurchF = f => n =>
-  cond(or(isZero(n))(equal(n)(succ(zero))))
-    (succ(zero))
-    (x => plus(f(pred(n)))(f(pred(pred(n))))(x));
-const fibChurch = Y(fibChurchF);
+// const fibChurchF = f => n =>
+//   cond(or(isZero(n))(equal(n)(succ(zero))))
+//     (succ(zero))
+//     (x => plus(f(pred(n)))(f(pred(pred(n))))(x));
+// const fibChurch = Y(fibChurchF);
 
-const one = succ(zero);
-const two = succ(one);
-const five = plus(one)(plus(two)(two));
-const ten = mult(two)(five);
-const twenty = mult(ten)(two);
+// const one = succ(zero);
+// const two = succ(one);
+// const five = plus(one)(plus(two)(two));
+// const ten = mult(two)(five);
+// const twenty = mult(ten)(two);
 
 
 
-console.log(numToJS(fibChurch(twenty)));
+// console.log(numToJS(fibChurch(twenty)));
 

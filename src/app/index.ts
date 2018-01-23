@@ -27,6 +27,7 @@ export * from './reducers/header.reducer';
 export * from './services/fcm-messaging.service';
 export * from './services/firestore-auth.service';
 export * from './services/firestore-storage.service';
+export * from './services/http-interceptor.service';
 
 //store
 export * from './store/';

@@ -11,16 +11,30 @@ export const getSum = (x:number, y:number):number => calcMult(caclcSum(x, y), ca
 export const cGetSum = x => y => calcMult(caclcSum(x, y), caclcSum(x, y));
 export const randNumber = min => max => ~~(Math.random() * (max - min));
 
-
-
 //--------------- comb -------------------------------------
-export const I = x => x;
-export const K = x => y => x;
-export const B = f => g => x => f(g(x));
-export const C = f => x => y => f(y)(x);
-export const W = x => y => x(y(y));
+type I = <A>(x: A) => A;
+export const I:I = x => x;
+
+type K = <A,B>(x: A) => (y: B) => A;
+export const K:K = x => y => x;
+
+// B:: () -> () -> ? -> ?
+type B = <A, B, C>(f: (b: B) => C) => ( g: (a: A) => B ) => (x: A) => C;
+export const B: B = f => g => x => f(g(x));
+
+type C = <A,B,C>(f: (y: B) => (x: A) => C ) => (x: A) => (y: B) => C;
+export const C:C = f => x => y => f(y)(x);
+
+type W = <A,B>(x: (y: A) => (y: A) => B) => (y: A) => B;
+export const W:W = x => y => x(y)(y);
+
+// type Y = <A,B>(f: (x: A) => B) => B;
 export const Y = F => F(x => Y(F)(x));
-export const S = f => x => z => f(z)(x(z));
+
+type S = <A,B,C>(f: (z: A) => (xz: B) => C) => (x: (z: A) => B) => (z: A) => C;
+export const S:S = f => x => z => f(z)(x(z));
+
+
 export const Ymem = memory => F => F(x => condL(memory.has(x))(y => memory.get(x))(y => memory.set(x, Ymem(memory)(F)(x)).get(x)));
 
 //--------------- NOD elems ---------------------------
@@ -74,8 +88,4 @@ export const getCookie = () => document.cookie.split('; ').reduce((acc, cookie) 
   const eq = cookie.indexOf('=');
   acc[cookie.slice(0, eq)] = cookie.slice(eq + 1);
   return acc;
-  // return Object.assign(acc, {});
-  // let key   = cookie.slice(0, eq);
-  // let value = cookie.slice(eq+1);
-  // this.cookies[key] = value;
 }, {});

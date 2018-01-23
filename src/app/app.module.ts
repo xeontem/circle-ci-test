@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //-------------------------------- ngrx store -----------------------------
 import {
   StoreRouterConnectingModule,
@@ -22,7 +22,8 @@ import {
   // FireStoreAuthGuard,
   FirestoreAuthService,
   FcmMessagingService,
-  FirestoreStorageService
+  FirestoreStorageService,
+  HttpInterceptorService
 } from './';
 
 //-------------------- components from another modules --------------------
@@ -165,6 +166,7 @@ const routes: Routes = [
      * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
      */
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     FirestoreAuthService,
     FcmMessagingService,
     FirestoreStorageService

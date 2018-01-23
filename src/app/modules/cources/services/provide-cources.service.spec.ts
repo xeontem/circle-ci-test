@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ProvideEventsService } from './provide-events.service';
+import { ProvideCourcesService } from './provide-cources.service';
 
-describe('ProvideEventsService', () => {
+describe('ProvideCourcesService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProvideEventsService]
+      providers: [ProvideCourcesService]
     });
   });
 
-  it('should be created', inject([ProvideEventsService], (service: ProvideEventsService) => {
+  it('should be created', inject([ProvideCourcesService], (service: ProvideCourcesService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccessDeniedComponent } from './access-denied.component';
+//-------------------------------- material --------------------------------
+import { MatToolbarModule } from '@angular/material';
 
 describe('AccessDeniedComponent', () => {
   let component: AccessDeniedComponent;
@@ -8,7 +10,8 @@ describe('AccessDeniedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccessDeniedComponent ]
+      declarations: [ AccessDeniedComponent ],
+      imports: [ MatToolbarModule ]
     })
     .compileComponents();
   }));

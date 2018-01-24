@@ -19,7 +19,7 @@ import {
 
   MatSnackBar } from '@angular/material';
 
-fdescribe('PageNotFoundComponentComponent', () => {
+describe('PageNotFoundComponentComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
 

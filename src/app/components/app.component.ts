@@ -10,14 +10,12 @@ import { FcmMessagingService } from '../services/fcm-messaging.service';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
-
 export class AppComponent implements OnInit {
 
   constructor(
-    private fsmmsg:  FcmMessagingService,
+    private  fsmmsg: FcmMessagingService,
     public snackBar: MatSnackBar,
-    private zone:    NgZone
+    private    zone: NgZone
   ) { }
 
   ngOnInit() {

@@ -59,7 +59,7 @@ class FormBuilderStub {
 class ReducerManagerStub {
   addFeature() {}
 }
-
+class MatDialogRefStub {}
 describe('AddCourceDialogComponent', () => {
   let dialog: MatDialog;
   let overlayContainer: OverlayContainer;
@@ -81,7 +81,7 @@ describe('AddCourceDialogComponent', () => {
       ],
       providers: [
       //   MatDialog,
-        // MatDialogRef,
+      {provide: MatDialogRef, useClass: MatDialogRefStub },
       //   MAT_DIALOG_DATA,
       //   // DateAdapter,
 

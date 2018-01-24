@@ -4,6 +4,7 @@ export * from './components/app-header.component.stub';
 export * from './components/router-outlet.component.stub';
 
 //services
+export * from './services/mat-dialog.service.stub';
 export * from './services/store.service.stub';
 export * from './services/router.service.stub';
 export * from './services/fcm-auth.service.stub';

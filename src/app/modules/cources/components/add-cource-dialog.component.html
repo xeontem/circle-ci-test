@@ -3,6 +3,8 @@
 <form [formGroup]="newCource" (ngSubmit)="addNew(newCource.value)" class="grid gap-20 m margin-v-20" MatDialogContent novalidate>
 
     <mat-form-field>
+      <!-- <custom-date-input formControlName="date" [date]="newCource.value.date"></custom-date-input> -->
+
       <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -12,6 +14,7 @@
 
     <mat-hint class="margin-t-20 thin">{{hints.duration + newCource.value.duration}}</mat-hint>
     <mat-slider formControlName="duration" thumbLabel min="1" max="5" tickInterval="1" step="0.5" value="{newCource.value.duration}"></mat-slider>
+
 
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Title" formControlName="title">

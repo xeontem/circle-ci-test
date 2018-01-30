@@ -30,6 +30,7 @@ import {
   CourceComponent,
   AddCourceDialogComponent,
   ConfirmDeletingComponent,
+  CustomDateInputComponent,
   TimeBorderDirective,
   DurationPipe,
   OrderByPipe,
@@ -37,6 +38,8 @@ import {
   FilterCourcesPipe,
   reducers
 } from './';
+
+import { DateValidator } from '../../validators/validateDate';
 
 @NgModule({
   imports: [
@@ -78,10 +81,12 @@ import {
     CourceComponent,
     AddCourceDialogComponent,
     ConfirmDeletingComponent,
+    CustomDateInputComponent,
     TimeBorderDirective,
     DurationPipe,
     OrderByPipe,
-    FilterCourcesPipe
+    FilterCourcesPipe,
+    DateValidator
   ],
   exports: [ ]
 })

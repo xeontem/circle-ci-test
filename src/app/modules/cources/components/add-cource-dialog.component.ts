@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Cource } from '../reducers/cources.reducer';
 import { Emit } from '../../../tools/methods.decorators';
+import { validateDate } from '../../../validators/validateDate';
+
 
 type Hints = {
   description: string;
@@ -33,15 +35,18 @@ export class AddCourceDialogComponent implements OnInit {
 
   ngOnInit() {
     this.newCource = this.fb.group({
-      description: ['', Validators.required],
-      date: [new Date, Validators.required],
+      date: [new Date, [Validators.required, validateDate]],
       duration: [1.5, Validators.required],
-      title: ['', Validators.required],
+      title: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
       topRated: [false]
     });
   }
-
-  // @Emit('newCourceEvent')
+  // name: ['', Validators.required],
+  // street: ['', Validators.minLength(3)],
+  // city: ['', Validators.maxLength(10)],
+  // zip: ['', Validators.pattern('[A-Za-z]{5}')]
+  @Emit('newCourceEvent')
   addNew(newCource: Cource) {
     this.dialogRef.close(newCource);
   }

@@ -3,6 +3,7 @@ export * from './components/add-cource-dialog.component';
 export * from './components/cource.component';
 export * from './components/cources.component';
 export * from './components/confirm-deleting.component';
+export * from './components/custom-date-input.component';
 
 //directives
 export * from './directives/time-border.directive';

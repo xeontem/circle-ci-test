@@ -1,6 +1,10 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+const ciConfig = process.argv[4] === 'ci' ?
+  {browser: 'ChromeHeadless', autoWatch: false, singleRun: true} :
+  {browser: 'Chrome', autoWatch: true, singleRun: false};
+
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -26,8 +30,8 @@ module.exports = function (config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: [process.argv[4]],
-    singleRun: false
+    autoWatch: ciConfig.autoWatch,//true
+    browsers: [ciConfig.browser],
+    singleRun: ciConfig.singleRun//false
   });
 };

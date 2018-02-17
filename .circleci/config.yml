@@ -5,7 +5,6 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/repo
     docker:
       # specify the version you desire here
       - image: circle-ci-test
@@ -16,6 +15,7 @@ jobs:
       # - image: circleci/mongo:3.4.4
       # - environment:
         # CHROME_BIN: "/usr/bin/google-chrome"
+    working_directory: ~/repo
     steps:
       - checkout
       # Download and cache dependencies

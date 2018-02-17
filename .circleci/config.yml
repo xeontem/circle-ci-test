@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/circle-ci-test
     docker:
       # specify the version you desire here
-      - image: circleci-v1.0.0
+      - image: circle-ci-test
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images

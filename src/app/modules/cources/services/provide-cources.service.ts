@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import * as fromCources from '../reducers/cources.reducer';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-import { firestore } from "firebase/app";
+import { firestore } from 'firebase/app';
 import { Store } from '@ngrx/store';
 import { SetCources } from '../actions/cources.action';
 
@@ -17,11 +17,11 @@ export class ProvideCourcesService {
     private store: Store<fromCources.State>
   ) {
     this.getList().valueChanges().subscribe(cources => {
-      this.store.dispatch(new SetCources(cources))
+      this.store.dispatch(new SetCources(cources));
     });
     // ProvideCourcesService.cources = this.getList().valueChanges();
   }
-  
+
   getList(): AngularFirestoreCollection<fromCources.Cource>  {
     return this.afs.collection('cources');
   }

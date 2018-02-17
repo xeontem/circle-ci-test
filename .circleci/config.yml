@@ -15,7 +15,7 @@ jobs:
       # - image: circleci/mongo:3.4.4
       # - environment:
         # CHROME_BIN: "/usr/bin/google-chrome"
-    working_directory: ~/repo
+    working_directory: ~/circleci
     steps:
       - checkout
       # Download and cache dependencies
@@ -36,7 +36,7 @@ jobs:
 
       - run:
           name: angular-build
-          command: yarn build --prod --aot --no-progress
+          command: yarn build -- --prod --aot --no-progress
       - run:
           name: angular-test
           command: yarn test -- --single-run --no-progress

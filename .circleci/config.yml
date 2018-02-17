@@ -36,7 +36,7 @@ jobs:
 
       - run:
           name: angular-build
-          command: yarn ng -- build --prod --aot --no-progress
+          command: yarn build --prod --aot --no-progress
       - run:
           name: angular-test
           command: yarn test -- --single-run --no-progress

@@ -15,7 +15,7 @@ jobs:
       # - image: circleci/mongo:3.4.4
       # - environment:
         # CHROME_BIN: "/usr/bin/google-chrome"
-    working_directory: ~/dist
+    # working_directory: ~/dist
     steps:
       - checkout
       # Download and cache dependencies

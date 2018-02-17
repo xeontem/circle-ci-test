@@ -1,7 +1,7 @@
 import { ViewChild, Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { FetchEventsService } from '../services/fetch-events.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { interval as oInterval } from 'rxjs/observable/interval';
+import { interval } from 'rxjs/observable/interval';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { SelectEvent, ChangeVal, CHANGE_OBJ_VAL, SELECT_EVENT } from '../actions/events.action';
@@ -50,7 +50,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
   }
 
   startTimer() {
-    oInterval(1000)
+    interval(1000)
       .map(val => `button start/reset pressed a ${val} seconds ago`)
       .do(λ.set(this)('timer'))
       .subscribe(val => this.cd.markForCheck());
@@ -72,7 +72,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
     this.fetchEvents.getEvents()
       .map(λ.set(this)('events'))
       .map(events => λ.set(this)('tempArr')(λ.range(λ.length(events))))
-      .switchMap(events => oInterval(5).take(λ.length(events)))// TODO compose
+      .switchMap(events => interval(5).take(λ.length(events)))// TODO compose
       .map(i => λ.B(λ.rand)(λ.K(this.tempArr.length))(i))
       .do(r => λ.B(λ.flipSet('visible')('visible'))(λ.B(λ.getVal(this.events))(λ.getVal(this.tempArr)))(r))
       .map(r => λ.C(λ.splice(this.tempArr))(1)(r))
@@ -103,7 +103,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
   }
 
   reverse() {
-    this.reverseStream$ = oInterval(5)
+    this.reverseStream$ = interval(5)
       .take(this.events.length / 2)
       .map(i => ({i, j: λ.cond(this.events.length-i-1 < 0)(0)(this.events.length-i-1)}))
       .do(o => λ.swap(this.events)(o.i)(o.j))
@@ -111,7 +111,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
   }
 
   shake() {
-    this.shakeStream$ = oInterval(5)
+    this.shakeStream$ = interval(5)
     .take(this.events.length/2)
     .map(i => ({i: λ.rand(this.events.length), j: λ.rand(this.events.length)}))
     .do(o => λ.swap(this.events)(o.i)(o.j))

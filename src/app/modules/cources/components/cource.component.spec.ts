@@ -28,7 +28,7 @@ class DurationPipeStub implements PipeTransform {
 
 }
 
-fdescribe('CourceComponent', () => {
+xdescribe('CourceComponent', () => {
   let component: CourceComponent;
   let fixture: ComponentFixture<CourceComponent>;
 
@@ -56,6 +56,8 @@ fdescribe('CourceComponent', () => {
   });
 
   it('should create', () => {
+    console.log('cource.component.test')
+    
     expect(component).toBeTruthy();
   });
 });

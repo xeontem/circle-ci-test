@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { FetchEventsService } from './fetch-events.service';
 
-describe('FetchEventsService', () => {
+xdescribe('FetchEventsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [FetchEventsService]

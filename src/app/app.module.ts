@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //-------------------------------- ngrx store -----------------------------
 import {
   StoreRouterConnectingModule,
@@ -99,13 +99,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    // HeaderComponent,
-    // FooterComponent,
-    // PageNotFoundComponent,
-    // AccessDeniedComponent,
-    // HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    PageNotFoundComponent,
+    AccessDeniedComponent,
+    HomeComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     RouterModule.forRoot(routes),
 

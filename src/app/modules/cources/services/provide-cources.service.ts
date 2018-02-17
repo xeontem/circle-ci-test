@@ -2,16 +2,17 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import * as fromCources from '../reducers/cources.reducer';
 import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { firestore } from "firebase/app";
 import { Store } from '@ngrx/store';
 import { SetCources } from '../actions/cources.action';
+
 @Injectable()
 export class ProvideCourcesService {
   // static cources: Observable<Cource[]>;
 
   constructor(
-    private http:  Http,
+    private http:  HttpClient,
     private afs:   AngularFirestore,
     private store: Store<fromCources.State>
   ) {
@@ -19,8 +20,8 @@ export class ProvideCourcesService {
       this.store.dispatch(new SetCources(cources))
     });
     // ProvideCourcesService.cources = this.getList().valueChanges();
-   }
-
+  }
+  
   getList(): AngularFirestoreCollection<fromCources.Cource>  {
     return this.afs.collection('cources');
   }

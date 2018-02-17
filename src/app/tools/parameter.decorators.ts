@@ -34,6 +34,6 @@ methodName: name of method(our function)
 ind: index of current parameter
 */
 export function logParam(target, methodName, ind) {
-  console.log(methodName, ind);
+  console.log('methodName: ' + methodName, 'index: ' + ind);
 }
 

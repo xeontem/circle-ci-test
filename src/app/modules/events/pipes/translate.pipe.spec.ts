@@ -1,6 +1,6 @@
 import { TranslatePipe } from './translate.pipe';
 
-describe('TranslatePipe', () => {
+xdescribe('TranslatePipe', () => {
   it('create an instance', () => {
     const pipe = true;//new TranslatePipe();
     expect(pipe).toBeTruthy();

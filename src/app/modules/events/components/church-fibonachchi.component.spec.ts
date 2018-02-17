@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChurchFibonachchiComponent } from './church-fibonachchi.component';
 
-describe('ChurchFibonachchiComponent', () => {
+xdescribe('ChurchFibonachchiComponent', () => {
   let component: ChurchFibonachchiComponent;
   let fixture: ComponentFixture<ChurchFibonachchiComponent>;
 

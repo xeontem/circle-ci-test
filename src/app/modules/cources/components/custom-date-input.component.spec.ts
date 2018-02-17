@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomDateInputComponent } from './custom-date-input.component';
 
-fdescribe('CustomDateInputComponent', () => {
+xdescribe('CustomDateInputComponent', () => {
   let component: CustomDateInputComponent;
   let fixture: ComponentFixture<CustomDateInputComponent>;
 

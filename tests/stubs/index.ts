@@ -11,3 +11,4 @@ export * from './services/fcm-auth.service.stub';
 export * from './services/fcm-messaging.service.stub';
 export * from './services/fcm-storage.service.stub';
 export * from './services/mat-snackbar.service.stub';
+export * from './services/fcm-firestore.service.stub';

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomDateInputComponent } from './custom-date-input.component';
 
-describe('CustomDateInputComponent', () => {
+fdescribe('CustomDateInputComponent', () => {
   let component: CustomDateInputComponent;
   let fixture: ComponentFixture<CustomDateInputComponent>;
 
@@ -20,6 +20,8 @@ describe('CustomDateInputComponent', () => {
   });
 
   it('should create', () => {
+    console.log('custom date test')
+    
     expect(component).toBeTruthy();
   });
 });

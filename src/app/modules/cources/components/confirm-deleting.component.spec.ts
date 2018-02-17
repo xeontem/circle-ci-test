@@ -26,7 +26,7 @@ import {
 import { ConfirmDeletingComponent } from './confirm-deleting.component';
 import { MatDialogRefStub } from '../../../../../tests/stubs';
 
-describe('ConfirmDeletingComponent', () => {
+fdescribe('ConfirmDeletingComponent', () => {
   let component: ConfirmDeletingComponent;
   let fixture: ComponentFixture<ConfirmDeletingComponent>;
 

@@ -60,7 +60,7 @@ class ReducerManagerStub {
   addFeature() {}
 }
 class MatDialogRefStub {}
-describe('AddCourceDialogComponent', () => {
+fdescribe('AddCourceDialogComponent', () => {
   let dialog: MatDialog;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;

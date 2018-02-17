@@ -99,11 +99,11 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    PageNotFoundComponent,
-    AccessDeniedComponent,
-    HomeComponent,
+    // HeaderComponent,
+    // FooterComponent,
+    // PageNotFoundComponent,
+    // AccessDeniedComponent,
+    // HomeComponent,
   ],
   imports: [
     BrowserModule,

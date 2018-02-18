@@ -43,9 +43,9 @@ jobs:
       #     halt_build_on_fail: false
       #     name: angular-lint
       #     command: yarn lint:ci
-      # - store_artifacts:
-      #     path: ./coverage/tslintout.json
-      #     prefix: lint
+      - store_artifacts:
+          path: ./coverage/tslintout.json
+          prefix: lint
 workflows:
   version: 2
   build_and_test:

@@ -6,7 +6,7 @@ import { Emit } from '../../../tools/methods.decorators';
 import { validateDate } from '../../../validators/validateDate';
 
 
-type Hints = {
+interface Hints {
   description: string;
   date: string;
   duration: string;

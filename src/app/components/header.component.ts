@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
   async login() {
     await this.auth.login();
     this.router.navigate(['/cources']);
-    this.auth.isAuthenticated()
+    this.auth.isAuthenticated();
     // console.log('user authenticated? ', this.auth.isAuthenticated());
 
     // this.snackBar.open('login success', 'close', { duration: 2000 });

@@ -68,8 +68,8 @@ export class CourcesComponent implements OnInit {
   }
 
   deletedEventHandler(id: string): void {
-    console.log(id)
-    
+    console.log(id);
+
     this.dialog
       .open(ConfirmDeletingComponent)
       .afterClosed()

@@ -14,7 +14,7 @@ export class CourceComponent implements OnInit {
   @Output() deletedCourceEvent = new EventEmitter<string>();
   @Output() editedCourceEvent = new EventEmitter<Cource>();
   editedCource: FormGroup;
-  editMode:     boolean = false;
+  editMode = false;
 
   constructor(private fb: FormBuilder) { }
 

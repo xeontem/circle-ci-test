@@ -10,7 +10,7 @@ import { SelectedEvent } from '../reducers/events.reducer';
 export class EventComponent implements OnInit {
   @Input()event: SelectedEvent;
   @Output()
-  lang:          string = 'en';
+  lang = 'en';
   langs:         Array<{name: string, val: string}>;
 
   constructor() {

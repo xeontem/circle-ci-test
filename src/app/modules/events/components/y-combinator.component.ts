@@ -36,7 +36,7 @@ export class YCombinatorComponent implements OnInit {
   bodyoverStream$:  Subscription;
   initLayerX:       number;
   initLayerY:       number;
-  cookies:          {top?:string, left?:string};
+  cookies:          {top?: string, left?: string};
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -56,8 +56,8 @@ export class YCombinatorComponent implements OnInit {
       // console.log(this.cookies);
 
     //-------------------------------- set position --------------------------
-    el.style.top = this.cookies.top || `${~~(document.documentElement.offsetHeight / 1.5)}px`;// default
-    el.style.left = this.cookies.left || `${300}px`;// default
+    el.style.top = this.cookies.top || `${~~(document.documentElement.offsetHeight / 1.5)}px`; // default
+    el.style.left = this.cookies.left || `${300}px`; // default
 
     //------------------------------- handle drag -----------------------------------
     this.dragstartStream$ = Observable.fromEvent(el, 'dragstart').subscribe(e => this.handleDragStart(e, el));
@@ -66,7 +66,7 @@ export class YCombinatorComponent implements OnInit {
     this.dragleaveStream$ = Observable.fromEvent(el, 'dragleave').subscribe(e => this.handleDragLeave(e, el));
     this.dragendStream$   = Observable.fromEvent(el, 'dragend').subscribe(e => this.handleDragEnd(e, el));
     this.dropStream$      = Observable.fromEvent(el, 'drop').subscribe(e => this.handleDrop(e, el), err => console.dir(err));
-    this.bodyoverStream$  = Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e))
+    this.bodyoverStream$  = Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e));
   }
 
   handledragoverBody(e) {
@@ -106,11 +106,11 @@ export class YCombinatorComponent implements OnInit {
   handleDragEnd(e, el) {
     //------------------------ apply pos to elem ---------------------------
     el.style.opacity = '1';
-    el.style.top = `${e.pageY - this.initLayerY - 20}px`;// 20 - padding
-    el.style.left = `${e.pageX - this.initLayerX - 10}px`;// 10 - padding
+    el.style.top = `${e.pageY - this.initLayerY - 20}px`; // 20 - padding
+    el.style.left = `${e.pageX - this.initLayerX - 10}px`; // 10 - padding
     el.classList.remove('drag-over');
     //------------------------ store pos into cookies ----------------------
-    let expire = new Date(new Date().getTime() + 60 * 1000).toUTCString();// set expire date
+    const expire = new Date(new Date().getTime() + 60 * 1000).toUTCString(); // set expire date
     document.cookie = `top=${el.style.top}; path=/; expires=${expire}`;
     document.cookie = `left=${el.style.left}; path=/; expires=${expire}`;
   }

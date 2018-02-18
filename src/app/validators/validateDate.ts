@@ -3,8 +3,8 @@ import { NG_VALIDATORS } from '@angular/forms';
 import { Directive } from '@angular/core';
 
 export function validateDate(c: FormControl) {
-  console.dir(c)
-  return null
+  console.dir(c);
+  return null;
 }
 
 

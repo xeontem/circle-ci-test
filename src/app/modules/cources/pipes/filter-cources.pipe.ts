@@ -20,7 +20,7 @@ export class FilterCourcesPipe implements PipeTransform {
     // .subscribe(val => console.log(val))
     let filtered: Cource[] = [];
     cources.do((cources: Cource[]) =>
-      filtered = cources.filter((cource: Cource) => cource.title.toLocaleLowerCase().includes(val.toLowerCase())))
+      filtered = cources.filter((cource: Cource) => cource.title.toLocaleLowerCase().includes(val.toLowerCase())));
     return filtered;
     // .map(cources => {
         //   console.dir(cources.length)

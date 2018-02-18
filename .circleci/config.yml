@@ -40,11 +40,11 @@ jobs:
           name: angular-test
           command: yarn test:ci
       - store_artifacts:
-          path: ~/coverage
+          path: ~/coverage/lcov.info
           prefix: tests
       - run:
           name: angular-lint
-          command: yarn lint:ci
+          command: ng lint -t json > tslintout.json
       - store_artifacts:
           path: tslintout.json
           prefix: lint

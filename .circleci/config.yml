@@ -100,7 +100,7 @@ jobs:
           command: yarn build
       - run:
           name: Deploy Master to Firebase
-          command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN
+          command: ./node_modules/.bin/firebase deploy --token "1/KNSxPE7a1qWODRDxaRGAaihfdHS4E5gZukeUAgoAjKkzJN3f65FqMfKReq-4c0zP"
 workflows:
   version: 2
   build_and_test-flow:

@@ -1,33 +1,22 @@
 # Javascript Node CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
+
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:8-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-      # - environment:
-        # CHROME_BIN: "/usr/bin/google-chrome"
     working_directory: ~/temp
+    docker:
+      - image: circleci/node:8-browsers
     steps:
       - checkout
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - dependency-cache-{{ checksum "yarn.lock" }}
-          # fallback to using the latest cache if no exact match is found
           - dependency-cache-
       - run:
           name: install-dependencies
           command: yarn
-
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -36,12 +25,38 @@ jobs:
       - run:
           name: angular-build
           command: yarn build
+  test:
+    working_directory: ~/temp
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - dependency-cache-{{ checksum "yarn.lock" }}
+          - dependency-cache-
+      - run:
+          name: install-dependencies
+          command: yarn
       - run:
           name: angular-test
           command: yarn test:ci
       - store_artifacts:
           path: ./coverage/
-          prefix: tests
+          prefix: tests-report
+  lint:
+    working_directory: ~/temp
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - dependency-cache-{{ checksum "yarn.lock" }}
+          - dependency-cache-
+      - run:
+          name: install-dependencies
+          command: yarn
       # - run:
       #     halt_build_on_fail: false
       #     name: angular-lint
@@ -49,3 +64,13 @@ jobs:
       # - store_artifacts:
       #     path: ./coverage/tslintout.json
       #     prefix: lint
+      - store_artifacts:
+          path: ./coverage/tslintout.json
+          prefix: lint-report
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
+      - lint

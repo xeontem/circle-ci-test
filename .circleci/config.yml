@@ -40,11 +40,12 @@ jobs:
           name: angular-test
           command: yarn test:ci
       - store_artifacts:
-          path: /coverage
+          path: ./coverage/
           prefix: tests
       - run:
+          halt_build_on_fail: false
           name: angular-lint
-          command: ng lint -t json > tslintout.json
+          command: yarn lint:ci
       - store_artifacts:
           path: tslintout.json
           prefix: lint

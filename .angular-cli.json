@@ -53,20 +53,23 @@
     }
   ],
   "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    },
     "codeCoverage": {
       "exclude": [
         "src/polyfills.ts",
         "**/test.ts",
         "./tests/**/*.ts"
       ]
-    },
-    "karma": {
-      "config": "./karma.conf.js"
     }
   },
   "defaults": {
     "styleExt": "scss",
     "component": {
     }
+  },
+  "warnings": {
+    "typescriptMismatch": false
   }
 }

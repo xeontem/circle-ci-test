@@ -31,7 +31,7 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.cache/yarn
+            - .cache/yarn
             - node_modules
       - run:
           name: angular-build
@@ -40,7 +40,7 @@ jobs:
           name: angular-test
           command: yarn test:ci
       - store_artifacts:
-          path: ~/coverage/lcov.info
+          path: /coverage
           prefix: tests
       - run:
           name: angular-lint

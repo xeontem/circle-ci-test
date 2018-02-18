@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "test:ci": "ng test -cc ci",
-    "lint:ci": "ng lint -t json > tslintout.json"
+    "lint:ci": "ng lint -t json > coverage/tslintout.json"
   },
   "private": true,
   "dependencies": {

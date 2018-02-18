@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "name": "circle-ci-test",
-    "ejected": true
+    "ejected": false
   },
   "apps": [
     {
@@ -53,6 +53,13 @@
     }
   ],
   "test": {
+    "codeCoverage": {
+      "exclude": [
+        "src/polyfills.ts",
+        "**/test.ts",
+        "./tests/**/*.ts"
+      ]
+    },
     "karma": {
       "config": "./karma.conf.js"
     }

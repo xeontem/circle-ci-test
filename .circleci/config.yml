@@ -38,6 +38,9 @@ jobs:
       - run:
           name: build-project
           command: yarn build
+      - store_artifacts:
+          path: ./dist/
+          prefix: builted-project
   test:
     working_directory: ~/temp
     docker:

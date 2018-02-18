@@ -105,15 +105,15 @@ workflows:
   version: 2
   build_and_test-flow:
     jobs:
-      - save_cache
-      - build
-      - test
-      - lint
+      # - save_cache
+      # - build
+      # - test
+      # - lint
       - deploy:
-          requires:
-            - build
-            - test
-            - lint
+          # requires:
+          #   - build
+          #   - test
+          #   - lint
           filters:
                 branches:
                   only: master

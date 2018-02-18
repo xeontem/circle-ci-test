@@ -103,7 +103,7 @@ jobs:
           command: echo FIREBASE_TOKEN
       - run:
           name: Variable check
-        command: echo "FIREBASE_TOKEN"
+          command: echo "FIREBASE_TOKEN"
       - run:
           name: install-dependencies
           command: yarn

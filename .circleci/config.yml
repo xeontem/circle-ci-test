@@ -23,11 +23,17 @@ jobs:
             - .cache/yarn
             - node_modules
   build:
+    working_directory: ~/temp
+    docker:
+      - image: circleci/node:8-browsers
     steps:
       - run:
           name: build-project
           command: yarn build
   test:
+    working_directory: ~/temp
+    docker:
+      - image: circleci/node:8-browsers
     steps:
       - run:
           name: run-unit-tests
@@ -38,6 +44,9 @@ jobs:
       - store_test_results:
           path: ./coverage/
   lint:
+    working_directory: ~/temp
+    docker:
+      - image: circleci/node:8-browsers
     steps:
       # - run:
       #     halt_build_on_fail: false

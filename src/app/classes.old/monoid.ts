@@ -10,7 +10,7 @@ export default class Monoid {
   }
 
   concat(monoid: Monoid): Monoid {
-    return new Monoid(this.value.concat(monoid.value))
+    return new Monoid(this.value.concat(monoid.value));
     // return new Monoid(this.value.concat());
   }
 

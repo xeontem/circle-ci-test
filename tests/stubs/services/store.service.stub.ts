@@ -1,4 +1,4 @@
 export class StoreStub {
-  currentMessage = { subscribe: x => x }
+  currentMessage = { subscribe: x => x };
   getPermissionAndUpdateToken() {}
 }

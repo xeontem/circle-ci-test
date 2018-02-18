@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
       .subscribe(payload => payload && this.snackBar.open(payload['notification'].body, 'ok', { duration: 2000 }));
     // this.fcm.messaging.sendToDevice()
     // const worker = new Worker('../../service-workers/app.component.worker.js');
-    this.zone.onStable.subscribe(x => console.warn('zone stable'))
-    this.zone.onUnstable.subscribe(x => console.warn('zone unstable'))
+    this.zone.onStable.subscribe(x => console.warn('zone stable'));
+    this.zone.onUnstable.subscribe(x => console.warn('zone unstable'));
   }
 
   stableHandler($event) {

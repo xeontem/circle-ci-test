@@ -7,26 +7,26 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class FcmMessagingService implements OnInit {
   private messaging = firebase.messaging();
-  currentMessage: BehaviorSubject<{}>  = new BehaviorSubject(null)
+  currentMessage: BehaviorSubject<{}>  = new BehaviorSubject(null);
 
   constructor(
     private afs: AngularFirestore,
     private afAuth: AngularFireAuth
   ) {
       this.messaging.onMessage(payload => {
-        console.log("Message received. ", payload);
+        console.log('Message received. ', payload);
         this.currentMessage.next(payload);
       });
 
       this.messaging.onTokenRefresh(currentToken =>
         this.afAuth.authState
           .filter(λ => !!λ)
-          .subscribe(user => this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken})))
+          .subscribe(user => this.afs.collection('users').doc(`${user.uid}`).update({token: currentToken})));
   }
 
   getPermission() {
     return this.messaging.requestPermission()
-      .then(λ => this.messaging.getToken())
+      .then(λ => this.messaging.getToken());
   }
 
   getPermissionAndUpdateToken() {

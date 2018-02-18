@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-export type Order = 'id' | 'title' | 'duration' | 'date' | 'description' | 'created' | 'topRated'
+export type Order = 'id' | 'title' | 'duration' | 'date' | 'description' | 'created' | 'topRated';
 
 export interface State extends EntityState<Order> {
   //  entities: Array<Cource>

@@ -2,16 +2,16 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as eventsActions from '../actions/events.action';
 import { getValRight } from '../../../tools/lambda';
 export interface SelectedEvent {
-	type: string,
-	title?: string,
-	description?: string,
-	duration?: number,
-	id?: string,
-  location?: string,
+	type: string;
+	title?: string;
+	description?: string;
+	duration?: number;
+	id?: string;
+  location?: string;
   visible?: string;
-	resources?: Array<any>,
-	speakers?: Array<any>,
-};
+	resources?: Array<any>;
+	speakers?: Array<any>;
+}
 
 export interface EventsState {
   value: string;

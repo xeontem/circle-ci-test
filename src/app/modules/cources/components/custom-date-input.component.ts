@@ -12,7 +12,7 @@ export class CustomDateInputComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.current = this.date.toLocaleString().slice(0, this.date.toLocaleString().indexOf(','))
+    this.current = this.date.toLocaleString().slice(0, this.date.toLocaleString().indexOf(','));
   }
 
 }

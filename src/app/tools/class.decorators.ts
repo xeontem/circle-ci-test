@@ -10,7 +10,7 @@ args: arguments that this method recieves
 export function SetDefault(prop: string, val: any) {
   return function(target) {
     target[prop] = val;
-  }
+  };
 }
 // export function SetId(options: string) {
 //   return function(target: {}, key: string, descriptor: PropertyDescriptor) {
@@ -45,7 +45,7 @@ export function logger(target: {}, key: string, descriptor: PropertyDescriptor) 
     console.log('descriptor: ', descriptor);
     console.log('------------------------------------------');
     origMethod.apply(this, args);
-  }
+  };
 
   return descriptor;
 }
@@ -63,7 +63,7 @@ export function perf(target: {}, key: string, descriptor: PropertyDescriptor) {
       console.log('performance duration: ', (end - start).toFixed(10));
       console.log('performance end: ', end.toFixed(10));
       console.log('------------------------------------------');
-    }
+    };
 
     return descriptor;
   }

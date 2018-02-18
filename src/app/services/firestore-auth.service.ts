@@ -32,8 +32,7 @@ export class FirestoreAuthService {
     private    msg: FcmMessagingService,
     private    afs: AngularFirestore,
     private  store: Store<RouterStateUrl>,
-    private router: Router)
-  {
+    private router: Router) {
     // Get auth data, then get firestore user document || null
     this.user$ = this.afAuth.authState.switchMap(user => user ?
       this.afs.doc<User>(`users/${user.uid}`).valueChanges() :
@@ -62,14 +61,14 @@ export class FirestoreAuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL
-    }
+    };
     return userRef.set(data);
   }
 
   logout(): void {
     this.afAuth.auth.signOut()
       .then(() => {
-        this.router.navigate(['/'])
+        this.router.navigate(['/']);
       });
   }
 
@@ -78,7 +77,7 @@ export class FirestoreAuthService {
   }
 
   isAuthenticated(): Observable<boolean> {
-    return this.afAuth.authState.map(user => !!user)
+    return this.afAuth.authState.map(user => !!user);
   }
 
 }

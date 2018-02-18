@@ -27,11 +27,11 @@ export class SearchCource implements Action {
   readonly payload: {
     cources: Observable<Cource[]>,
     val: string;
-  }
+  };
   constructor(
     cources: Observable<Cource[]>,
     val: string ) {
-      this.payload = { cources, val }
+      this.payload = { cources, val };
      }
 }
 // export class SelectEvent implements Action {

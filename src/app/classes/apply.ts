@@ -6,7 +6,7 @@ export class Apply<a> extends Functor<a> {
     super(val);
   }
 
-  //ap :: Apply A => A a ~> A (a -> b) -> A b
+  // ap :: Apply A => A a ~> A (a -> b) -> A b
   ap<b>(Af: Apply<(a: a) => b>): Apply<b> {
     return new Apply(super.map(Af.val)['val']);
   }

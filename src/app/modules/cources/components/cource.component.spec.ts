@@ -56,8 +56,8 @@ xdescribe('CourceComponent', () => {
   });
 
   it('should create', () => {
-    console.log('cource.component.test')
-    
+    console.log('cource.component.test');
+
     expect(component).toBeTruthy();
   });
 });

@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "test:ci": "ng test -cc ci",
-    "lint:ci": "ng lint -t json > coverage/tslintout.json"
+    "lint:ci": "ng lint -t json > coverage/tslintout.json",
+    "deploy": "./node_modules/.bin/firebase deploy --only hosting"
   },
   "private": true,
   "dependencies": {
@@ -57,6 +58,7 @@
     "cssnano": "^3.10.0",
     "exports-loader": "^0.6.3",
     "file-loader": "^1.1.5",
+    "firebase-tools": "^3.17.4",
     "html-webpack-plugin": "^2.29.0",
     "istanbul-instrumenter-loader": "^2.0.0",
     "jasmine-core": "~2.6.2",

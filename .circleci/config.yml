@@ -100,7 +100,7 @@ jobs:
           command: yarn build
       - run:
           name: Deploy Master to Firebase
-          command: ./node_modules/.bin/firebase deploy --token FIREBASE_TOKEN
+          command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN
 workflows:
   version: 2
   build_and_test-flow:
@@ -110,6 +110,7 @@ workflows:
       # - test
       # - lint
       - deploy:
+          context: public
           # requires:
           #   - build
           #   - test

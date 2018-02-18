@@ -4,7 +4,7 @@
 
 version: 2
 jobs:
-  install:
+  save_cache:
     working_directory: ~/temp
     docker:
       - image: circleci/node:8-browsers
@@ -28,6 +28,13 @@ jobs:
       - image: circleci/node:8-browsers
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - dependency-cache-{{ checksum "yarn.lock" }}
+          - dependency-cache-
+      - run:
+          name: install-dependencies
+          command: yarn
       - run:
           name: build-project
           command: yarn build
@@ -37,6 +44,13 @@ jobs:
       - image: circleci/node:8-browsers
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - dependency-cache-{{ checksum "yarn.lock" }}
+          - dependency-cache-
+      - run:
+          name: install-dependencies
+          command: yarn
       - run:
           name: run-unit-tests
           command: yarn test:ci
@@ -51,6 +65,13 @@ jobs:
       - image: circleci/node:8-browsers
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - dependency-cache-{{ checksum "yarn.lock" }}
+          - dependency-cache-
+      - run:
+          name: install-dependencies
+          command: yarn
       # - run:
       #     halt_build_on_fail: false
       #     name: angular-lint
@@ -62,13 +83,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - install
-      - build:
-          requires:
-            - install
-      - test:
-          requires:
-            - install
-      - lint:
-          requires:
-            - install
+      - save_cache
+      - build
+      - test
+      - lint

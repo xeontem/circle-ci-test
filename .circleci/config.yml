@@ -23,10 +23,12 @@ jobs:
             - .cache/yarn
             - node_modules
   build:
+    steps:
       - run:
           name: build-project
           command: yarn build
   test:
+    steps:
       - run:
           name: run-unit-tests
           command: yarn test:ci
@@ -36,6 +38,7 @@ jobs:
       - store_test_results:
           path: ./coverage/
   lint:
+    steps:
       # - run:
       #     halt_build_on_fail: false
       #     name: angular-lint

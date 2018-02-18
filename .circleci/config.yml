@@ -4,7 +4,7 @@
 
 version: 2
 jobs:
-  build:
+  install:
     working_directory: ~/temp
     docker:
       - image: circleci/node:8-browsers
@@ -22,41 +22,20 @@ jobs:
           paths:
             - .cache/yarn
             - node_modules
+  build:
       - run:
-          name: angular-build
+          name: build-project
           command: yarn build
   test:
-    working_directory: ~/temp
-    docker:
-      - image: circleci/node:8-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - dependency-cache-{{ checksum "yarn.lock" }}
-          - dependency-cache-
       - run:
-          name: install-dependencies
-          command: yarn
-      - run:
-          name: angular-test
+          name: run-unit-tests
           command: yarn test:ci
       - store_artifacts:
           path: ./coverage/
           prefix: tests-report
+      - store_test_results:
+          path: ./coverage/
   lint:
-    working_directory: ~/temp
-    docker:
-      - image: circleci/node:8-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - dependency-cache-{{ checksum "yarn.lock" }}
-          - dependency-cache-
-      - run:
-          name: install-dependencies
-          command: yarn
       # - run:
       #     halt_build_on_fail: false
       #     name: angular-lint
@@ -64,13 +43,17 @@ jobs:
       # - store_artifacts:
       #     path: ./coverage/tslintout.json
       #     prefix: lint
-      - store_artifacts:
-          path: ./coverage/tslintout.json
-          prefix: lint-report
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - test
-      - lint
+      - install
+      - build:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+      - lint:
+          requires:
+            - install

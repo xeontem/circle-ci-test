@@ -2,15 +2,15 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 
-defaults: &defaults
-  working_directory: ~/tmp
+common: &common
+  working_directory: ~/xeontem
   docker:
     - image: circleci/node:8-browsers
 
 version: 2
 jobs:
   save_cache:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -26,7 +26,7 @@ jobs:
             - .cache/yarn
             - node_modules
   build:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -38,15 +38,15 @@ jobs:
           command: yarn
       - run:
           name: build-project
-          command: yarn build
+          command: yarn build:prod
       - store_artifacts:
           path: ./dist/
           prefix: builted-project
       - persist_to_workspace:
-          root: ~/tmp
+          root: ~/xeontem
           paths: dist
   test:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -65,7 +65,7 @@ jobs:
       - store_test_results:
           path: ./coverage/
   lint:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -83,10 +83,8 @@ jobs:
           path: ./coverage/tslintout.json
           prefix: lint
   deploy:
-    <<: *defaults
+    <<: *common
     steps:
-      - attach_workspace:
-          at: /dist
       - checkout
       - restore_cache:
           keys:
@@ -95,6 +93,11 @@ jobs:
       - run:
           name: install-dependencies
           command: yarn
+      - attach_workspace:
+          at: ~/xeontem
+      - store_artifacts:
+          path: ./dist/
+          prefix: builted-project
       - run:
           name: Deploy Master to Firebase
           command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN

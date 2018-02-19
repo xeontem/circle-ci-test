@@ -94,7 +94,7 @@ jobs:
           name: install-dependencies
           command: yarn
       - attach_workspace:
-          at: ~/tmp/dist/
+          at: ~/tmp
       - store_artifacts:
           path: ./dist/
           prefix: builted-project

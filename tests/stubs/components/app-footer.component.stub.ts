@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   selector: 'app-footer',
   template: '<span>app-footer-stub</span>'
 })
-export class AppFooterStub {  }
+export class AppFooterStubComponent {  }

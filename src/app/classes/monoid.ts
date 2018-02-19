@@ -28,6 +28,6 @@ export class Monoid<T = string> {
   }
 
   public concat<B>(m: Monoid<B>): Monoid<T | B> {
-    return new Monoid([...this.value, ...m.value])
+    return new Monoid([...this.value, ...m.value]);
   }
 }

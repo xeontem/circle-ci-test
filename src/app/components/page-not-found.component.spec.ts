@@ -3,7 +3,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 
 import { MatToolbarModule } from '@angular/material';
 
-describe('PageNotFoundComponentComponent', () => {
+describe('PageNotFoundComponent', () => {
   let component: PageNotFoundComponent;
   let fixture: ComponentFixture<PageNotFoundComponent>;
 
@@ -17,7 +17,7 @@ describe('PageNotFoundComponentComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PageNotFoundComponent);
-    fixture
+    // fixture
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,7 +2,7 @@ import { Directive, Input, OnInit, ElementRef, Renderer } from '@angular/core';
 import { Cource } from '../reducers/cources.reducer';
 
 @Directive({
-  selector: '[time-border]'
+  selector: '[appTimeBorder]'
 })
 export class TimeBorderDirective implements OnInit {
   @Input() cource: Cource;
@@ -11,11 +11,13 @@ export class TimeBorderDirective implements OnInit {
   }
 
   ngOnInit() {
-    if(this.cource.date < new Date && this.cource.date >= new Date(Date.now() - 1000 * 60 * 60 * 24 * 14))
+    if (this.cource.date < new Date && this.cource.date >= new Date(Date.now() - 1000 * 60 * 60 * 24 * 14)) {
       this.renderer.setElementClass(this.el.nativeElement, 'label-fresh', true);
+    }
 
-    if(this.cource.date > new Date)
+    if (this.cource.date > new Date) {
       this.renderer.setElementClass(this.el.nativeElement, 'label-up', true);
+    }
   }
 
 }

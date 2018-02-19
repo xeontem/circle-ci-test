@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-//-------------------------------- Forms -------------------------------
+// -------------------------------- Forms -------------------------------
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-//-------------------------------- material --------------------------------
+// -------------------------------- material --------------------------------
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -14,7 +14,7 @@ import {
   MatOptionModule
 } from '@angular/material';
 
-//---------------------------------- this module -------------------------
+// ---------------------------------- this module -------------------------
 import {
   ButtonsComponent,
   FormsComponent

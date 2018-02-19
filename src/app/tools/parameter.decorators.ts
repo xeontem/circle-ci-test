@@ -1,4 +1,4 @@
-//-------------------- factories -------------------------------------------
+// -------------------- factories -------------------------------------------
 /*
 options: argument that we can pass before call the method
 target: class that current method is
@@ -26,7 +26,7 @@ args: arguments that this method recieves
 //   }
 // }
 
-//------------------- single methods ---------------------------------------
+// ------------------- single methods ---------------------------------------
 /*
 target: class that current method is
 this: intance of the class

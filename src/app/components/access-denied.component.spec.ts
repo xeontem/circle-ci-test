@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccessDeniedComponent } from './access-denied.component';
-//-------------------------------- material --------------------------------
+// -------------------------------- material --------------------------------
 import { MatToolbarModule } from '@angular/material';
 
 describe('AccessDeniedComponent', () => {

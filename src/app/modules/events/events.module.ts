@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-//-------------------------------- material --------------------------------
+// -------------------------------- material --------------------------------
 import {
   MatCardModule,
   MatToolbarModule,
@@ -17,7 +17,7 @@ import {
   MatListModule
 } from '@angular/material';
 
-//-------------------------- this module ------------------------------------
+// -------------------------- this module ------------------------------------
 import {
   EventsComponent,
   EventComponent,

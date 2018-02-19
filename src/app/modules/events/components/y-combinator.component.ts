@@ -1,5 +1,6 @@
 import { ViewChild, Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 // import { AppState } from '../../redux/state';
@@ -8,12 +9,12 @@ import { EventsState, perfWithSelector, withValueSelector } from '../reducers/ev
 import { State } from '../../../store';
 import * as λ from '../../../tools/lambda';
 
-//decorators
+// decorators
 import { perf } from '../../../tools/methods.decorators';
 import { SetDefault } from '../../../tools/class.decorators';
 
 @Component({
-  selector: 'y-combinator',
+  selector: 'app-y-combinator',
   templateUrl: './y-combinator.component.html',
   styleUrls: ['./y-combinator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -36,7 +37,7 @@ export class YCombinatorComponent implements OnInit {
   bodyoverStream$:  Subscription;
   initLayerX:       number;
   initLayerY:       number;
-  cookies:          {top?:string, left?:string};
+  cookies:          {top?: string, left?: string};
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -51,22 +52,22 @@ export class YCombinatorComponent implements OnInit {
     // ------------------------------ define element ------------------------------
     const el = this.comb.nativeElement;
 
-    //--------------------------------- check cookies for coords ---------------------
+    // --------------------------------- check cookies for coords ---------------------
       this.cookies = λ.getCookie();
       // console.log(this.cookies);
 
-    //-------------------------------- set position --------------------------
-    el.style.top = this.cookies.top || `${~~(document.documentElement.offsetHeight / 1.5)}px`;// default
-    el.style.left = this.cookies.left || `${300}px`;// default
+    // -------------------------------- set position --------------------------
+    el.style.top = this.cookies.top || `${Math.ceil(document.documentElement.offsetHeight / 1.5)}px`; // default
+    el.style.left = this.cookies.left || `${300}px`; // default
 
-    //------------------------------- handle drag -----------------------------------
+    // ------------------------------- handle drag -----------------------------------
     this.dragstartStream$ = Observable.fromEvent(el, 'dragstart').subscribe(e => this.handleDragStart(e, el));
     this.dragenterStream$ = Observable.fromEvent(el, 'dragenter').subscribe(e => this.handleDragEnter(e, el));
     this.dragoverStream$  = Observable.fromEvent(el, 'dragover').subscribe(e => this.handleDragOver(e, el));
     this.dragleaveStream$ = Observable.fromEvent(el, 'dragleave').subscribe(e => this.handleDragLeave(e, el));
     this.dragendStream$   = Observable.fromEvent(el, 'dragend').subscribe(e => this.handleDragEnd(e, el));
     this.dropStream$      = Observable.fromEvent(el, 'drop').subscribe(e => this.handleDrop(e, el), err => console.dir(err));
-    this.bodyoverStream$  = Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e))
+    this.bodyoverStream$  = Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e));
   }
 
   handledragoverBody(e) {
@@ -104,13 +105,13 @@ export class YCombinatorComponent implements OnInit {
   }
 
   handleDragEnd(e, el) {
-    //------------------------ apply pos to elem ---------------------------
+    // ------------------------ apply pos to elem ---------------------------
     el.style.opacity = '1';
-    el.style.top = `${e.pageY - this.initLayerY - 20}px`;// 20 - padding
-    el.style.left = `${e.pageX - this.initLayerX - 10}px`;// 10 - padding
+    el.style.top = `${e.pageY - this.initLayerY - 20}px`; // 20 - padding
+    el.style.left = `${e.pageX - this.initLayerX - 10}px`; // 10 - padding
     el.classList.remove('drag-over');
-    //------------------------ store pos into cookies ----------------------
-    let expire = new Date(new Date().getTime() + 60 * 1000).toUTCString();// set expire date
+    // ------------------------ store pos into cookies ----------------------
+    const expire = new Date(new Date().getTime() + 60 * 1000).toUTCString(); // set expire date
     document.cookie = `top=${el.style.top}; path=/; expires=${expire}`;
     document.cookie = `left=${el.style.left}; path=/; expires=${expire}`;
   }

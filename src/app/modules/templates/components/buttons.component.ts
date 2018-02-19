@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'tpl-buttons',
+  selector: 'app-tpl-buttons',
   templateUrl: './buttons.component.html',
   styleUrls: ['./buttons.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

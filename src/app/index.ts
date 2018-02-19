@@ -1,7 +1,7 @@
-//actions
+// actions
 export * from './actions/header.action';
 
-//classes
+// classes
 export * from './classes/applicative';
 export * from './classes/apply';
 export * from './classes/functor';
@@ -9,7 +9,7 @@ export * from './classes/monad';
 export * from './classes/monoid';
 export * from './classes/setoid';
 
-//components
+// components
 export * from './components/access-denied.component';
 export * from './components/app.component';
 export * from './components/footer.component';
@@ -17,17 +17,17 @@ export * from './components/header.component';
 export * from './components/home.component';
 export * from './components/page-not-found.component';
 
-//guards
+// guards
 export * from './guards/fire-store-auth.guard';
 
-//reducers
+// reducers
 export * from './reducers/header.reducer';
 
-//services
+// services
 export * from './services/fcm-messaging.service';
 export * from './services/firestore-auth.service';
 export * from './services/firestore-storage.service';
 export * from './services/http-interceptor.service';
 
-//store
+// store
 export * from './store/';

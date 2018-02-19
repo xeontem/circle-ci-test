@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Cource } from '../reducers/cources.reducer';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 export const SET_COURCES = '[Cources] set_cources';
 export const SEARCH_COURCE = '[Cources] search_cource';
@@ -27,11 +27,11 @@ export class SearchCource implements Action {
   readonly payload: {
     cources: Observable<Cource[]>,
     val: string;
-  }
+  };
   constructor(
     cources: Observable<Cource[]>,
     val: string ) {
-      this.payload = { cources, val }
+      this.payload = { cources, val };
      }
 }
 // export class SelectEvent implements Action {

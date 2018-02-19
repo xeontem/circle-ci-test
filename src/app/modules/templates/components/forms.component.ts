@@ -4,18 +4,18 @@ import { MatChipSelectionChange, MatChip, MatSelect, MatSelectChange } from '@an
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'tpl-forms',
+  selector: 'app-tpl-forms',
   templateUrl: './forms.component.html',
   styleUrls: ['./forms.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormsComponent implements OnInit {
 // template driven form
-firstname: string = 'artsiom';
-lastname: string = 'kukharev';
+firstname = 'artsiom';
+lastname = 'kukharev';
 
-selectedValue: string
-selectedFood: FormGroup
+selectedValue: string;
+selectedFood: FormGroup;
 
 // reactive form build
 foods: {value: string, viewValue: string, hint: string}[] =
@@ -28,7 +28,7 @@ foods: {value: string, viewValue: string, hint: string}[] =
 
 constructor(private fb: FormBuilder) { }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     // reactive form build
     this.selectedFood = this.fb.group({
       reactValue: ['', Validators.required]

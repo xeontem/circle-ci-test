@@ -48,11 +48,11 @@ export class ProvideCourcesService {
   }
 
   backup(): Observable<any> {
-    return this.http.get('https://us-central1-circle-ci-test-31dfc.cloudfunctions.net/backupCources')
+    return this.http.get('https://us-central1-circle-ci-test-31dfc.cloudfunctions.net/backupCources');
   }
 
   restore(): Observable<any> {
-    return this.http.get('https://us-central1-circle-ci-test-31dfc.cloudfunctions.net/restoreCources')
+    return this.http.get('https://us-central1-circle-ci-test-31dfc.cloudfunctions.net/restoreCources');
   }
 
 }

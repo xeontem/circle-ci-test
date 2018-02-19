@@ -23,6 +23,6 @@ describe('AccessDeniedComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(componentBUG).toBeTruthy();
   });
 });

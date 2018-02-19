@@ -41,7 +41,7 @@ jobs:
           prefix: builted-project
       - persist_to_workspace:
           root: ~/tmp
-          paths: /dist
+          paths: dist
   test:
     <<: *defaults
     steps:

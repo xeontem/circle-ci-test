@@ -2,12 +2,15 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 
+defaults: &defaults
+  working_directory: ~/tmp
+  docker:
+    - image: circleci/node:8-browsers
+
 version: 2
 jobs:
   save_cache:
-    working_directory: ~/temp
-    docker:
-      - image: circleci/node:8-browsers
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -22,19 +25,15 @@ jobs:
           paths:
             - .cache/yarn
             - node_modules
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - tmp
   build:
-    working_directory: ~/temp
-    docker:
-      - image: circleci/node:8-browsers
+    <<: *defaults
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - dependency-cache-{{ checksum "yarn.lock" }}
-          - dependency-cache-
-      - run:
-          name: install-dependencies
-          command: yarn
+      - attach_workspace:
+          at: ~/tmp
       - run:
           name: build-project
           command: yarn build
@@ -42,9 +41,7 @@ jobs:
           path: ./dist/
           prefix: builted-project
   test:
-    working_directory: ~/temp
-    docker:
-      - image: circleci/node:8-browsers
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -63,9 +60,7 @@ jobs:
       - store_test_results:
           path: ./coverage/
   lint:
-    working_directory: ~/temp
-    docker:
-      - image: circleci/node:8-browsers
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -83,9 +78,7 @@ jobs:
           path: ./coverage/tslintout.json
           prefix: lint
   deploy:
-    working_directory: ~/temp
-    docker:
-      - image: circleci/node:8-browsers
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:

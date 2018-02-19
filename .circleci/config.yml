@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 
 defaults: &defaults
-  working_directory: ~/tmp
+  working_directory: ./
   docker:
     - image: circleci/node:8-browsers
 
@@ -43,7 +43,7 @@ jobs:
           path: ./dist/
           prefix: builted-project
       - persist_to_workspace:
-          root: ~/tmp
+          root: ./
           paths: dist
   test:
     <<: *defaults
@@ -94,41 +94,13 @@ jobs:
           name: install-dependencies
           command: yarn
       - attach_workspace:
-          at: ~/tmp
+          at: ./dist
       - store_artifacts:
           path: ./dist/
           prefix: builted-project
       - run:
           name: Deploy Master to Firebase
           command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN
-  flow:
-    <<: *defaults
-    steps:
-      - run: mkdir -p workspace
-      - run: echo "Hello, world!" > workspace/echo-output
-
-      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
-      - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
-          # taken to be the root directory of the workspace.
-          root: workspace
-          # Must be relative path from root
-          paths:
-            - echo-output
-
-  downstream:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: /tmp/workspace
-
-      - run: |
-          if [[ `cat /tmp/workspace/echo-output` == "Hello, world!" ]]; then
-            echo "It worked!";
-          else
-            echo "Nope!"; exit 1
-          fi
 workflows:
   version: 2
   build_and_test-flow:
@@ -146,9 +118,3 @@ workflows:
           # filters:
           #       branches:
           #         only: master
-  btd:
-    jobs:
-      - flow
-      - downstream:
-          requires:
-            - flow

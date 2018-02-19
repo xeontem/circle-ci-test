@@ -95,6 +95,9 @@ jobs:
           command: yarn
       - attach_workspace:
           at: ~/tmp/dist
+      - store_artifacts:
+          path: ./dist/
+          prefix: builted-project
       - run:
           name: Deploy Master to Firebase
           command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN

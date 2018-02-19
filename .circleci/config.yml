@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 
-defaults: &defaults
+common: &common
   working_directory: ~/xeontem
   docker:
     - image: circleci/node:8-browsers
@@ -10,7 +10,7 @@ defaults: &defaults
 version: 2
 jobs:
   save_cache:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -26,7 +26,7 @@ jobs:
             - .cache/yarn
             - node_modules
   build:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -38,7 +38,7 @@ jobs:
           command: yarn
       - run:
           name: build-project
-          command: yarn build
+          command: yarn build:prod
       - store_artifacts:
           path: ./dist/
           prefix: builted-project
@@ -46,7 +46,7 @@ jobs:
           root: ~/xeontem
           paths: dist
   test:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -65,7 +65,7 @@ jobs:
       - store_test_results:
           path: ./coverage/
   lint:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -83,7 +83,7 @@ jobs:
           path: ./coverage/tslintout.json
           prefix: lint
   deploy:
-    <<: *defaults
+    <<: *common
     steps:
       - checkout
       - restore_cache:
@@ -105,16 +105,16 @@ workflows:
   version: 2
   build_and_test-flow:
     jobs:
-      # - save_cache
+      - save_cache
       - build
-      # - test
-      # - lint
+      - test
+      - lint
       - deploy:
           context: public
           requires:
             - build
-            # - test
-            # - lint
-          # filters:
-          #       branches:
-          #         only: master
+            - test
+            - lint
+          filters:
+                branches:
+                  only: master

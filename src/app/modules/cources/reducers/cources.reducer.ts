@@ -13,7 +13,7 @@ export interface Cource {
   created: Date;
   topRated: boolean;
 }
-export interface State extends EntityState<Cource> {
+export interface CourcesState extends EntityState<Cource> {
   array: Cource[];
   filtered: Cource[];
   predicate: string;
@@ -21,12 +21,12 @@ export interface State extends EntityState<Cource> {
   //  ids: Array<string>
 }
 
-export const adapter: EntityAdapter<Cource> = createEntityAdapter<Cource>({
+export const CourcesAdapter: EntityAdapter<Cource> = createEntityAdapter<Cource>({
   // selectId: (book: Book) => book.id,
   sortComparer: false,
 });
 
-const initialState: State = adapter.getInitialState({
+const initialState: CourcesState = CourcesAdapter.getInitialState({
   array: [],
   filtered: [],
   predicate: '',
@@ -34,10 +34,10 @@ const initialState: State = adapter.getInitialState({
   //  ids: Array<string>
 });
 
-export function reducer(state: State = initialState, action: courcesActions.Actions): State {
+export function CourcesReducer(state: CourcesState = initialState, action: courcesActions.Actions): CourcesState {
   switch (action.type) {
     case courcesActions.SET_COURCES: return {
-      ...adapter.addMany(action.payload, state),
+      ...CourcesAdapter.addMany(action.payload, state),
       array: action.payload,
       filtered: action.payload.filter(cource => cource.title.toLowerCase().includes(state.predicate.toLowerCase()))
     };
@@ -54,5 +54,5 @@ export function reducer(state: State = initialState, action: courcesActions.Acti
   }
 }
 
-export const getFiltered = (state: State): Cource[] => state.filtered;
-export const getPredicate = (state: State): string => state.predicate;
+export const getFiltered = (state: CourcesState): Cource[] => state.filtered;
+export const getPredicate = (state: CourcesState): string => state.predicate;

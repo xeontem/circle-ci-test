@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import * as fromCources from '../reducers/cources.reducer';
+import { State, Cource } from '../reducers';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { firestore } from 'firebase/app';
@@ -14,27 +14,28 @@ export class ProvideCourcesService {
   constructor(
     private http:  HttpClient,
     private afs:   AngularFirestore,
-    private store: Store<fromCources.State>
+    private store: Store<State>
   ) {
+    console.log(this.store);
     this.getList().valueChanges().subscribe(cources => {
       this.store.dispatch(new SetCources(cources));
     });
     // ProvideCourcesService.cources = this.getList().valueChanges();
   }
 
-  getList(): AngularFirestoreCollection<fromCources.Cource>  {
+  getList(): AngularFirestoreCollection<Cource>  {
     return this.afs.collection('cources');
   }
 
-  getListByQuery(key: firestore.FieldPath, query: firestore.WhereFilterOp, value: any): AngularFirestoreCollection<fromCources.Cource> {
+  getListByQuery(key: firestore.FieldPath, query: firestore.WhereFilterOp, value: any): AngularFirestoreCollection<Cource> {
     return this.afs.collection('cources', (ref: firestore.CollectionReference): firestore.Query => ref.where(key, query, value));
   }
 
-  addCource(newCource: fromCources.Cource): void {
+  addCource(newCource: Cource): void {
     this.afs.collection('cources').add(newCource);
   }
 
-  updateCource(updatedCource: fromCources.Cource): void {
+  updateCource(updatedCource: Cource): void {
     this.afs.collection('cources').doc(updatedCource.id).update(updatedCource);
   }
 

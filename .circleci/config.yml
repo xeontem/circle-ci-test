@@ -99,7 +99,9 @@ workflows:
   build_and_test-flow:
     jobs:
       - save_cache
-      - build
+      - build:
+          requires:
+            - save_cache
       - test
       - lint
       - deploy:

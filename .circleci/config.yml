@@ -43,7 +43,7 @@ jobs:
           path: ./dist/
           prefix: builted-project
       - persist_to_workspace:
-          root: ~/tmp/dist
+          root: ~/tmp
           paths: dist
   test:
     <<: *defaults
@@ -94,27 +94,27 @@ jobs:
           name: install-dependencies
           command: yarn
       - attach_workspace:
-          at: ~/tmp/dist
+          at: ~/tmp/dist/
       - store_artifacts:
           path: ./dist/
           prefix: builted-project
       - run:
           name: Deploy Master to Firebase
           command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN
-    flow:
-    <<: *defaults
-    steps:
-      - run: mkdir -p workspace
-      - run: echo "Hello, world!" > workspace/echo-output
+  flow:
+  <<: *defaults
+  steps:
+    - run: mkdir -p workspace
+    - run: echo "Hello, world!" > workspace/echo-output
 
-      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
-      - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
-    # taken to be the root directory of the workspace.
-          root: workspace
-          # Must be relative path from root
-          paths:
-            - echo-output
+    # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+    - persist_to_workspace:
+        # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+  # taken to be the root directory of the workspace.
+        root: workspace
+        # Must be relative path from root
+        paths:
+          - echo-output
 
   downstream:
     <<: *defaults

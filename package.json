@@ -6,7 +6,7 @@
     "ng": "ng",
     "serveip": "ng serve --ssl 1 --ssl-key certs/server.key --ssl-cert certs/server.crt --host 192.168.1.4",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build -prod -aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -44,7 +44,7 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "1.5.0",
+    "@angular/cli": "^1.7.0",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
     "@types/jasmine": "~2.5.53",

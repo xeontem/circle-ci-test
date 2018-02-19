@@ -86,7 +86,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /dist
+          at: dist
       - checkout
       - restore_cache:
           keys:
@@ -102,16 +102,16 @@ workflows:
   version: 2
   build_and_test-flow:
     jobs:
-      - save_cache
+      # - save_cache
       - build
-      - test
-      - lint
+      # - test
+      # - lint
       - deploy:
           context: public
           requires:
             - build
-            - test
-            - lint
-          filters:
-                branches:
-                  only: master
+            # - test
+            # - lint
+          # filters:
+          #       branches:
+          #         only: master

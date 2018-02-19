@@ -25,21 +25,23 @@ jobs:
           paths:
             - .cache/yarn
             - node_modules
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - tmp
   build:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: ~/tmp
+      - checkout
+      - restore_cache:
+          keys:
+          - dependency-cache-{{ checksum "yarn.lock" }}
+          - dependency-cache-
       - run:
           name: build-project
           command: yarn build
       - store_artifacts:
           path: ./dist/
           prefix: builted-project
+      - persist_to_workspace:
+          root: ~/tmp
+          paths: /dist
   test:
     <<: *defaults
     steps:
@@ -80,6 +82,8 @@ jobs:
   deploy:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: /dist
       - checkout
       - restore_cache:
           keys:
@@ -88,9 +92,6 @@ jobs:
       - run:
           name: install-dependencies
           command: yarn
-      - run:
-          name: build-project
-          command: yarn build
       - run:
           name: Deploy Master to Firebase
           command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN

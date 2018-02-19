@@ -1,29 +1,30 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { condL, I } from '../../../tools/lambda';
+import { condL, I, S, If } from '../../../tools/lambda';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-//components
+
+// components
 import { AddCourceDialogComponent } from './add-cource-dialog.component';
 import { ConfirmDeletingComponent } from './confirm-deleting.component';
-//services
+
+// services
 import { ProvideCourcesService } from '../services/provide-cources.service';
-//decorators
+
+// decorators
 import { logParam } from '../../../tools/parameter.decorators';
-//pipes
+
+// pipes
 import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
+
 // actions
 import { FilterCources, SetCources, SetPredicate } from '../actions/cources.action';
 
-//store
+// store
 import { Store } from '@ngrx/store';
-import { Cource, State } from '../reducers/cources.reducer';
-import { Order } from '../reducers/orders.reducer';
-import * as fromCources from '../reducers';
+import { Cource, Order, State, ordersEntitiesSelector, filteredSelector, predicateSelector } from '../reducers';
 import { Dictionary } from '@ngrx/entity/src/models';
 
-//lambdas
-import { S, If } from '../../../tools/lambda';
 @Component({
   selector: 'app-cources',
   templateUrl: './cources.component.html',
@@ -40,17 +41,17 @@ export class CourcesComponent implements OnInit {
     private csprovider: ProvideCourcesService,
     private     dialog: MatDialog,
     private     flpipe: FilterCourcesPipe,
-    private      store: Store<fromCources.State>) { }
+    private      store: Store<State>) { }
 
   ngOnInit() {
-    this.orders$ = this.store.select(fromCources.ordersEntitiesSelector);
+    this.orders$ = this.store.select(ordersEntitiesSelector);
     this.orders$.subscribe(s => this.orderKey = s[0]);
-    this.cources$ = this.store.select(fromCources.filteredSelector);
-    this.store.select(fromCources.predicateSelector).subscribe(pred => this.predicate = pred);
+    this.cources$ = this.store.select(filteredSelector);
+    this.store.select(predicateSelector).subscribe(pred => this.predicate = pred);
   }
 
   searchCource(@logParam pred: string = ''): void {
-    // this.store.dispatch(new FilterCources(this.flpipe.transform(this.store.select(fromCources.courcesSelector), pred)));
+    // this.store.dispatch(new FilterCources(this.flpipe.transform(this.store.select(courcesSelector), pred)));
     this.store.dispatch(new SetPredicate(pred));
   }
 
@@ -69,7 +70,7 @@ export class CourcesComponent implements OnInit {
 
   deletedEventHandler(id: string): void {
     console.log(id)
-    
+
     this.dialog
       .open(ConfirmDeletingComponent)
       .afterClosed()

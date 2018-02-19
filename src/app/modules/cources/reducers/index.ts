@@ -1,36 +1,36 @@
-import { ActionReducerMap, createSelector, createFeatureSelector } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { getValRight, B } from '../../../tools/lambda';
+import { ActionReducerMap, createSelector, createFeatureSelector, MemoizedSelector } from '@ngrx/store';
 import * as fromCources from './cources.reducer';
 import * as fromOrders from './orders.reducer';
 import * as fromRoot from '../../../store/';
-import { MemoizedSelector } from '@ngrx/store/src/selector';
-import { getValRight, B } from '../../../tools/lambda';
-import { Observable } from 'rxjs';
 export * from './orders.reducer';
+export * from './cources.reducer';
 
 
-interface CourcesState {
-  cources: fromCources.State;
-  orders: fromOrders.State;
+interface CourcesModuleState {
+  cources: fromCources.CourcesState;
+  orders: fromOrders.OrdersState;
 }
 
 export interface State extends fromRoot.State {
-  'courcesModule': CourcesState;
+  'courcesModule': CourcesModuleState;
 }
 
-export const reducers: ActionReducerMap<CourcesState> = {
-  cources: fromCources.reducer,
-  orders: fromOrders.reducer
+export const reducers: ActionReducerMap<CourcesModuleState> = {
+  cources: fromCources.CourcesReducer,
+  orders: fromOrders.OrdersReducer
 };
 
 //---------------------- courcesModule getter ------------------------------------------------
-type GetCourcesModuleState = MemoizedSelector<State, CourcesState>;
-const getCourcesModuleState: GetCourcesModuleState = createFeatureSelector<CourcesState>('courcesModule');
+type GetCourcesModuleState = MemoizedSelector<State, CourcesModuleState>;
+const getCourcesModuleState: GetCourcesModuleState = createFeatureSelector<CourcesModuleState>('courcesModule');
 
 
 //---------------------- cources selectors ------------------------------------------------
 const getCourcesState = createSelector(
   getCourcesModuleState,
-  (state: CourcesState): fromCources.State => state.cources
+  (state: CourcesModuleState): fromCources.CourcesState => state.cources
 );
 
 const {
@@ -38,7 +38,7 @@ const {
   selectEntities: getCourcesEntities,
   selectAll: getAllCources,
   // selectTotal: getTotalBooks,
-} = fromCources.adapter.getSelectors(getCourcesState);
+} = fromCources.CourcesAdapter.getSelectors(getCourcesState);
 
 export const courcesSelector = createSelector(
   getAllCources,
@@ -59,7 +59,7 @@ export const predicateSelector = createSelector(
 //---------------------- orders selectors ------------------------------------------------
 const getOrdersState = createSelector(
   getCourcesModuleState,
-  (state: CourcesState): fromOrders.State => state.orders
+  (state: CourcesModuleState): fromOrders.OrdersState => state.orders
 );
 
 const {
@@ -67,7 +67,7 @@ const {
   selectEntities: getordersEntities,
   selectAll: getAllOrders,
   // selectTotal: getTotalBooks,
-} = fromOrders.adapter.getSelectors(getOrdersState);
+} = fromOrders.OrdersAdapter.getSelectors(getOrdersState);
 
 
 export const ordersEntitiesSelector = createSelector(

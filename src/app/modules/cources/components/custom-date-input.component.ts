@@ -12,7 +12,8 @@ export class CustomDateInputComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.current = this.date.toLocaleString().slice(0, this.date.toLocaleString().indexOf(','))
+    const localDate = this.date.toLocaleString();
+    this.current = localDate.slice(0, localDate.indexOf(','))
   }
 
 }

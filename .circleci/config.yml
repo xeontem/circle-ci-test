@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 
 defaults: &defaults
-  working_directory: ./
+  working_directory: ./project
   docker:
     - image: circleci/node:8-browsers
 
@@ -43,7 +43,7 @@ jobs:
           path: ./dist/
           prefix: builted-project
       - persist_to_workspace:
-          root: ./
+          root: ./project
           paths: dist
   test:
     <<: *defaults
@@ -94,7 +94,7 @@ jobs:
           name: install-dependencies
           command: yarn
       - attach_workspace:
-          at: ./dist
+          at: ./project/dist
       - store_artifacts:
           path: ./dist/
           prefix: builted-project

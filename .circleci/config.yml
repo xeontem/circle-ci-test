@@ -94,7 +94,7 @@ jobs:
           name: install-dependencies
           command: yarn
       - attach_workspace:
-          at: /dist
+          at: ~/tmp/dist
       - run:
           name: Deploy Master to Firebase
           command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN

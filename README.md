@@ -1,4 +1,6 @@
 ### Circle Ci: [![CircleCI](https://circleci.com/gh/xeontem/circle-ci-test/tree/master.svg?style=svg)](https://circleci.com/gh/xeontem/circle-ci-test/tree/master)
+
+### Coverall: [![Coverage Status](https://coveralls.io/repos/github/xeontem/circle-ci-test/badge.svg)](https://coveralls.io/github/xeontem/circle-ci-test)
 # CircleCiTest
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.

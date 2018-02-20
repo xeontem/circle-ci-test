@@ -76,7 +76,6 @@ jobs:
           name: install-dependencies
           command: yarn
       - run:
-          halt_build_on_fail: false
           name: angular-lint
           command: yarn lint:ci
       - store_artifacts:
@@ -107,8 +106,9 @@ workflows:
     jobs:
       - save_cache
       - build
-      - test
       - lint
+      - test:
+          context: public
       - deploy:
           context: public
           requires:

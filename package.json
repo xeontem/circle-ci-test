@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test:ci": "ng test -cc ci",
+    "test:ci": "ng test -cc ci && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "lint:ci": "ng lint -t json > tslintout.json",
     "deploy": "./node_modules/.bin/firebase deploy --only hosting"
   },
@@ -55,6 +55,7 @@
     "circular-dependency-plugin": "^3.0.0",
     "codelyzer": "^4.1.0",
     "copy-webpack-plugin": "^4.1.1",
+    "coveralls": "^3.0.0",
     "css-loader": "^0.28.1",
     "cssnano": "^3.10.0",
     "exports-loader": "^0.6.3",

@@ -1,1 +1,1 @@
-export class MatDialogRefStub {}
+export class MatDialogStub {}

@@ -1,29 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { condL, I, S, If } from '../../../tools/lambda';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { If } from '../../../tools/lambda';
+import { Store } from '@ngrx/store';
+import { logParam } from '../../../tools/parameter.decorators';
+import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-
-// components
+import { Dictionary } from '@ngrx/entity/src/models';
+import { SetPredicate } from '../actions/cources.action';
+import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
+import { ProvideCourcesService } from '../services/provide-cources.service';
 import { AddCourceDialogComponent } from './add-cource-dialog.component';
 import { ConfirmDeletingComponent } from './confirm-deleting.component';
-
-// services
-import { ProvideCourcesService } from '../services/provide-cources.service';
-
-// decorators
-import { logParam } from '../../../tools/parameter.decorators';
-
-// pipes
-import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
-
-// actions
-import { FilterCources, SetCources, SetPredicate } from '../actions/cources.action';
-
-// store
-import { Store } from '@ngrx/store';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Cource, Order, State, ordersEntitiesSelector, filteredSelector, predicateSelector } from '../reducers';
-import { Dictionary } from '@ngrx/entity/src/models';
 
 @Component({
   selector: 'app-cources',

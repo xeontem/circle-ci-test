@@ -12,7 +12,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "test:ci": "ng test -cc ci",
-    "lint:ci": "ng lint -t json > coverage/tslintout.json",
+    "lint:ci": "ng lint -t json > tslintout.json",
     "deploy": "./node_modules/.bin/firebase deploy --only hosting"
   },
   "private": true,

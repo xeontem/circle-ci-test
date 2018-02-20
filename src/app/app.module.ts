@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-//-------------------------------- ngrx store -----------------------------
+// -------------------------------- ngrx store -----------------------------
 import {
   StoreRouterConnectingModule,
   RouterStateSerializer,
@@ -11,7 +11,7 @@ import { CustomRouterStateSerializer } from './tools/utils';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './store';
 
-//---------------------------- this module --------------------------------
+// ---------------------------- this module --------------------------------
 import {
   AppComponent,
   HeaderComponent,
@@ -26,20 +26,20 @@ import {
   HttpInterceptorService
 } from './';
 
-//-------------------- components from another modules --------------------
+// -------------------- components from another modules --------------------
 import { CourcesComponent } from './modules/cources/';
 import { FormsComponent, ButtonsComponent } from './modules/templates/';
 import { EventsComponent } from './modules/events/';
 
-//-------------------------------- FIreBase -------------------------------
+// -------------------------------- FIreBase -------------------------------
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
-//------------------------------- animations -------------------------------
+// ------------------------------- animations -------------------------------
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//-------------------------------- material --------------------------------
+// -------------------------------- material --------------------------------
 import {
   MatCardModule,
   MatGridListModule,
@@ -50,18 +50,18 @@ import {
   MatMenuTrigger,
   MatSnackBarModule } from '@angular/material';
 
-//------------------------------- routes -------------------------------
+// ------------------------------- routes -------------------------------
 import { RouterModule, Routes } from '@angular/router';
 
-//-------------------------------- env for firebase ------------------------
-import { environment } from "../environments/environment";
+// -------------------------------- env for firebase ------------------------
+import { environment } from '../environments/environment';
 
-//------------------------------ my modules -------------------------------------
+// ------------------------------ my modules -------------------------------------
 import { TemplatesModule } from './modules/templates/templates.module';
 import { EventsModule } from './modules/events/events.module';
 import { CourcesModule } from './modules/cources/cources.module';
 
-//----------------------------- routes -----------------------------------------
+// ----------------------------- routes -----------------------------------------
 
 
 const routes: Routes = [
@@ -95,7 +95,7 @@ const routes: Routes = [
   },
   { path: '**', component: PageNotFoundComponent }
 ];
-//-------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 @NgModule({
   declarations: [
     AppComponent,
@@ -137,14 +137,14 @@ const routes: Routes = [
     !environment.production
       ? StoreDevtoolsModule.instrument({ maxAge: 2 }) : [],
 
-    //firebase
+    // firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule,
 
-    //animations
-    BrowserAnimationsModule, //polyfill
+    // animations
+    BrowserAnimationsModule, // polyfill
 
     // material
     MatCardModule,

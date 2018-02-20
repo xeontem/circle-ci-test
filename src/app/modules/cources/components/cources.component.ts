@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { condL, I, S, If } from '../../../tools/lambda';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 // components
 import { AddCourceDialogComponent } from './add-cource-dialog.component';
@@ -69,8 +69,6 @@ export class CourcesComponent implements OnInit {
   }
 
   deletedEventHandler(id: string): void {
-    console.log(id)
-
     this.dialog
       .open(ConfirmDeletingComponent)
       .afterClosed()

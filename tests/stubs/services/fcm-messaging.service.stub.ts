@@ -1,4 +1,4 @@
 export class FcmMessagingServiceStub {
-  currentMessage = { subscribe: x => x }
+  currentMessage = { subscribe: x => x };
   getPermissionAndUpdateToken() {}
 }

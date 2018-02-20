@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, } from '@angular/core';
 
 @Component({
-  selector: 'custom-date-input',
+  selector: 'app-custom-date-input',
   templateUrl: './custom-date-input.component.html',
   styleUrls: ['./custom-date-input.component.scss']
 })
@@ -13,7 +13,7 @@ export class CustomDateInputComponent implements OnInit {
 
   ngOnInit() {
     const localDate = this.date.toLocaleString();
-    this.current = localDate.slice(0, localDate.indexOf(','))
+    this.current = localDate.slice(0, localDate.indexOf(','));
   }
 
 }

@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   selector: 'router-outlet',
   template: '<span>router-outlet-stub</span>'
 })
-export class RouterOutletStub {  }
+export class RouterOutletStubComponent {  }

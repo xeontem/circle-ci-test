@@ -9,7 +9,7 @@ import {
   import { RouterStateUrl } from '../tools/utils';
   import { RouterReducerState, routerReducer } from '@ngrx/router-store';
 
-  //---------------- my reducers -------------------------------
+  // ---------------- my reducers -------------------------------
   /**
    * Every reducer module's default export is the reducer function itself. In
    * addition, each module should export a type or interface that xdescribes

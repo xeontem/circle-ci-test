@@ -1,4 +1,4 @@
 export class AngularFirestoreStub {
-  collection(){return { valueChanges(){ return {subscribe(){}}} }}
+  collection = () => ({ valueChanges: () => ({ subscribe: () => {}}) });
   getList() {}
 }

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as courcesActions from '../actions/cources.action';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { ProvideCourcesService } from '../services/provide-cources.service';
 
 export interface Cource {

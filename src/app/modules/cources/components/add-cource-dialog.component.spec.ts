@@ -65,8 +65,8 @@ describe('AddCourceDialogComponent', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
 
-  let component: AddCourceDialogComponent;
-  let viewContainerFixture: ComponentFixture<AddCourceDialogComponent>;
+  // let component: AddCourceDialogComponent;
+  // let viewContainerFixture: ComponentFixture<AddCourceDialogComponent>;
   let mockFormBuilder: FormBuilderStub;
 
   beforeEach(async(() => {

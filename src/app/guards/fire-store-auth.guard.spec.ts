@@ -2,7 +2,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { FirestoreAuthService } from '../services/firestore-auth.service';
 
-//-------------------------------- stubs --------------------------------
+// -------------------------------- stubs --------------------------------
 import {
   RouterStub,
   FirestoreAuthServiceStub,

@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { HeaderComponent } from './header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//-------------------------------- stubs --------------------------------
+// -------------------------------- stubs --------------------------------
 import {
   StoreStub,
   RouterStub,
@@ -15,7 +15,7 @@ import {
   FirestoreStorageServiceStub,
 } from '../../../tests/stubs';
 
-//-------------------------------- material --------------------------------
+// -------------------------------- material --------------------------------
 import { MatCardModule } from '@angular/material';
 
 describe('HeaderComponent', () => {

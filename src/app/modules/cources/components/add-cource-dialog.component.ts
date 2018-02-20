@@ -6,7 +6,7 @@ import { Emit } from '../../../tools/methods.decorators';
 import { validateDate } from '../../../validators/validateDate';
 
 
-type Hints = {
+interface Hints {
   description: string;
   date: string;
   duration: string;
@@ -14,7 +14,7 @@ type Hints = {
 }
 
 @Component({
-  selector: 'cources-add-cource-dialog',
+  selector: 'app-add-cource-dialog',
   templateUrl: './add-cource-dialog.component.html',
   styleUrls: ['./add-cource-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

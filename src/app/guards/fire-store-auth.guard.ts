@@ -13,6 +13,6 @@ export class FireStoreAuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
       return this.auth.isAuthenticated()
-        .do(loggedIn => !loggedIn && this.router.url !== '/denied' && this.router.navigate(['/denied']))
+        .do(loggedIn => !loggedIn && this.router.url !== '/denied' && this.router.navigate(['/denied']));
   }
 }

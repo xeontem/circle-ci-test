@@ -8,7 +8,7 @@ export class FirestoreStorageService implements OnInit {
 
   ngOnInit() {
     this.storage = firebase.storage().ref().child('');
-    this.storage.getDownloadURL().then(url => console.dir(url))
+    this.storage.getDownloadURL().then(url => console.dir(url));
   }
 }
 

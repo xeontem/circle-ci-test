@@ -1,18 +1,19 @@
 import { ViewChild, Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-
+import 'rxjs/add/observable/fromEvent';
 // import { AppState } from '../../redux/state';
 import { StorePerf, STORE_PREFWITH } from '../actions/events.action';
 import { EventsState, perfWithSelector, withValueSelector } from '../reducers/events.reducer';
 import { State } from '../../../store';
 import * as λ from '../../../tools/lambda';
 
-//decorators
+// decorators
 import { perf } from '../../../tools/methods.decorators';
 import { SetDefault } from '../../../tools/class.decorators';
 @Component({
-  selector: 'church-fibonachchi',
+  selector: 'app-church-fibonachchi',
   templateUrl: './church-fibonachchi.component.html',
   styleUrls: ['./church-fibonachchi.component.scss']
 })
@@ -43,22 +44,20 @@ export class ChurchFibonachchiComponent implements OnInit {
     // ------------------------------ define element ------------------------------
     const el = this.fibo.nativeElement;
 
-    //--------------------------------- check cookies for coords ---------------------
+    // --------------------------------- check cookies for coords ---------------------
     this.cookies = λ.getCookie();
     // console.log(this.cookies);
-
-    //-------------------------------- set position --------------------------
-    el.style.top = this.cookies.topf || `${~~(document.documentElement.offsetHeight / 2)}px`;// default
-    el.style.left = this.cookies.leftf || `${300}px`;// default
-
-    //------------------------------- handle drag -----------------------------------
+    // -------------------------------- set position --------------------------
+    el.style.top = this.cookies.topf || `${Math.ceil(document.documentElement.offsetHeight / 2)}px`; // default
+    el.style.left = this.cookies.leftf || `${300}px`; // default
+    // ------------------------------- handle drag -----------------------------------
     this.dragstartStream$ = Observable.fromEvent(el, 'dragstart').subscribe(e => this.handleDragStart(e, el));
     this.dragenterStream$ = Observable.fromEvent(el, 'dragenter').subscribe(e => this.handleDragEnter(e, el));
     this.dragoverStream$ = Observable.fromEvent(el, 'dragover').subscribe(e => this.handleDragOver(e, el));
     this.dragleaveStream$ = Observable.fromEvent(el, 'dragleave').subscribe(e => this.handleDragLeave(e, el));
     this.dragendStream$ = Observable.fromEvent(el, 'dragend').subscribe(e => this.handleDragEnd(e, el));
     this.dropStream$ = Observable.fromEvent(el, 'drop').subscribe(e => this.handleDrop(e, el), err => console.dir(err));
-    this.bodyoverStream$ = Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e))
+    this.bodyoverStream$ = Observable.fromEvent(document.body, 'dragover').subscribe(e => this.handledragoverBody(e));
   }
 
   handledragoverBody(e) {
@@ -96,13 +95,13 @@ export class ChurchFibonachchiComponent implements OnInit {
   }
 
   handleDragEnd(e, el) {
-    //------------------------ apply pos to elem ---------------------------
+    // ------------------------ apply pos to elem ---------------------------
     el.style.opacity = '1';
-    el.style.top = `${e.pageY - this.initLayerY - 20}px`;// 20 - padding
-    el.style.left = `${e.pageX - this.initLayerX - 10}px`;// 10 - padding
+    el.style.top = `${e.pageY - this.initLayerY - 20}px`; // 20 - padding
+    el.style.left = `${e.pageX - this.initLayerX - 10}px`; // 10 - padding
     el.classList.remove('drag-over');
-    //------------------------ store pos into cookies ----------------------
-    let expire = new Date(new Date().getTime() + 60 * 1000).toUTCString();// set expire date
+    // ------------------------ store pos into cookies ----------------------
+    const expire = new Date(new Date().getTime() + 60 * 1000).toUTCString(); // set expire date
     document.cookie = `topf=${el.style.top}; path=/; expires=${expire}`;
     document.cookie = `leftf=${el.style.left}; path=/; expires=${expire}`;
   }
@@ -110,17 +109,17 @@ export class ChurchFibonachchiComponent implements OnInit {
   @perf
   withYcombinator() {
     // memoize
-    var I = x => x;
-    var K = x => y => x;
-    var A = f => x => f(x);
-    var B = f => g => x => f(g(x));
-    var S = f => x => z => f(z)(x(z));
-    var C = f => x => y => f(y)(x);
-    var Y = f => (x => x(x))(x => y => f(x(x))(y));
+    const I = x => x;
+    const K = x => y => x;
+    const A = f => x => f(x);
+    const B = f => g => x => f(g(x));
+    const S = f => x => z => f(z)(x(z));
+    const C = f => x => y => f(y)(x);
+    const Y = f => (x => x(x))(x => y => f(x(x))(y));
 
-    var pred = n => f => x => n(g => h => h(g(f)))(u => x)(u => u);
+    const pred = n => f => x => n(g => h => h(g(f)))(u => x)(u => u);
 
-    var Num = {
+    const Num = {
       zero: K(I),
       one: A,
       two: S(B)(A),
@@ -131,9 +130,9 @@ export class ChurchFibonachchiComponent implements OnInit {
       minus: C(C(A)(pred)),
       mult: n => m => f => x => n(m(f))(x),
       numToJS: n => n(x => x + 1)(0)
-    }
+    };
 
-    var Boolean = {
+    const Boolean = {
       TRUE: K,
       FALSE: C(K),
       cond: v => t => f => v(t)(f),
@@ -143,28 +142,28 @@ export class ChurchFibonachchiComponent implements OnInit {
       boolToJS: v => Boolean.cond(v)(true)(false)
     };
 
-    var { cond, not, or, TRUE, FALSE, boolToJS } = Boolean;
-    var { plus, succ, minus, mult, zero, one, two, three, five, numToJS } = Num;
+    const { cond, not, or, TRUE, FALSE, boolToJS } = Boolean;
+    const { plus, succ, minus, mult, zero, one, two, three, five, numToJS } = Num;
 
-    var isZero = n => n(x => FALSE)(TRUE);
-    var equal = m => n => isZero(minus(m)(n));
+    const isZero = n => n(x => FALSE)(TRUE);
+    const equal = m => n => isZero(minus(m)(n));
 
 
-    //Pairs
-    var Pair = a => b => f => f(a)(b);
-    var Fst = p => p(TRUE);
-    var Snd = p => p(FALSE);
+    // Pairs
+    const Pair = a => b => f => f(a)(b);
+    const Fst = p => p(TRUE);
+    const Snd = p => p(FALSE);
 
-    var Pred = n => s => z =>
+    const Pred = n => s => z =>
       Snd(n(p => Pair(s(Fst(p)))(Fst(p)))(Pair(z)(z)));
 
-    //factorial
-    // var fact = (x => x(x))(x => y => (f => n =>
+    // factorial
+    // const fact = (x => x(x))(x => y => (f => n =>
     //   cond(isZero(n))
     //     (succ(zero))
     //     (x => mult(n)(f(pred(n)))(x)))(x(x))(y));
 
-    var fact = Y(f => n =>
+    const fact = Y(f => n =>
       cond(isZero(n))
         (succ(zero))
         (x => mult(n)(f(pred(n)))(x)));
@@ -183,7 +182,7 @@ export class ChurchFibonachchiComponent implements OnInit {
     const ten = mult(two)(five);
     const twenty = mult(ten)(two);
     const thirty = mult(three)(ten);
-    console.dir(numToJS(fibChurch(twenty)))
+    console.dir(numToJS(fibChurch(twenty)));
 
     this.withValue = fib(20);
     // console.dir(fib(10))

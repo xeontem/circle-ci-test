@@ -1,17 +1,18 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as eventsActions from '../actions/events.action';
 import { getValRight } from '../../../tools/lambda';
+
 export interface SelectedEvent {
-	type: string,
-	title?: string,
-	description?: string,
-	duration?: number,
-	id?: string,
-  location?: string,
+  type: string;
+  title?: string;
+  description?: string;
+  duration?: number;
+  id?: string;
+  location?: string;
   visible?: string;
-	resources?: Array<any>,
-	speakers?: Array<any>,
-};
+  resources?: Array<any>;
+  speakers?: Array<any>;
+}
 
 export interface EventsState {
   value: string;
@@ -29,17 +30,21 @@ const initialState: EventsState = {
 
 export function eventsReducer(state = initialState, action: eventsActions.Actions): EventsState {
   switch (action.type) {
-    case eventsActions.CHANGE_OBJ_VAL: return Object.assign({}, state, {value: 'changed value from reducer' + `${Math.round(Math.random() * 10)}`});
-    case eventsActions.SELECT_EVENT:   return Object.assign({}, state, {selectedEvent: action['payload']});
-    case eventsActions.STORE_PREFWITH: return Object.assign({}, state, action['payload']);
-    default:                           return state;
+    case eventsActions.CHANGE_OBJ_VAL:
+      return Object.assign({}, state, {value: 'changed value from reducer' + `${Math.round(Math.random() * 10)}`});
+    case eventsActions.SELECT_EVENT:
+      return Object.assign({}, state, {selectedEvent: action['payload']});
+    case eventsActions.STORE_PREFWITH:
+      return Object.assign({}, state, action['payload']);
+    default:
+      return state;
   }
 }
 
-//---------------------- AppState getters ------------------------------------------------
+// ---------------------- AppState getters ------------------------------------------------
 const getEventsState = createFeatureSelector<EventsState>('eventsReducer');
 
-//----------------------------------- main component selector ----------------------------
+// ----------------------------------- main component selector ----------------------------
 // const getValue         = (state: EventsState) => state.value;// get value from events state
 // const getselectedEvent = (state: EventsState) => state.selectedEvent;// get value from events state
 // const getYperfWith     = (state: EventsState) => state.perfWith;// get perfWith from Y store

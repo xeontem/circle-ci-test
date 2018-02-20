@@ -20,8 +20,8 @@ xdescribe('CustomDateInputComponent', () => {
   });
 
   it('should create', () => {
-    console.log('custom date test')
-    
+    console.log('custom date test');
+
     expect(component).toBeTruthy();
   });
 });

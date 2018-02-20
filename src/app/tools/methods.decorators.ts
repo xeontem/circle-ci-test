@@ -1,4 +1,4 @@
-//-------------------- factories -------------------------------------------
+// -------------------- factories -------------------------------------------
 /*
 options: argument that we can pass before call the method
 target: class that current method is
@@ -15,10 +15,10 @@ export function Emit(evntName: string) {
     descriptor.value = function<T>(...args: T[]) {
       const result = origMethod.apply(this, args);
       this[evntName].emit(...[...args, result]);
-    }
+    };
 
     return descriptor;
-  }
+  };
 }
 
 export function DeferUntill(predicate: any) {
@@ -27,14 +27,16 @@ export function DeferUntill(predicate: any) {
     const origMethod = descriptor.value;
 
     descriptor.value = function<T>(...args: T[]) {
-      console.dir(predicate)
-      if(predicate) return origMethod.apply(this, args);
-    }
+      console.dir(predicate);
+      if (predicate) {
+        return origMethod.apply(this, args);
+      }
+    };
 
     return descriptor;
-  }
+  };
 }
-//------------------- single methods ---------------------------------------
+// ------------------- single methods ---------------------------------------
 /*
 target: class that current method is
 this: intance of the class
@@ -53,7 +55,7 @@ export function logger(target: {}, key: string, descriptor: PropertyDescriptor) 
     console.log('descriptor: ', descriptor);
     console.log('------------------------------------------');
     origMethod.apply(this, args);
-  }
+  };
 
   return descriptor;
 }
@@ -71,7 +73,7 @@ export function perf(target: {}, key: string, descriptor: PropertyDescriptor) {
       console.log('performance duration: ', (end - start).toFixed(10));
       console.log('performance end: ', end.toFixed(10));
       console.log('------------------------------------------');
-    }
+    };
 
     return descriptor;
   }

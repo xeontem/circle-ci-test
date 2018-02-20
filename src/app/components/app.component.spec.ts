@@ -4,14 +4,14 @@ import { FcmMessagingService } from '../services/fcm-messaging.service';
 
 import { AppComponent } from './app.component';
 
-//-------------------------------- stubs --------------------------------
+// -------------------------------- stubs --------------------------------
 import {
-  AppHeaderStub,
-  RouterOutletStub,
-  AppFooterStub,
+  AppHeaderStubComponent,
+  RouterOutletStubComponent,
+  AppFooterStubComponent,
   FcmMessagingServiceStub,
 } from '../../../tests/stubs';
-//-------------------------------- material --------------------------------
+// -------------------------------- material --------------------------------
 import {
   MatButtonModule,
   MatMenuModule,
@@ -27,9 +27,9 @@ describe('PageNotFoundComponentComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        AppHeaderStub,
-        RouterOutletStub,
-        AppFooterStub,
+        AppHeaderStubComponent,
+        RouterOutletStubComponent,
+        AppFooterStubComponent,
       ],
       imports: [
         MatMenuModule,

@@ -2,7 +2,8 @@ import { ViewChild, Component, OnInit, OnDestroy, ChangeDetectionStrategy, Chang
 import { FetchEventsService } from '../services/fetch-events.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { interval } from 'rxjs/observable/interval';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { SelectEvent, ChangeVal, CHANGE_OBJ_VAL, SELECT_EVENT } from '../actions/events.action';
 import { EventsState, SelectedEvent, valueSelector, eventSelector } from '../reducers/events.reducer';
@@ -10,6 +11,8 @@ import { State } from '../../../store';
 import * as λ from '../../../tools/lambda';
 
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/from';
 
 @Component({
   selector:        'app-events',
@@ -23,9 +26,9 @@ export class EventsComponent implements OnInit, OnDestroy  {
   @ViewChild('evntCont') container: ElementRef;
 
 
+  result = 0;
+  timer = 'button start/reset not pressed';
   types:                 Array<string> = ['workshop', 'webinar', 'lecture', 'deadline', 'event'];
-  result:                number = 0;
-  timer:                 string = 'button start/reset not pressed';
   value$:                Observable<string>;
   events:                Array<SelectedEvent> = [];
   tempArr:               Array<number> = [];
@@ -46,7 +49,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
     private store:       Store<EventsState>) { }
 
   calcMult() {
-    this.calculateStream$.next([λ.randNumber(0)(10), λ.randNumber(0)(10)])
+    this.calculateStream$.next([λ.randNumber(0)(10), λ.randNumber(0)(10)]);
   }
 
   startTimer() {
@@ -67,7 +70,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
         (λ.getVal(λ.getVal(e)('target'))('parentNode'))))// TODO find right type of event
       .filter(λ.C(λ.B(λ.clCont)(λ.getClasList))('event'))// elem has class event?
       .pluck('id')
-      .subscribe((id:number) => this.store.dispatch(new SelectEvent(λ.getVal(this.events)(id))));
+      .subscribe((id: number) => this.store.dispatch(new SelectEvent(λ.getVal(this.events)(id))));
 
     this.fetchEvents.getEvents()
       .map(λ.set(this)('events'))
@@ -89,7 +92,7 @@ export class EventsComponent implements OnInit, OnDestroy  {
   }
 
   sortByType() {
-    this.sortByTypeStream$ = Observable.interval(5)
+    this.sortByTypeStream$ = interval(5)
       .take(this.events.length)
       .flatMap(i => Observable.from(this.events))
       .map((ev, j) => λ.cond(j >= this.events.length)(j % this.events.length)(j))
@@ -98,27 +101,25 @@ export class EventsComponent implements OnInit, OnDestroy  {
            ({bool: true, j})
            ({bool: false, j})))
          ((x => ({bool: false, j}))))
-      .do(o => λ.condL(o.bool)(x => λ.swap(this.events)(o.j)(o.j+1))(λ.I))
+      .do(o => λ.condL(o.bool)(x => λ.swap(this.events)(o.j)(o.j + 1))(λ.I))
       .subscribe(i => this.cd.markForCheck());
   }
 
   reverse() {
     this.reverseStream$ = interval(5)
       .take(this.events.length / 2)
-      .map(i => ({i, j: λ.cond(this.events.length-i-1 < 0)(0)(this.events.length-i-1)}))
+      .map(i => ({i, j: λ.cond(this.events.length - i - 1 < 0)(0)(this.events.length - i - 1)}))
       .do(o => λ.swap(this.events)(o.i)(o.j))
       .subscribe(i => this.cd.markForCheck());
   }
 
   shake() {
     this.shakeStream$ = interval(5)
-    .take(this.events.length/2)
+    .take(this.events.length / 2)
     .map(i => ({i: λ.rand(this.events.length), j: λ.rand(this.events.length)}))
     .do(o => λ.swap(this.events)(o.i)(o.j))
-    .subscribe(a => this.cd.markForCheck())
+    .subscribe(a => this.cd.markForCheck());
   }
-
-  ngDoCheck() { }
 
   ngOnDestroy() {
     this.calculateStream$.unsubscribe();

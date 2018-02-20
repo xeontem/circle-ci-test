@@ -1,4 +1,4 @@
-### Circle Ci: [![CircleCI](https://circleci.com/gh/xeontem/circle-ci-test/tree/master.svg?style=svg)](https://circleci.com/gh/xeontem/circle-ci-test/tree/master)
+[![CircleCI](https://circleci.com/gh/xeontem/circle-ci-test/tree/master.svg?style=svg)](https://circleci.com/gh/xeontem/circle-ci-test/tree/master) [![Coverage Status](https://coveralls.io/repos/github/xeontem/circle-ci-test/badge.svg?branch=feature%2Flint-fix)](https://coveralls.io/github/xeontem/circle-ci-test?branch=feature%2Flint-fix)
 # CircleCiTest
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.

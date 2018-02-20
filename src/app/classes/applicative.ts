@@ -1,4 +1,4 @@
-import { Apply } from "./apply";
+import { Apply } from './apply';
 
 export class Applicative<a> extends Apply<a> {
 

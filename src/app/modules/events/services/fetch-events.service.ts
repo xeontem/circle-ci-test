@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class FetchEventsService {
 
-  constructor(public http:HttpClient) {
+  constructor(public http: HttpClient) {
     // console.log('events service connected');
    }
 

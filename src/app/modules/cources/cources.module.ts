@@ -4,10 +4,10 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { FireStoreAuthGuard } from '../../guards/fire-store-auth.guard';
 
-//-------------------------------- Forms -------------------------------
+// -------------------------------- Forms -------------------------------
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-//-------------------------------- material --------------------------------
+// -------------------------------- material --------------------------------
 import {
   MatCardModule,
   MatToolbarModule,
@@ -24,7 +24,7 @@ import {
   MatSelectModule
 } from '@angular/material';
 
-//---------------------------------- this module ---------------------------------
+// ---------------------------------- this module ---------------------------------
 import {
   CourcesComponent,
   CourceComponent,
@@ -39,12 +39,12 @@ import {
   reducers
 } from './';
 
-import { DateValidator } from '../../validators/validateDate';
+import { DateValidatorDirective } from '../../validators/validateDate';
 
 @NgModule({
   imports: [
     CommonModule,
-    //routes
+    // routes
     RouterModule.forChild([
       {
         path: 'cources',
@@ -54,7 +54,7 @@ import { DateValidator } from '../../validators/validateDate';
       },
     ]),
 
-    //ngrx store
+    // ngrx store
     StoreModule.forFeature('courcesModule', reducers),
     // forms
     ReactiveFormsModule,
@@ -86,7 +86,7 @@ import { DateValidator } from '../../validators/validateDate';
     DurationPipe,
     OrderByPipe,
     FilterCourcesPipe,
-    DateValidator
+    DateValidatorDirective
   ],
   exports: [ ]
 })

@@ -2,7 +2,7 @@ import { Component, Input, Output, OnInit, ChangeDetectionStrategy } from '@angu
 import { SelectedEvent } from '../reducers/events.reducer';
 
 @Component({
-  selector: 'event',
+  selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -10,7 +10,7 @@ import { SelectedEvent } from '../reducers/events.reducer';
 export class EventComponent implements OnInit {
   @Input()event: SelectedEvent;
   @Output()
-  lang:          string = 'en';
+  lang = 'en';
   langs:         Array<{name: string, val: string}>;
 
   constructor() {

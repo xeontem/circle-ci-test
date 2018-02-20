@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { getValRight, B } from '../../../tools/lambda';
 import { ActionReducerMap, createSelector, createFeatureSelector, MemoizedSelector } from '@ngrx/store';
 import * as fromCources from './cources.reducer';
@@ -22,12 +22,12 @@ export const reducers: ActionReducerMap<CourcesModuleState> = {
   orders: fromOrders.OrdersReducer
 };
 
-//---------------------- courcesModule getter ------------------------------------------------
+// ---------------------- courcesModule getter ------------------------------------------------
 type GetCourcesModuleState = MemoizedSelector<State, CourcesModuleState>;
 const getCourcesModuleState: GetCourcesModuleState = createFeatureSelector<CourcesModuleState>('courcesModule');
 
 
-//---------------------- cources selectors ------------------------------------------------
+// ---------------------- cources selectors ------------------------------------------------
 const getCourcesState = createSelector(
   getCourcesModuleState,
   (state: CourcesModuleState): fromCources.CourcesState => state.cources
@@ -56,7 +56,7 @@ export const predicateSelector = createSelector(
 );
 
 
-//---------------------- orders selectors ------------------------------------------------
+// ---------------------- orders selectors ------------------------------------------------
 const getOrdersState = createSelector(
   getCourcesModuleState,
   (state: CourcesModuleState): fromOrders.OrdersState => state.orders

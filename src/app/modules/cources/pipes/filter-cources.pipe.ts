@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Cource } from '../reducers/cources.reducer';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/reduce';
 
@@ -9,7 +9,7 @@ import 'rxjs/add/operator/reduce';
 })
 export class FilterCourcesPipe implements PipeTransform {
 
-  transform(cources: Observable<Cource[]>, val: string): Cource[] {
+  transform(cources$: Observable<Cource[]>, val: string): Cource[] {
     // const obs = cources.switchMap(cources => Observable.from(cources));
     // console.dir(obs);
 
@@ -19,8 +19,8 @@ export class FilterCourcesPipe implements PipeTransform {
     // .do(val => console.log(val))
     // .subscribe(val => console.log(val))
     let filtered: Cource[] = [];
-    cources.do((cources: Cource[]) =>
-      filtered = cources.filter((cource: Cource) => cource.title.toLocaleLowerCase().includes(val.toLowerCase())))
+    cources$.do((cources: Cource[]) =>
+      filtered = cources.filter((cource: Cource) => cource.title.toLocaleLowerCase().includes(val.toLowerCase())));
     return filtered;
     // .map(cources => {
         //   console.dir(cources.length)

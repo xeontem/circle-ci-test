@@ -8,10 +8,10 @@ import { SelectedEvent } from '../reducers/events.reducer';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventComponent implements OnInit {
-  @Input()event: SelectedEvent;
-  @Output()
+  @Input() event: SelectedEvent;
+  // @Output()
   lang = 'en';
-  langs:         Array<{name: string, val: string}>;
+  langs: Array<{name: string, val: string}>;
 
   constructor() {
     this.langs = [

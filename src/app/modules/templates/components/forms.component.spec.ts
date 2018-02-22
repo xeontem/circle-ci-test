@@ -1,13 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatOptionModule, MatSelectModule } from '@angular/material';
 import { FormsComponent } from './forms.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-xdescribe('FormsComponent', () => {
+describe('FormsComponent', () => {
   let component: FormsComponent;
   let fixture: ComponentFixture<FormsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        MatOptionModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+      ],
       declarations: [ FormsComponent ]
     })
     .compileComponents();

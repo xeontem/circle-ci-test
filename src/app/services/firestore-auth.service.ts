@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { RouterStateUrl } from '../tools/utils';
 import 'rxjs/add/operator/switchMap';
 
-import { FcmMessagingService } from './fcm-messaging.service';
+import { FcmMessagingService } from './firestore-messaging.service';
 
 
 

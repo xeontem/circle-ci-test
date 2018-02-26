@@ -1,14 +1,14 @@
-import { ViewChild, Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { FetchEventsService } from '../services/fetch-events.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import * as λ from '../../../tools/lambda';
+import { Store } from '@ngrx/store';
+import { State } from '../../../store';
 import { interval } from 'rxjs/observable/interval';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { FetchEventsService } from '../services/fetch-events.service';
 import { SelectEvent, ChangeVal, CHANGE_OBJ_VAL, SELECT_EVENT } from '../actions/events.action';
 import { EventsState, SelectedEvent, valueSelector, eventSelector } from '../reducers/events.reducer';
-import { State } from '../../../store';
-import * as λ from '../../../tools/lambda';
+import { ViewChild, Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
 
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/mergeMap';

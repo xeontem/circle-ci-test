@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CourceComponent } from './cource.component';
 import { DurationPipe } from '../pipes/duration.pipe';
+import { cource } from '../../../../../tests/stubs';
 import {
   MatIconModule,
   MatFormFieldModule,
@@ -25,10 +26,9 @@ class DurationPipeStub implements PipeTransform {
   transform(value: any, args?: any): any {
     return value;
   }
-
 }
 
-xdescribe('CourceComponent', () => {
+describe('CourceComponent', () => {
   let component: CourceComponent;
   let fixture: ComponentFixture<CourceComponent>;
 
@@ -52,12 +52,11 @@ xdescribe('CourceComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CourceComponent);
     component = fixture.componentInstance;
+    component.cource = cource;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    console.log('cource.component.test');
-
     expect(component).toBeTruthy();
   });
 });

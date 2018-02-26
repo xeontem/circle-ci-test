@@ -24,7 +24,7 @@ export * from './guards/fire-store-auth.guard';
 export * from './reducers/header.reducer';
 
 // services
-export * from './services/fcm-messaging.service';
+export * from './services/firestore-messaging.service';
 export * from './services/firestore-auth.service';
 export * from './services/firestore-storage.service';
 export * from './services/http-interceptor.service';

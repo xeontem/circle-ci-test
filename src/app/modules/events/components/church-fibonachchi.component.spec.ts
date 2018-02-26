@@ -1,14 +1,18 @@
+import { Store } from '@ngrx/store';
+import { StoreStub } from '../../../../../tests/stubs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ChurchFibonachchiComponent } from './church-fibonachchi.component';
 
-xdescribe('ChurchFibonachchiComponent', () => {
+describe('ChurchFibonachchiComponent', () => {
   let component: ChurchFibonachchiComponent;
   let fixture: ComponentFixture<ChurchFibonachchiComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChurchFibonachchiComponent ]
+      declarations: [ ChurchFibonachchiComponent ],
+      providers: [
+        {provide: Store, useClass: StoreStub },
+      ]
     })
     .compileComponents();
   }));

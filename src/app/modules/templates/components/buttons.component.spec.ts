@@ -1,13 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ButtonsComponent } from './buttons.component';
+import { MatIcon, MatIconModule } from '@angular/material';
 
-xdescribe('ButtonsComponent', () => {
+describe('ButtonsComponent', () => {
   let component: ButtonsComponent;
   let fixture: ComponentFixture<ButtonsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ MatIconModule ],
       declarations: [ ButtonsComponent ]
     })
     .compileComponents();

@@ -1,14 +1,18 @@
+import { Store } from '@ngrx/store';
+import { StoreStub } from '../../../../../tests/stubs';
+import { YCombinatorComponent } from './y-combinator.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YCombinatorComponent } from './y-combinator.component';
-
-xdescribe('YCombinatorComponent', () => {
+describe('YCombinatorComponent', () => {
   let component: YCombinatorComponent;
   let fixture: ComponentFixture<YCombinatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YCombinatorComponent ]
+      declarations: [ YCombinatorComponent ],
+      providers: [
+        {provide: Store, useClass: StoreStub },
+      ]
     })
     .compileComponents();
   }));

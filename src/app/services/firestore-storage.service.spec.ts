@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { FirestoreStorageService } from './firestore-storage.service';
 
-xdescribe('FirestoreStorageService', () => {
+describe('FirestoreStorageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [FirestoreStorageService]

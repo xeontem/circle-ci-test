@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { FcmMessagingService } from '../services/fcm-messaging.service';
+import { FcmMessagingService } from '../services/firestore-messaging.service';
 
-// import { FcmMessagingService } from '../../services/fcm-messaging.service';
+// import { FcmMessagingService } from '../../services/firestore-messaging.service';
 // import '../../service-workers/app.component.worker.js';
 @Component({
   selector: 'app-component',

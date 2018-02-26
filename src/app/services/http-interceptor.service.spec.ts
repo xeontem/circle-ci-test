@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { HttpInterceptorService } from './http-interceptor.service';
 
-xdescribe('HttpInterceptorService', () => {
+describe('HttpInterceptorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [HttpInterceptorService]

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FcmMessagingService } from '../services/fcm-messaging.service';
+import { FcmMessagingService } from '../services/firestore-messaging.service';
 
 import { AppComponent } from './app.component';
 

@@ -33,13 +33,13 @@ import {
   MatSelect, MatOption, MatFormField, MatSpinner, MatDialog
 } from '@angular/material';
 
-xdescribe('CourcesComponent', () => {
+describe('CourcesComponent', () => {
   let component: CourcesComponent;
   let fixture: ComponentFixture<CourcesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CourcesComponent, MatSelect, MatOption, MatSpinner, AppCourceStubComponent, OrderByPipeStub ],
+      declarations: [ CourcesComponent, AppCourceStubComponent, OrderByPipeStub ],
       imports: [
       MatFormFieldModule,
         MatInputModule,
@@ -48,12 +48,9 @@ xdescribe('CourcesComponent', () => {
       providers: [
         {provide: ProvideCourcesService, useClass: ProvideCourcesServiceStub },
         {provide: MatDialog, useClass: MatDialogStub },
-        // {provide: MatDialog, useClass: MatDialogStub },
         {provide: FilterCourcesPipe, useClass: FilterCourcesPipeStub },
-        // {provide: OrderByPipe, useClass: OrderByPipeStub },
         {provide: Store, useClass: StoreStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+      ]
     })
     .compileComponents();
   }));
@@ -61,7 +58,6 @@ xdescribe('CourcesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CourcesComponent);
     component = fixture.componentInstance;
-    // console.log(component.cources$);
     fixture.detectChanges();
   });
 

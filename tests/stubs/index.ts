@@ -3,6 +3,9 @@ export * from './components/app-footer.component.stub';
 export * from './components/app-header.component.stub';
 export * from './components/router-outlet.component.stub';
 export * from './components/app-cource.component.stub';
+export * from './components/event.component.stub';
+export * from './components/y-combinator.component.stub';
+export * from './components/church-fibonachchi.component.stub';
 
 // services
 export * from './services/mat-dialog-ref.service.stub';
@@ -17,6 +20,7 @@ export * from './services/fetch-translate.service.stub';
 export * from './services/angular-firestore.service.stub';
 export * from './services/angular-fire-auth.service.stub';
 export * from './services/firestore-storage.service.stub';
+export * from './services/fetch-events.service.stub';
 
 // pipes
 export * from './pipes/filter-cources.pipe.stub';

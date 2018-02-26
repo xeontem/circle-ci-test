@@ -142,20 +142,20 @@ export class ChurchFibonachchiComponent implements OnInit {
       boolToJS: v => Boolean.cond(v)(true)(false)
     };
 
-    const { cond, not, or, TRUE, FALSE, boolToJS } = Boolean;
-    const { plus, succ, minus, mult, zero, one, two, three, five, numToJS } = Num;
+    const { cond, or, TRUE, FALSE } = Boolean;
+    const { plus, succ, minus, mult, zero, two, five, numToJS } = Num;
 
     const isZero = n => n(x => FALSE)(TRUE);
     const equal = m => n => isZero(minus(m)(n));
 
 
     // Pairs
-    const Pair = a => b => f => f(a)(b);
-    const Fst = p => p(TRUE);
-    const Snd = p => p(FALSE);
+    // const Pair = a => b => f => f(a)(b);
+    // const Fst = p => p(TRUE);
+    // const Snd = p => p(FALSE);
 
-    const Pred = n => s => z =>
-      Snd(n(p => Pair(s(Fst(p)))(Fst(p)))(Pair(z)(z)));
+    // const Pred = n => s => z =>
+    //   Snd(n(p => Pair(s(Fst(p)))(Fst(p)))(Pair(z)(z)));
 
     // factorial
     // const fact = (x => x(x))(x => y => (f => n =>
@@ -163,10 +163,10 @@ export class ChurchFibonachchiComponent implements OnInit {
     //     (succ(zero))
     //     (x => mult(n)(f(pred(n)))(x)))(x(x))(y));
 
-    const fact = Y(f => n =>
-      cond(isZero(n))
-        (succ(zero))
-        (x => mult(n)(f(pred(n)))(x)));
+    // const fact = Y(f => n =>
+    //   cond(isZero(n))
+    //     (succ(zero))
+    //     (x => mult(n)(f(pred(n)))(x)));
 
 
     const fibF = f => n => n === 0 || n === 1 ? 1 : f(n - 1) + f(n - 2);
@@ -181,7 +181,7 @@ export class ChurchFibonachchiComponent implements OnInit {
     // console.dir(boolToJS(or(isZero(three))(equal(three)(succ(zero)))));
     const ten = mult(two)(five);
     const twenty = mult(ten)(two);
-    const thirty = mult(three)(ten);
+    // const thirty = mult(three)(ten);
     console.dir(numToJS(fibChurch(twenty)));
 
     this.withValue = fib(20);

@@ -102,8 +102,9 @@ export class ChurchFibonachchiComponent implements OnInit {
     el.classList.remove('drag-over');
     // ------------------------ store pos into cookies ----------------------
     const expire = new Date(new Date().getTime() + 60 * 1000).toUTCString(); // set expire date
-    document.cookie = `topf=${el.style.top}; path=/; expires=${expire}`;
-    document.cookie = `leftf=${el.style.left}; path=/; expires=${expire}`;
+    ['top', 'left'].forEach(param => {
+      document.cookie = `${param}f=${el.style[param]}; path=/; expires=${expire}`;
+    });
   }
 
   @perf

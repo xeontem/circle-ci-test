@@ -112,8 +112,9 @@ export class YCombinatorComponent implements OnInit {
     el.classList.remove('drag-over');
     // ------------------------ store pos into cookies ----------------------
     const expire = new Date(new Date().getTime() + 60 * 1000).toUTCString(); // set expire date
-    document.cookie = `top=${el.style.top}; path=/; expires=${expire}`;
-    document.cookie = `left=${el.style.left}; path=/; expires=${expire}`;
+    ['top', 'left'].forEach(param => {
+      document.cookie = `${param}=${el.style[param]}; path=/; expires=${expire}`;
+    });
   }
 
   @perf

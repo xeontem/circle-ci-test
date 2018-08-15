@@ -6,6 +6,7 @@ import { FilterCourcesPipe } from '../pipes/filter-cources.pipe';
 import { ProvideCourcesService } from '../services/provide-cources.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
   StoreStub,
@@ -30,7 +31,7 @@ import {
   MatNativeDateModule,
   MatProgressSpinnerModule,
   MatSelectModule,
-  MatSelect, MatOption, MatFormField, MatSpinner, MatDialog
+  MatDialog
 } from '@angular/material';
 
 describe('CourcesComponent', () => {
@@ -41,7 +42,11 @@ describe('CourcesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CourcesComponent, AppCourceStubComponent, OrderByPipeStub ],
       imports: [
-      MatFormFieldModule,
+        BrowserAnimationsModule,
+        MatProgressSpinnerModule,
+        MatSliderModule,
+        MatSelectModule,
+        MatFormFieldModule,
         MatInputModule,
         FormsModule
       ],

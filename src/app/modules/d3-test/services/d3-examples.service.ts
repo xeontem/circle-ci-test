@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseType, RGBColor } from 'd3';
+import { BaseType, RGBColor, PieArcDatum } from 'd3';
 import * as d3 from 'd3';
 
 export interface Test {
@@ -29,8 +29,6 @@ export class D3ExamplesService {
   test0 (wrapper: BaseType): void {
     const svg = d3.select(wrapper)
       .select('svg')
-      // .append('svg')
-      .attr('class', 'test-diagrams__image')
       .attr('width', '100%')
       .attr('height', '100%');
 
@@ -66,14 +64,14 @@ export class D3ExamplesService {
 
     const svg = d3.select(wrapper)
       .select('svg')
-        .attr('width', 500)
-        .attr('height', 500);
+        .attr('width', '100%')
+        .attr('height', '100%');
 
     const g = svg.append('g')
-      .attr('transform', 'translate(50, 50)');
+      .attr('transform', 'translate(50, 30)');
 
     svg.append('g')
-      .attr('transform', 'translate(50, 200)')
+      .attr('transform', 'translate(50, 160)')
       .call(axis);
 
     const data = [10, 25, 56];
@@ -91,6 +89,54 @@ export class D3ExamplesService {
       .attr('height', 30)
       .attr('fill', color)
       .attr('y', (d, i) => i * 40);
+  }
+
+  test2(wrapper: BaseType) {
+    const data = [10, 50, 80];
+    const svg = d3.select(wrapper)
+      .select('svg')
+      .attr('width', '100%')
+      .attr('height', '100%');
+    const group = svg.append('g')
+      .attr('transform', 'translate(150, 100)');
+    const arc = d3.arc<PieArcDatum<number>>()
+      .innerRadius(60)
+      .outerRadius(90);
+    const pie = d3.pie()
+      .value(d => d.valueOf());
+    const arcs = group.selectAll('.arc')
+      .data(pie(data))
+      .enter()
+      .append('g')
+      .attr('class', 'arc');
+
+    arcs.append('path')
+      .attr('d', arc)
+      .attr('fill', d => {
+        switch (d.data) {
+          case 80: return 'orange';
+          case 50: return 'brown';
+          default: return 'violet';
+        }});
+
+    const group2 = svg.append('g')
+      .attr('transform', 'translate(300, 60)');
+
+    [{y: 0, color: 'violet', text: 'Java'}, {y: 25, color: 'orange', text: 'JS'}, {y: 50, color: 'brown', text: 'Haskell'}]
+      .forEach(item => {
+        const colorGroup = group2.append('g');
+        colorGroup.append('rect')
+          .attr('x', 0)
+          .attr('y', item.y)
+          .attr('width', 20)
+          .attr('height', 20)
+          .attr('fill', item.color);
+        colorGroup.append('text')
+          .attr('x', 30)
+          .attr('y', item.y + 15)
+          .html(item.text);
+      });
+
   }
 
 }

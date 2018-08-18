@@ -1,0 +1,26 @@
+@import '../../../../common.scss';
+
+.test-diagrams {
+
+  article {
+    grid-template-areas: "title svg"
+                         "descr svg";
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+
+    width: 90vw;
+    height: 200px;
+  }
+
+  article h3 {
+    grid-area: title;
+  }
+
+  article p {
+    grid-area: descr;
+  }
+
+  article svg {
+    grid-area: svg;
+  }
+}

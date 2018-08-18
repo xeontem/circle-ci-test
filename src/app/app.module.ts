@@ -60,6 +60,7 @@ import { environment } from '../environments/environment';
 import { TemplatesModule } from './modules/templates/templates.module';
 import { EventsModule } from './modules/events/events.module';
 import { CourcesModule } from './modules/cources/cources.module';
+import { D3TestModule } from './modules/d3-test/d3-test.module';
 
 // ----------------------------- routes -----------------------------------------
 
@@ -76,8 +77,6 @@ const routes: Routes = [
     component: ButtonsComponent,
     data: { title: 'templates' }
   },
-  // cources module
-
   // events module
   {
     path: 'events',
@@ -158,7 +157,8 @@ const routes: Routes = [
     // my modules
     CourcesModule,
     EventsModule,
-    TemplatesModule
+    TemplatesModule,
+    D3TestModule
   ],
   providers: [
     /**

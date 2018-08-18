@@ -21,6 +21,7 @@ export * from './services/angular-firestore.service.stub';
 export * from './services/angular-fire-auth.service.stub';
 export * from './services/firestore-storage.service.stub';
 export * from './services/fetch-events.service.stub';
+export * from './services/d3-examples.service.stub';
 
 // pipes
 export * from './pipes/filter-cources.pipe.stub';

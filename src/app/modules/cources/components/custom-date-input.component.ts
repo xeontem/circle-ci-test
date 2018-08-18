@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, } from '@angular/core';
   styleUrls: ['./custom-date-input.component.scss']
 })
 export class CustomDateInputComponent implements OnInit {
-  @Input()    date: Date;
+  @Input()     date: Date;
   @Output() outdate: Date;
             current: string;
   constructor() { }

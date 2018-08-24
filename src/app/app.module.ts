@@ -11,6 +11,7 @@ import { CustomRouterStateSerializer } from './tools/utils';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './store';
 
+const a = 2;
 // ---------------------------- this module --------------------------------
 import {
   AppComponent,

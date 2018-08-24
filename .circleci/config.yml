@@ -100,11 +100,21 @@ jobs:
       - run:
           name: Deploy Master to Firebase
           command: ./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN
+  show_token:
+    <<: *common
+    steps:
+      - run:
+          name: show token
+          command: echo $FIREBASE_TOKEN
 workflows:
   version: 2
   build_and_test-flow:
     jobs:
-      - save_cache
+      - show_token:
+          context: firebase-react
+      - save_cache:
+          requires:
+            - show_token
       - build
       - lint
       - test:

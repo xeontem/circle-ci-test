@@ -13,7 +13,9 @@
     "e2e": "ng e2e",
     "test:ci": "ng test -cc ci && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "lint:ci": "ng lint -t json > tslintout.json",
-    "deploy": "./node_modules/.bin/firebase deploy --only hosting"
+    "deploy": "./node_modules/.bin/firebase deploy --only hosting",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "private": true,
   "dependencies": {
@@ -40,7 +42,8 @@
     "firebase": "4.8.0",
     "hammerjs": "^2.0.8",
     "rxjs": "^5.5.6",
-    "zone.js": "^0.8.20"
+    "zone.js": "^0.8.20",
+    "snyk": "^1.120.0"
   },
   "devDependencies": {
     "@angular/cli": "^1.7.0",
@@ -62,7 +65,7 @@
     "html-webpack-plugin": "^2.29.0",
     "jasmine-core": "^2.99.1",
     "jasmine-spec-reporter": "~4.1.0",
-    "karma": "^2.0.0",
+    "karma": "^1.7.1",
     "karma-chrome-launcher": "~2.1.1",
     "karma-cli": "~1.0.1",
     "karma-coverage-istanbul-reporter": "^1.2.1",
@@ -86,5 +89,6 @@
     "webpack": "~3.8.1",
     "webpack-concat-plugin": "1.4.0",
     "webpack-dev-server": "^2.11.1"
-  }
+  },
+  "snyk": true
 }

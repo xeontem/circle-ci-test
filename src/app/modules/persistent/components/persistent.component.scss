@@ -1,0 +1,52 @@
+.persistant-wrapper {
+  width: 100vw;
+  max-width: 1152px; // why?
+
+  & > * {
+    position: center;
+  }
+
+  .number-wrapper {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 5px;
+
+    &--gray {
+      background: #34515e;
+    }
+
+    &--red {
+      background: #f44336;
+    }
+
+    &--orange {
+      background: #ff9800;
+    }
+
+    &--yellow {
+      background: #ffeb3b;
+    }
+
+    &--green {
+      background: #4caf50;
+    }
+
+    &--cyan {
+      background: #00bcd4;
+    }
+
+    &--blue {
+      background: #2196f3;
+    }
+
+    &--purple {
+      background: #9c27b0;
+    }
+
+    &--super {
+      background: #12005e;
+      color: white;
+    }
+  }
+}

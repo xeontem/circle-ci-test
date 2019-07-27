@@ -31,6 +31,7 @@ import {
 import { CourcesComponent } from './modules/cources/';
 import { FormsComponent, ButtonsComponent } from './modules/templates/';
 import { EventsComponent } from './modules/events/';
+import { PersistentComponent } from './modules/persistent/';
 
 // -------------------------------- FIreBase -------------------------------
 import { AngularFireModule } from 'angularfire2';
@@ -62,6 +63,7 @@ import { TemplatesModule } from './modules/templates/templates.module';
 import { EventsModule } from './modules/events/events.module';
 import { CourcesModule } from './modules/cources/cources.module';
 import { D3TestModule } from './modules/d3-test/d3-test.module';
+import { PersistentModule } from './modules/persistent/persistent.module';
 
 // ----------------------------- routes -----------------------------------------
 
@@ -84,6 +86,10 @@ const routes: Routes = [
     component: EventsComponent,
     data: { title: 'events page' },
     // canActivate: [FireStoreAuthGuard]// TODO make an unlock button
+  },
+  {
+    path: 'persistent',
+    component: PersistentComponent,
   },
   // this module
   { path: 'home', component: HomeComponent },
@@ -159,7 +165,8 @@ const routes: Routes = [
     CourcesModule,
     EventsModule,
     TemplatesModule,
-    D3TestModule
+    D3TestModule,
+    PersistentModule
   ],
   providers: [
     /**

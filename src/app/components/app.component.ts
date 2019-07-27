@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { FcmMessagingService } from '../services/firestore-messaging.service';
+import { S } from '../tools/lambda';
 
 // import { FcmMessagingService } from '../../services/firestore-messaging.service';
 // import '../../service-workers/app.component.worker.js';
@@ -19,6 +20,10 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const plusOne = (x: number): string => String(x + 1);
+    const mul = (x: number) => (y: string): number => x * (+y);
+
+    console.log(S(mul)(plusOne)(0));
     this.fsmmsg.getPermissionAndUpdateToken();
     this.fsmmsg.currentMessage
       .subscribe(payload => payload && this.snackBar.open(payload['notification'].body, 'ok', { duration: 2000 }));

@@ -16,7 +16,6 @@ export class ProvideCourcesService {
     private afs:   AngularFirestore,
     private store: Store<State>
   ) {
-    console.log(this.store);
     this.getList().valueChanges().subscribe(cources => {
       this.store.dispatch(new SetCources(cources));
     });

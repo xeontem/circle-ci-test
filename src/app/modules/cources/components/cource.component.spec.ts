@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { CourceComponent } from './cource.component';
 import { DurationPipe } from '../pipes/duration.pipe';
 import { cource } from '../../../../../tests/stubs';
@@ -9,7 +9,7 @@ import {
   MatFormFieldModule,
   MatSliderModule,
   MatDatepickerModule,
-
+  MatOptionModule,
   MatCardModule,
   MatToolbarModule,
   MatInputModule,
@@ -36,11 +36,21 @@ describe('CourceComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CourceComponent ],
       imports: [
+        FormsModule,
         ReactiveFormsModule,
-        MatDatepickerModule,
+        MatIconModule,
+        MatOptionModule,
         MatFormFieldModule,
         MatSliderModule,
-        MatIconModule,
+        MatDatepickerModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatNativeDateModule,
+        MatProgressSpinnerModule,
+        MatSelectModule
       ],
       providers: [
         FormBuilder

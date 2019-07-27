@@ -26,12 +26,12 @@ import {
   MatToolbarModule,
   MatInputModule,
   MatButtonModule,
-  MatFormFieldControl,
   MatDialogModule,
   MatNativeDateModule,
   MatProgressSpinnerModule,
   MatSelectModule,
-  MatDialog
+  MatOptionModule,
+  MatSelect, MatOption, MatFormField, MatSpinner, MatDialog
 } from '@angular/material';
 
 describe('CourcesComponent', () => {
@@ -43,11 +43,19 @@ describe('CourcesComponent', () => {
       declarations: [ CourcesComponent, AppCourceStubComponent, OrderByPipeStub ],
       imports: [
         BrowserAnimationsModule,
-        MatProgressSpinnerModule,
-        MatSliderModule,
-        MatSelectModule,
+        MatIconModule,
         MatFormFieldModule,
+        MatSliderModule,
+        MatDatepickerModule,
+        MatCardModule,
+        MatToolbarModule,
         MatInputModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatNativeDateModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        MatOptionModule,
         FormsModule
       ],
       providers: [

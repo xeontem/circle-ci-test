@@ -1,0 +1,29 @@
+<mat-card class="grid mat-elevation-z8 persistant-wrapper">
+  select a range:
+  <form>
+    <mat-form-field class="m">
+      <input type="number" matInput name="start" placeholder="Start" [(ngModel)]="start">
+    </mat-form-field>
+    <mat-form-field class="m">
+      <input type="number" matInput name="end" placeholder="End" [(ngModel)]="end">
+    </mat-form-field>
+    <mat-form-field class="m">
+      <input type="number" matInput name="count" placeholder="Zeros count" [(ngModel)]="zerosCount">
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)=getPersistentNumbers($event)>calculate</button>
+  </form>
+  or just one number:
+  <form>
+    <mat-form-field class="m">
+      <input type="number" matInput name="number" placeholder="Enter a number" [(ngModel)]="number">
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)=getPersistentNumber($event)>calculate</button>
+  </form>
+  <div *ngFor="let result of data" class="number-wrapper {{ calcClass(result.iterations) }}">
+    <h3>Number: {{ result.original }}</h3>
+    <span>Steps count: {{ result.steps }}</span>
+    <ul>
+      <li *ngFor="let iteration of result.iterations">{{ iteration }}</li>
+    </ul>
+  </div>
+</mat-card>

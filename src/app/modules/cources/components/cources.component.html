@@ -3,13 +3,13 @@
       <mat-form-field class="m">
         <mat-select class="self-center" [(ngModel)]="orderKey" placeholder="Order by:">
           <mat-option *ngFor="let order of orders$ | async" [value]="order">{{order}}</mat-option>
+          <mat-hint>select cources order</mat-hint>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="m">
         <input matInput placeholder="Cource title" [(ngModel)]="predicate">
       </mat-form-field>
     <button mat-raised-button color="primary" class="self-center" (click)="searchCource(predicate)">search</button>
-    <mat-hint>select cources order</mat-hint>
     <button mat-raised-button color="primary" class="self-center" (click)="restoreCources()">restore</button>
     <button mat-raised-button color="accent" class="self-center" (click)="openAddCourceDialog()">add cource</button>
     </div>

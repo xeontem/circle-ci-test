@@ -1,0 +1,52 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - copy-webpack-plugin > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - html-webpack-plugin > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - sass-loader > async > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - source-map-loader > async > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - webpack > async > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - firebase-tools > superstatic > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - firebase-tools > google-auto-auth > async > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > async > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - webpack > watchpack > async > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - firebase-tools > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - firebase-tools > inquirer > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - firebase-tools > archiver > async > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - firebase-tools > superstatic > nash > lodash:
+        patched: '2020-05-01T02:51:29.278Z'
+    - firebase-tools > superstatic > glob-slasher > toxic > lodash:
+        patched: '2020-05-01T02:51:29.278Z'

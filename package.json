@@ -59,7 +59,7 @@
     "exports-loader": "^0.6.3",
     "file-loader": "^1.1.5",
     "firebase-tools": "^7.2.1",
-    "html-webpack-plugin": "^2.29.0",
+    "html-webpack-plugin": "^4.0.0",
     "jasmine-core": "^2.99.1",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "^2.0.0",
@@ -81,10 +81,10 @@
     "ts-node": "~3.2.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
-    "uglifyjs-webpack-plugin": "1.0.0",
+    "uglifyjs-webpack-plugin": "1.1.6",
     "url-loader": "^0.6.2",
-    "webpack": "~3.8.1",
-    "webpack-concat-plugin": "1.4.0",
+    "webpack": "~4.26.0",
+    "webpack-concat-plugin": "2.0.0",
     "webpack-dev-server": "^2.11.1"
   }
 }

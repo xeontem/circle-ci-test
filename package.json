@@ -58,7 +58,7 @@
     "cssnano": "^3.10.0",
     "exports-loader": "^0.6.3",
     "file-loader": "^1.1.5",
-    "firebase-tools": "^7.2.1",
+    "firebase-tools": "^9.4.0",
     "html-webpack-plugin": "^2.29.0",
     "jasmine-core": "^2.99.1",
     "jasmine-spec-reporter": "~4.1.0",
@@ -74,8 +74,8 @@
     "postcss-url": "^7.3.0",
     "protractor": "~5.1.2",
     "raw-loader": "^0.5.1",
-    "sass-loader": "^6.0.3",
-    "source-map-loader": "^0.2.0",
+    "sass-loader": "^6.0.7",
+    "source-map-loader": "^1.0.0",
     "style-loader": "^0.13.1",
     "stylus-loader": "^3.0.1",
     "ts-node": "~3.2.0",
@@ -83,7 +83,7 @@
     "typescript": "^2.7.2",
     "uglifyjs-webpack-plugin": "1.0.0",
     "url-loader": "^0.6.2",
-    "webpack": "~3.8.1",
+    "webpack": "~4.0.0",
     "webpack-concat-plugin": "1.4.0",
     "webpack-dev-server": "^2.11.1"
   }
